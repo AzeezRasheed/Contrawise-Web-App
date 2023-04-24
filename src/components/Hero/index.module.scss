@@ -1,0 +1,116 @@
+@import '../../styles/colors.scss';
+@import '../../styles/mixins.scss';
+
+.hero{
+    overflow: hidden;
+    height: 725px;
+    @media screen and (max-width: 803px) {
+        height: 500px;
+    }
+    background: $blue;
+    position: relative;
+    & .content{
+        width: 100%;
+        height: 100%;
+        top: 0px;
+        left: 0px;
+        position: absolute;
+        @include center;
+        padding: 20px;
+        &>div:first-child{
+            max-width: 745px;
+            @media screen and (max-width: 516px) {
+                font-size: 40px;
+                max-width: 100%;
+            }
+        }
+        & .actionArea{
+            margin-top: 112px;
+            @include center-horizontally;
+            width: 100%;
+            & .button{
+                width: 291px;
+                height: 62px;
+                background: #F2F3FC;
+                border: 1px solid $purple;
+                border-radius: 10px;
+                @include center;
+                font-weight: 400;
+                font-size: 25px;
+                color: $blue;
+                & span:nth-child(2){
+                    margin-left: 5px;
+                    transition: all 0.4s ease;
+                }
+                &:hover{
+                    & span:nth-child(2){
+                        transform: translateX(20px);
+                    }
+                }
+
+            }
+        }
+    }
+}
+
+.largeText{
+    font-weight: 600;
+    font-size: 49px;
+    line-height: 120%;
+    text-align: center;
+    color: $white;
+    & span{
+        background: linear-gradient(180deg, $purple 0%, #A7A8E7 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    @media screen and (max-width: 516px) {
+        font-size: 40px;
+    }
+}
+
+.smallText{
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 120%;
+    text-align: center;
+    color: $white;
+    @media screen and (max-width: 516px) {
+        font-size: 18px
+    }
+}
+
+.imageOne{
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    transform: translateY(-50%) translateX(50%);
+}
+
+.imageStackOne{
+    position: absolute;
+    left: 3%;
+    top: 50%;
+    transform: translateY(-50%);
+    @media screen and (max-width: 516px) {
+        left: -70%
+    }
+}
+
+.imageStackTwo{
+    @extend .imageStackOne;
+    left: 12%;
+    @media screen and (max-width: 516px) {
+        left: -40%
+    }
+}
+
+.imageStackThree{
+    @extend .imageStackOne;
+    top: 50%;
+    left: 19%;
+    @media screen and (max-width: 516px) {
+        left: -19%
+    }
+}

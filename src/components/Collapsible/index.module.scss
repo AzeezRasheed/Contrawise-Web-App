@@ -1,0 +1,51 @@
+@import '../../styles/mixins.scss';
+@import '../../styles/colors.scss';
+
+.collapsible{
+    background: #D9DAF5;
+    width: 100%;  
+    border-radius: 12px;
+    & header{
+        height: 70px;
+        width: 100%;
+        @include center-vertically;
+        font-weight: 400;
+        font-size: 20px;
+        @media screen and (max-width: 599px) {
+            height: 50px;
+            font-size: 14px;
+        }
+        padding-left: 20px;
+        padding-right: 20px;
+        justify-content: space-between;
+        cursor: pointer;
+        & span:nth-child(2){
+            transition: all .4s ease;
+            width: 30px;
+            height: 30px;
+            background: #A8ABFD;
+            border-radius: 500px;
+            @include center;
+            & img{
+                transform: translateY(2px);
+            }
+            &.active{
+                transform: rotate(180deg);
+            }
+        }
+    }
+    & section{
+        transition: all .6s ease-in-out;
+        max-height: 0vh;
+        overflow:hidden;
+        & hr{
+            border: 1px solid $purple;
+            margin-bottom: 20px;
+        }
+        padding-left: 20px;
+        padding-right: 20px;
+        &.active{
+            max-height: 100vh;
+        }
+    }
+}

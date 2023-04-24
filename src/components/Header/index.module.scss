@@ -1,0 +1,54 @@
+@import "../../styles/colors.scss";
+@import "../../styles/mixins.scss";
+
+.header{
+    position: sticky;
+    z-index: 2;
+    top: 0px;
+    height: 64px;
+    background: $white;
+    border-bottom: 1px solid $purple;
+    padding: 0px 56px;
+    @media screen and (max-width: 702px) {
+         padding: 0px 26px;
+    }
+    & .title{
+        font-family: 'Roboto', sans-serif;
+        background: linear-gradient(90deg, $purple 0%, #112F82 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 700;
+        font-size: 1.1rem;
+        letter-spacing: 2px;
+    }
+    & .buttonContainer{
+        display: block;
+        @media screen and (max-width: 817px) {
+           display: none; 
+        }
+        & .button{
+            width: 194px;
+            height: 40px;
+            border: 1px solid $purple;
+            border-radius: 4px;
+            background-color: transparent;
+            font-weight: 400;
+            font-size: 16px;
+            &:active{
+                background-color: $purple;
+                color: $white;
+            }
+            &:hover{
+                background-color: $purple;
+                color: $white;
+            }
+        }
+    }
+    & .hamContainer{
+        display: none;
+        @media screen and (max-width: 817px) {
+           display: block; 
+        }
+    }
+}

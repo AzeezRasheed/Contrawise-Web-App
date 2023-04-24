@@ -1,0 +1,86 @@
+@import "../../styles/colors.scss";
+@import "../../styles/mixins.scss";
+
+.cardArea{
+    width: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
+    width: 100%;
+    display: flex;
+    overflow-y: hidden;
+    &::-webkit-scrollbar{
+        display: none;
+    }
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    // @media screen and (max-width: 1090px) {
+    //     grid-column-gap: 20px;
+    // }
+    //  @media screen and (max-width: 809px) {
+    //     grid-template-columns: auto;
+    //     grid-column-gap: 0px;
+    //     width: 100%;
+    // }
+    & .card{
+        margin-left: 20px;
+        width: 100%;
+        height: 358px;
+        width: 400px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        background: $white;
+        flex-shrink: 0;
+        box-shadow: 9px 12px 20px rgba(92, 93, 211, 0.05);
+        border-radius: 12px;
+        padding: 45px 35px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: all .4s ease;
+        &:hover{
+            transform: scale(102%);
+        }
+        & strong{
+            font-weight: 500;
+            font-size: 25px;
+        }
+        flex: 0 0 400px;
+        scroll-snap-align: left;
+        @media screen and (max-width: 504px) {
+            width: calc(100% - 40px);
+            flex: 0 0 90%;
+            scroll-snap-align: center;
+        }
+        &:last-child{
+            margin-right: 20px;
+        }
+    }
+}
+
+.control{
+    padding-right: 20px;
+    display: flex;
+    justify-content: flex-end;
+    width: 100vw;
+    margin-top: 20px;
+    @media screen and (min-width: 504px) {
+        padding-right: 40px;
+    }
+    &>div:first-child{
+        transform: rotate(180deg);
+        margin-right: 28px;
+    }
+    &>div>div:first-child{
+        border-radius: 50%;
+    }
+    & button{
+        width: 30px;
+        height: 30px;
+        background: $light-purple;
+        border-radius: 500px;
+        @include center;
+        &:disabled{
+            opacity: 0.5
+        }
+    }
+}

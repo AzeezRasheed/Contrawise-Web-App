@@ -1,0 +1,15 @@
+export const REQUEST_DEMO = "Request Demo";
+export const GET_STARTED = "Get Started"
+export const APP_NAME = "ContraWatch";
+export const HOME_TITLE = "Home | ContraWatch - Upload, track and get notified about your contracts with Contrawatch"
+export const FIRST_SECTION_TITLE="Your contract tracking companion"
+export const FIRST_SECTION_DESCRIPTION = "Upload, track and get notified about your contracts with Contrawatch"
+export const HERO_TITLE_WHITE = "Stay Organized and Productive with";
+export const HERO_DESCRIPTION = "Upload, track and get notified about your contracts";
+export const HERO_ACTION_TEXT = "Get Started";
+export const SECOND_SECTION_TITLE = "Smart organization & Visibility";
+export const THIRD_SECTION_TITLE = "Compliance & Analytics in one platform";
+export const THIRD_SECTION_DESCRIPTION = "Upload, track and get notified about your contracts with Contrawatch"
+export const FOURTH_SECTION_TITLE = "All your contracts in the cloud";
+export const FOURTH_SECTION_DESCRIPTION = "Upload, track and get notified about your contracts with Contrawatch"
+export const FIFTH_SECTION_TITLE = "Don’t just take our word for it, Hear from our users.";

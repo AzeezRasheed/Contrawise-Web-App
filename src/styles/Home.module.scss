@@ -1,0 +1,363 @@
+@import "./colors.scss";
+@import "../styles/mixins.scss";
+
+.button{
+    width: 291px;
+    height: 62px;
+    left: 110px;
+    top: 1088px;
+    transition: all 2s ease;
+    background: linear-gradient(90deg, $purple 7.84%, $blue 94.32%);
+    &:active{
+        background: linear-gradient(90deg, $blue 7.84%,  $purple 94.32%);
+    }
+    &:hover{
+        background: linear-gradient(90deg, $blue 7.84%,  $purple 94.32%);
+    }
+    border-radius: 10px;
+    & span{
+        color: $white;
+    }
+    & span:nth-child(2){
+        margin-left: 5px;
+        transition: all 0.4s ease;
+        display: inline-block;
+    }
+    &:hover{
+        & span:nth-child(2){
+            transform: translateX(20px);
+        }
+    }
+}
+
+.firstSection{
+    background-color: $white;
+    position: relative;
+    display: flex;
+    height: 503px;
+    @media screen and (max-width: 1072px) {
+        height: fit-content;
+    }
+    @media screen and (max-width: 919px) {
+        flex-direction: column-reverse;
+    }
+    
+    & .rightSection{
+        width: 50%;
+        @media screen and (max-width: 919px) {
+            width: 100%;
+        }
+        flex-shrink: 0;
+        & .dashboard{
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            transform:translateY(-74px);
+            border-radius: 20px 0px;
+            overflow: hidden;
+            @media screen and (max-width: 914px) {
+                position: relative;
+                width: 90vw;
+                left: 50%;
+                transform: translateX(-50%) translateY(-30px);
+                border-radius: 10px;
+                & img{
+                    width: 100%;
+                }
+            }
+        }
+    }
+    & .leftSection{
+        width: 50%;
+        flex-shrink: 0;
+        padding: 51px 110px;
+        @media screen and (max-width: 919px) {
+            width: 100%;
+        }
+        @media screen and (max-width: 726px) {
+            width: 100%;
+            padding: 51px 70px;
+        }
+        @media screen and (max-width: 599px) {
+            width: 100%;
+            padding: 51px 40px;
+        }
+        @media screen and (max-width: 535px) {
+            width: 100%;
+            padding: 51px 20px;
+        }
+        & p{
+            margin-top: 24px;
+            font-weight: 400;
+            font-size: 25px;
+            line-height: 120%;
+            color: $blue;
+            @media screen and (max-width: 599px) {
+                font-size: 18px;
+            }
+        }
+        & .boldText{
+            font-weight: 700;
+            font-size: 49px;
+            line-height: 120%;
+            color: $blue;
+            text-shadow: 
+            -1px -1px 0 #000,
+            1px -1px 0 #000,
+            -1px 1px 0 #000,
+            1px 1px 0 #000;
+            @media screen and (max-width: 599px) {
+                font-size: 35px;
+            }
+        }
+        & .actionArea{
+            margin-top: 40px;
+        }
+    }
+}
+
+.secondSection{
+    padding: 92px 110px;
+    height: 717px;
+    background: $light-blue;
+    padding: 92px 110px;
+    overflow: hidden;
+    & h1{
+        width: 452px;
+        font-weight: 600;
+        font-size: 49px;
+        line-height: 120%;
+        color:  $blue;
+        margin-bottom: 40px;
+    }
+    & img{
+        width: 100%;
+    }
+    @media screen and (max-width: 726px) {
+        width: 100%;
+        padding: 51px 70px;
+        height: fit-content;
+    }
+    @media screen and (max-width: 599px) {
+        width: 100%;
+        padding: 51px 40px;
+        & h1{
+            width: unset;
+        }
+    }
+    @media screen and (max-width: 535px) {
+        width: 100%;
+        padding: 51px 20px;
+        & h1{
+            font-size: 28px;
+        }
+    }
+}
+
+.thirdSection{
+    position: relative;
+    background: $blue;
+    overflow: hidden;
+    height: auto;
+    display: flex;
+    flex-direction: column-reverse;
+
+    &>div:first-child{
+        height: 100%;
+        width: 100%;
+        & .imageOne{
+            position:absolute;
+            top: 60%;
+            right: 0px;
+            transform: translateY(-50%) translateX(70%);
+        }
+        & .imageTwo{
+            position:absolute;
+            top: 60%;
+            right: 0px;
+            transform: translateY(-50%) translateX(50%);
+        }
+    }
+    & .content{
+        padding: 37px 110px;
+        width: 100%;
+        height: fit-content;
+        @media screen and (max-width: 919px) {
+        }
+        @media screen and (max-width: 726px) {
+            padding: 51px 70px;
+        }
+        @media screen and (max-width: 599px) {
+            padding: 51px 40px;
+        }
+        @media screen and (max-width: 535px) {
+            padding: 51px 20px;
+        }
+        & h1{
+            width: 565px;
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 49px;
+            line-height: 120%;
+            color:  $white;
+            @media screen and (max-width: 599px) {
+                font-size: 28px;
+                width: unset;
+            }
+            @media screen and (max-width: 699px) {
+                width: unset;
+            }
+        }
+        & p{
+            margin-top: 24px;
+            width: 494px;
+            font-weight: 400;
+            font-size: 25px;
+            line-height: 120%;
+            color: $white;
+            @media screen and (max-width: 599px) {
+                font-size: 18px;
+                width: unset;
+            }
+        }
+        & .previewableImages{
+            margin-top: 24px;
+            display: grid;
+            grid-column-gap: 40px;
+            grid-template-columns: 20% 63.5%;
+            & img{
+                width: 100%;
+                z-index: 1;
+            }
+            @media screen and (max-width: 916px) {
+                grid-template-columns: auto;
+                & img:first-child{
+                    margin-bottom: 20px;
+                }
+            }
+        }
+    }
+}
+
+.fourthSection{
+    height: 532px;
+    background: $light-blue;
+    @media screen and (max-width: 1010px) {
+        height: fit-content;
+    }
+    &>div:first-child{
+        width: 1070px;
+        @media screen and (max-width: 1117px) {
+             width: 960px;
+        }
+        @media screen and (max-width: 1010px) {
+             width: 100%;
+             padding: 20px;
+             display: flex;
+             flex-direction: column-reverse;
+             align-items: center;
+             text-align: center;
+        }
+        margin-left: auto;
+        margin-right: auto;
+        height: 100%;
+        @include center-vertically;
+        justify-content: space-between;
+        & h1{
+            font-style: normal;
+            font-weight: 600;
+            font-size: 49px;
+            line-height: 120%;
+            color: $blue;
+            @media screen and (max-width: 599px) {
+                font-size: 28px;
+                width: unset;
+            }
+            @media screen and (max-width: 699px) {
+                width: unset;
+            }
+        }
+        & p{
+            font-weight: 400;
+            font-size: 25px;
+            line-height: 120%;
+            color: #02020E;
+            margin-top: 24px;
+            @media screen and (max-width: 599px) {
+                font-size: 18px;
+                width: unset;
+            }
+            @media screen and (max-width: 699px) {
+                width: unset;
+            }
+        }
+        & .actionArea{
+            margin-top: 40px;
+        }
+    }
+    &>div>img{
+        width: 416px;
+        @media screen and (max-width: 1010px) {
+            width: 80%;
+            margin-top: 60px;
+        }
+    }
+    &>div>img + div{
+        width: 495px;
+        @media screen and (max-width: 599px) {
+            width: unset;
+        }
+    }
+}
+
+.fifthSection{
+    height: 847px;
+    background: $light-grey;
+    padding-top: 100px;
+    padding-bottom: 40px;
+    @include center-horizontally;
+
+    @media screen and (max-width: 809px) {
+        width: 100%;
+    }
+    & h1{
+        width: 720px;
+        font-weight: 600;
+        font-size: 48px;
+        line-height: 48px;
+        color: $blue;
+        text-align: center;
+        @media screen and (max-width: 599px) {
+            font-size: 28px;
+            width: unset;
+        }
+        @media screen and (max-width: 770px) {
+            width: unset;
+        }
+    }
+}
+
+.sixthSection{
+    margin-bottom: 106px;
+    height: 734px;
+    padding: 77px 80px;
+    background: $light-blue;
+    @media screen and (max-width: 599px) {
+        padding: 77px 20px;
+    }
+    h1{
+        width: 660px;
+        font-weight: 600;
+        font-size: 48px;
+        line-height: 48px;
+        color: $blue;
+        text-align: center;
+        width: 100%;
+        margin-bottom: 40px;
+        @media screen and (max-width: 599px) {
+            font-size: 28px;
+            width: unset;
+        }
+    }
+}
