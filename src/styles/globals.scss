@@ -1,5 +1,11 @@
-@import './colors.scss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+@import './colors.scss';
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans&family=Inter&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans&family=Inter&family=Poppins&display=swap');
 :root {
   --font-inter: 'Inter', sans-serif;
 }
@@ -18,7 +24,7 @@ a {
 * {
   box-sizing: border-box;
   font-family: var(--font-inter);
-  color: $black;
+  // color: $black;
 }
 
 body {
@@ -31,3 +37,34 @@ ul,li{
   padding: 0px;
   margin: 0px;
 }
+
+select::-ms-expand {
+  display: none;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: none;
+}
+
+.select-wrapper {
+  position: relative;
+}
+
+.select-arrow {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  padding: 0 0.5rem;
+  background-color: #fff;
+  border: 1px solid #e2e8f0;
+  border-left: none;
+  border-radius: 0.25rem;
+}
+
