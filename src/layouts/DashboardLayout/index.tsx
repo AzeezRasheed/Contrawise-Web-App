@@ -2,7 +2,7 @@ import { useState } from "react";
 import SidebarLeft from "../../components/Dashboard/SidebarLeft";
 import SidebarRight from "../../components/Dashboard/SidebarRight";
 import { DashboardLayoutProps } from "./interface";
-import { getIsModalOpen } from "../../redux/modalReducer";
+import { GetIsModalOpen } from "../../redux/modalReducer";
 import ModalLogout from "../../components/Modal/ModalLogout";
 // components/layout.js
 
@@ -14,7 +14,7 @@ export default function Layout({ children }: DashboardLayoutProps) {
   const toggleRightMobileMenu = () =>
     setIsRightMobileMenuOpen(!isRightMobileMenuOpen);
 
-  const modalIsOpen = getIsModalOpen();
+  const modalIsOpen = GetIsModalOpen();
   return (
     <>
       {modalIsOpen && <ModalLogout isOpen={modalIsOpen} />}

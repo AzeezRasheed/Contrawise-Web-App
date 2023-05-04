@@ -14,7 +14,7 @@ import { AiOutlineLogout } from "react-icons/ai";
 import { useRouter } from "next/router";
 import UserImg from "../../assets/images/UserImg.png";
 import ModalLogout from "../Modal/ModalLogout";
-import { SET_MODAL_OPEN, getIsModalOpen } from "../../redux/modalReducer";
+import { SET_MODAL_OPEN, GetIsModalOpen } from "../../redux/modalReducer";
 import { useDispatch } from "react-redux";
 const Container = styled.div`
   ${tw`

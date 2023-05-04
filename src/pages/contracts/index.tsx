@@ -31,7 +31,7 @@ flex-col
 `}
 `;
 
-function index() {
+function Index() {
   const [activeTab, setActiveTab] = useState("all");
 
   const allData = AllData;
@@ -83,7 +83,11 @@ function index() {
               {tab.label === "At Risk" && `(${atRiskData.length})`}
             </Typography>
           </Stack>
-          {activeTab === tab.id ? <div className="bg-[#B165E9] w-full h-[5px] rounded-[4px] "></div> : <div></div>}
+          {activeTab === tab.id ? (
+            <div className="bg-[#B165E9] w-full h-[5px] rounded-[4px] "></div>
+          ) : (
+            <div></div>
+          )}
         </Stack>
       </Button>
     ));
@@ -135,4 +139,4 @@ function index() {
   );
 }
 
-export default index;
+export default Index;

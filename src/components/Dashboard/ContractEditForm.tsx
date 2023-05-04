@@ -2,16 +2,8 @@ import React, { FC } from "react";
 import DatePicker from "react-datepicker";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { RiFolderUploadLine } from "react-icons/ri";
-import { splitedAlphabet } from "../../helper";
 import { MdAddBox } from "react-icons/md";
-import {
-  Formik,
-  Field,
-  FieldArray,
-  useFormik,
-  FieldInputProps,
-  useField,
-} from "formik";
+import { Formik, Field, FieldArray, useFormik, FieldInputProps } from "formik";
 import { IoMdRemove } from "react-icons/io";
 import Stack from "../Stack";
 import Typography from "../Typography";
@@ -19,19 +11,18 @@ import "react-datepicker/dist/react-datepicker.css";
 import { createContractSchema } from "../../helper";
 import { contractClass, contractTag } from "../../data";
 import SelectForm from "../UI/SelectForm";
-import ContractButton from "../UI/ContractButton";
 import { ContractFormValues } from "../../utilities/types";
 import ContractLabelForm from "../UI/ContractLabelForm";
 import { useDispatch } from "react-redux";
-import { SET_CONTRACT, getShowContractInfo } from "../../redux/contractReducer";
-import Dropzone from "react-dropzone";
+import { SET_CONTRACT, GetShowContractInfo } from "../../redux/contractReducer";
+// import Dropzone from "react-dropzone";
 import { useRouter } from "next/router";
 
 function ContractEditForm() {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const contractInfo = getShowContractInfo();
+  const contractInfo = GetShowContractInfo();
 
   const initialValues = {
     parties: contractInfo?.parties ? contractInfo.parties : "",
@@ -98,7 +89,10 @@ function ContractEditForm() {
                   >
                     {values.parties.map((party, index) => {
                       return (
-                        <div className="flex flex-col gap-2 items-start w-full  max-w-[406px]">
+                        <div
+                          key={index}
+                          className="flex flex-col gap-2 items-start w-full  max-w-[406px]"
+                        >
                           <ContractLabelForm label="Add Party">
                             <div
                               className="w-full flex flex-col  items-start"

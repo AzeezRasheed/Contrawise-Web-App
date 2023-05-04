@@ -38,13 +38,13 @@ const ContractReducer = createSlice({
 export default ContractReducer.reducer;
 
 export const { SET_CONTRACT, SET_DATA } = ContractReducer.actions;
-function getShowContractInfo() {
+function GetShowContractInfo() {
   const showContract = useSelector((state) => state.createContract.contract);
 
   return showContract;
 }
 
-function getShowContractTag() {
+function GetShowContractTag() {
   const contractTag = useSelector(
     (state) => state.createContract.contract.contract
   );
@@ -52,7 +52,7 @@ function getShowContractTag() {
   return contractTag;
 }
 
-function getShowContractClass() {
+function GetShowContractClass() {
   const contractClass = useSelector(
     (state) => state.createContract.contract.contractClass
   );
@@ -60,7 +60,7 @@ function getShowContractClass() {
   return contractClass;
 }
 
-function getShowAgreementDate() {
+function GetShowAgreementDate() {
   const agreementDate = useSelector(
     (state) => state.createContract.contract.agreementDate
   );
@@ -68,14 +68,14 @@ function getShowAgreementDate() {
   return agreementDate;
 }
 
-function getShowContractDuration() {
+function GetShowContractDuration() {
   const contractDuration = useSelector(
     (state) => state.createContract.contract.contractDuration
   );
   return contractDuration;
 }
 
-function getShowNoticePeriod() {
+function GetShowNoticePeriod() {
   const noticePeriod = useSelector(
     (state) => state.createContract.contract.noticePeriod
   );
@@ -83,13 +83,13 @@ function getShowNoticePeriod() {
   return noticePeriod;
 }
 
-function getShowAmount() {
+function GetShowAmount() {
   const amount = useSelector((state) => state.createContract.contract.amount);
 
   return amount;
 }
 
-function getShowAttachedFiles() {
+function GetShowAttachedFiles() {
   const attachedFiles = useSelector(
     (state) => state.createContract.contract.attachedFiles
   );
@@ -97,20 +97,20 @@ function getShowAttachedFiles() {
   return attachedFiles;
 }
 
-function getShowComment() {
+function GetShowComment() {
   const comment = useSelector((state) => state.createContract.contract.comment);
 
   return comment;
 }
 
 export {
-  getShowContractInfo,
-  getShowContractTag,
-  getShowContractClass,
-  getShowAgreementDate,
-  getShowContractDuration,
-  getShowNoticePeriod,
-  getShowAmount,
-  getShowAttachedFiles,
-  getShowComment,
+  GetShowContractInfo,
+  GetShowContractTag,
+  GetShowContractClass,
+  GetShowAgreementDate,
+  GetShowContractDuration,
+  GetShowNoticePeriod,
+  GetShowAmount,
+  GetShowAttachedFiles,
+  GetShowComment,
 };

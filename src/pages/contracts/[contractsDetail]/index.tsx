@@ -48,7 +48,7 @@ const Buttons: FC<Props> = ({ label, icon, onClick }) => (
     </Stack>
   </button>
 );
-function index() {
+function Index() {
   const router = useRouter();
   return (
     <Stack direction="row" className="h-screen">
@@ -91,4 +91,4 @@ function index() {
   );
 }
 
-export default index;
+export default Index;

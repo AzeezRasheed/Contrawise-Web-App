@@ -2,13 +2,13 @@ import { Dialog } from "@headlessui/react";
 import React from "react";
 import Modal from "./Modal";
 import { useDispatch } from "react-redux";
-import { SET_MODAL_OPEN, getIsModalOpen } from "../../redux/modalReducer";
+import { SET_MODAL_OPEN, GetIsModalOpen } from "../../redux/modalReducer";
 
 const ModalLogout = (props) => {
   const { isOpen } = props;
   const dispatch = useDispatch();
   //   const setClose = dispatch(SET_MODAL_OPEN(false));
-  console.log(getIsModalOpen());
+  console.log(GetIsModalOpen());
   return (
     <Modal isOpen={isOpen} size="xs">
       <div className="inline-block max-w-md w-full p-6 my-8 overflow-hidden text-center align-middle  ">

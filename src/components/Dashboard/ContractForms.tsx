@@ -4,14 +4,7 @@ import { AiOutlineCalendar } from "react-icons/ai";
 import { RiFolderUploadLine } from "react-icons/ri";
 import { splitedAlphabet } from "../../helper";
 import { MdAddBox } from "react-icons/md";
-import {
-  Formik,
-  Field,
-  FieldArray,
-  useFormik,
-  FieldInputProps,
-  useField,
-} from "formik";
+import { Formik, Field, FieldArray, useFormik, FieldInputProps } from "formik";
 import { IoMdRemove } from "react-icons/io";
 import Stack from "../Stack";
 import Typography from "../Typography";
@@ -24,7 +17,7 @@ import { ContractFormValues } from "../../utilities/types";
 import ContractLabelForm from "../UI/ContractLabelForm";
 import { useDispatch } from "react-redux";
 import { SET_CONTRACT } from "../../redux/contractReducer";
-import Dropzone from "react-dropzone";
+// import Dropzone from "react-dropzone";
 
 const initialValues = {
   parties: ["", ""],
@@ -90,7 +83,10 @@ function ContractForms() {
                   >
                     {values.parties.map((party, index) => {
                       return (
-                        <div className="flex flex-col gap-2 items-start w-full  max-w-[406px]">
+                        <div
+                          key={index}
+                          className="flex flex-col gap-2 items-start w-full  max-w-[406px]"
+                        >
                           <ContractLabelForm label="Add Party">
                             <div
                               className="w-full flex flex-col  items-start"
@@ -411,7 +407,7 @@ function ContractForms() {
                     ) : null}
                   </div>
                 </ContractLabelForm>
-{/* 
+                {/* 
                 <Dropzone onDrop={onDrop}>
                   {({ getRootProps, getInputProps }) => (
                     <section>

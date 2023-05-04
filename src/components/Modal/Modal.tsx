@@ -3,6 +3,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { MdClear } from "react-icons/md";
 import { SET_MODAL_OPEN } from "../../redux/modalReducer";
 import { useDispatch } from "react-redux";
+import Link from "next/link";
 
 function Modal(props) {
   const { isOpen, title, size, share, isFileDropped } = props;
@@ -68,13 +69,13 @@ function Modal(props) {
                 <div className="absolute top-0 w-full text-center border-b py-2 font-semibold">
                   <Dialog.Title className="inline-block">{title}</Dialog.Title>
                   {share && isFileDropped() && (
-                    <a
-                      href="/"
+                    <Link
+                      href={"/"}
                       className="absolute right-5 text-sky-500"
                       onClick={share}
                     >
                       Share
-                    </a>
+                    </Link>
                   )}
                 </div>
               )}

@@ -3,30 +3,31 @@ import Stack from "../Stack";
 import { splitedAlphabet } from "../../helper";
 import Typography from "../Typography";
 import {
-  getShowAgreementDate,
-  getShowAmount,
-  getShowAttachedFiles,
-  getShowComment,
-  getShowContractClass,
-  getShowContractDuration,
-  getShowContractInfo,
-  getShowNoticePeriod,
+  GetShowAgreementDate,
+  GetShowAmount,
+  GetShowAttachedFiles,
+  GetShowComment,
+  GetShowContractClass,
+  GetShowContractDuration,
+  GetShowContractInfo,
+  GetShowNoticePeriod,
 } from "../../redux/contractReducer";
 
 function ContractInfo() {
-  const ContractInfo = getShowContractInfo();
-  const ContractClass = getShowContractClass();
-  const AgreementDate = getShowAgreementDate();
-  const ContractDuration = getShowContractDuration();
-  const NoticePeriod = getShowNoticePeriod();
-  const Amount = getShowAmount();
-  const AttachedFiles = getShowAttachedFiles();
-  const Comment = getShowComment();
+  const ContractInfo = GetShowContractInfo();
+  const ContractClass = GetShowContractClass();
+  const AgreementDate = GetShowAgreementDate();
+  const ContractDuration = GetShowContractDuration();
+  const NoticePeriod = GetShowNoticePeriod();
+  const Amount = GetShowAmount();
+  const AttachedFiles = GetShowAttachedFiles();
+  const Comment = GetShowComment();
   console.log(Comment);
   console.log(ContractInfo);
   const Party = ({ index, label }) => {
     return (
       <Stack
+        key={index}
         direction="row"
         justifyContent="start"
         alignItems="center"
