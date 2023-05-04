@@ -57,11 +57,23 @@ export interface AllPanelProps {
 export interface ContractFormValues {
   parties: string[];
   contractTag: string;
-  contractClass: string;
-  agreementDate: Date;
-  contractDuration: Date;
-  noticePeriod: Date;
+  contractClass: any;
+  agreementDate: any;
+  contractDuration: any;
+  noticePeriod: string;
   amount: string;
   comment: string;
-  attachedFiles: File | null;
+  attachedFiles: any;
+}
+
+export interface ContractActionPayload {
+  parties: string[];
+  contractTag: string;
+  contractClass: string;
+  agreementDate: any;
+  contractDuration: any;
+  noticePeriod: any;
+  amount: string;
+  comment: string;
+  attachedFiles: any;
 }

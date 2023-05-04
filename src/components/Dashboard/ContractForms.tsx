@@ -17,7 +17,6 @@ import ContractLabelForm from "../UI/ContractLabelForm";
 import { useDispatch } from "react-redux";
 import { SET_CONTRACT } from "../../redux/contractReducer";
 import { useRouter } from "next/router";
-import { isBoolean } from "lodash";
 // import Dropzone from "react-dropzone";
 
 const initialValues = {
@@ -38,7 +37,7 @@ function ContractForms() {
 
   const onSubmit = (values: ContractFormValues) => {
     // const formData = new FormData();
-    dispatch(SET_CONTRACT(values));
+    dispatch(SET_CONTRACT(values as ContractFormValues));
     console.log(values);
     // if (values.attachedFiles) {
     //   formData.append("attachedFiles", values.attachedFiles);

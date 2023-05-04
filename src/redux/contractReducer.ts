@@ -5,23 +5,22 @@ interface ContractState {
   contract: any;
   contractTag: string;
   contractClass: string;
-  agreementDate: string;
-  contractDuration: number | null;
-  noticePeriod: number | null;
+  agreementDate: any;
+  contractDuration: any;
+  noticePeriod: any;
   amount: string;
-  attachedFiles: null | any;
+  attachedFiles: any;
   comment: string;
 }
 
 type ContractActionPayload = {
-  contract: any;
-  aggrementDate: string;
   contractTag: string;
-  agreementDate: string;
-  contractDuration: number | null;
+  agreementDate: any;
+  contractDuration: any;
+  noticePeriod: any;
   amount: string;
   comment: string;
-  attachedFiles: null | any;
+  attachedFiles: any;
 };
 
 interface ContractAction {
@@ -34,10 +33,10 @@ const initialState: ContractState = {
   contractTag: "",
   contractClass: "",
   agreementDate: "",
-  contractDuration: null,
-  noticePeriod: null,
+  contractDuration: "",
+  noticePeriod: "",
   amount: "",
-  attachedFiles: null,
+  attachedFiles: [],
   comment: "",
 };
 
@@ -52,7 +51,7 @@ const ContractReducer = createSlice({
       const data = action.payload;
 
       state.contract = data.contract;
-      (state.agreementDate = data.aggrementDate),
+      (state.agreementDate = data.agreementDate),
         (state.contractTag = data.contractTag),
         (state.agreementDate = data.agreementDate),
         (state.contractDuration = data.contractDuration),
