@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import Stack from "../Stack";
 import { splitedAlphabet } from "../../helper";
 import Typography from "../Typography";
@@ -24,7 +24,12 @@ function ContractInfo() {
   const Comment = GetShowComment();
   console.log(Comment);
   console.log(ContractInfo);
-  const Party = ({ index, label }) => {
+
+  interface PartyProps {
+    label: string;
+    index: number;
+  }
+  const Party: FC<PartyProps> = ({ index, label }) => {
     return (
       <Stack
         direction="row"
