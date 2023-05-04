@@ -27,7 +27,6 @@ function ContractInfo() {
   const Party = ({ index, label }) => {
     return (
       <Stack
-        key={index}
         direction="row"
         justifyContent="start"
         alignItems="center"
@@ -106,7 +105,9 @@ function ContractInfo() {
     >
       {ContractInfo &&
         ContractInfo?.parties?.map((value, index) => (
-          <Party index={index} label={` ${value}`} />
+          <div key={index}>
+            <Party index={index} label={` ${value}`} />
+          </div>
         ))}
 
       <TheRest title="Contract Class:" label={ContractClass} />

@@ -88,7 +88,7 @@ const Box: FC<BoxProp> = ({ label, color, number }) => (
     </div>
   </Boxs>
 );
-const index: FC = () => {
+const Index: FC = () => {
   return (
     <Stack direction="row" className="h-screen">
       <Layout>
@@ -246,4 +246,4 @@ const index: FC = () => {
   );
 };
 
-export default index;
+export default Index;

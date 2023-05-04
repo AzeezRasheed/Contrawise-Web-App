@@ -162,8 +162,8 @@ const DashboardContractTable: FC<ContractTableProps> = ({ userData }) => {
                         Shared with
                       </Typography>
                       <div className="flex -space-x-4 ">
-                        {data.img.slice(0, 3).map((item) => (
-                          <div>
+                        {data.img.slice(0, 3).map((item, index) => (
+                          <div key={index}>
                             {item.imageUrl ? (
                               <>
                                 <Image
