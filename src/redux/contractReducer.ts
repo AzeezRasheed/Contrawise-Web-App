@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 
 interface ContractState {
-  contract: any;
+  contract?: any;
   contractTag: string;
   contractClass: string;
   agreementDate: any;
@@ -14,6 +14,7 @@ interface ContractState {
 }
 
 type ContractActionPayload = {
+  contract?: any;
   contractTag: string;
   agreementDate: any;
   contractDuration: any;

@@ -60,10 +60,11 @@ export interface ContractFormValues {
   contractClass: any;
   agreementDate: any;
   contractDuration: any;
-  noticePeriod: string;
+  noticePeriod: any;
   amount: string;
   comment: string;
   attachedFiles: any;
+
 }
 
 export interface ContractActionPayload {
