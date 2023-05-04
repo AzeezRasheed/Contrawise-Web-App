@@ -168,8 +168,9 @@ const Index: FC = () => {
 
                 {/* This is where we map all the values of the user coming from the backend */}
                 {/* user datas */}
-                {data.map((user) => (
+                {data.map((user, index) => (
                   <Stack
+                    key={index}
                     direction="row"
                     justifyContent="spacebetween"
                     alignItems="center"

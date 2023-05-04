@@ -19,7 +19,7 @@ flex-col
 `}
 `;
 
-function index() {
+function Index() {
   return (
     <Stack direction="row" className="h-screen">
       <Layout>
@@ -43,4 +43,4 @@ function index() {
   );
 }
 
-export default index;
+export default Index;

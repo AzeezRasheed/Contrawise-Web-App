@@ -62,7 +62,7 @@ const initialValues = {
   tagsSettingsList: [],
 };
 
-const index: FC = () => {
+const Index: FC = () => {
   const [activeTab, setActiveTab] = useState("user-settings");
   const [inputUserValue, setInputUserValue] = useState("");
   const [inputContractValue, setInputContractValue] = useState("");
@@ -214,7 +214,9 @@ const index: FC = () => {
                       </Typography>
                     </Stack>
 
-                    <Stack direction="column" className="w-full max-w-[167px]" >{renderTabs()}</Stack>
+                    <Stack direction="column" className="w-full max-w-[167px]">
+                      {renderTabs()}
+                    </Stack>
                   </Stack>
                   <div className=" flex flex-col mt-10 gap-10 flex-1 text-start w-full">
                     {renderPanel()}
@@ -234,4 +236,4 @@ const index: FC = () => {
   );
 };
 
-export default index;
+export default Index;
