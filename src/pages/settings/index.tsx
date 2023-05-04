@@ -55,6 +55,13 @@ mt-6
 `}
 `;
 
+interface SettingsFormValues {
+  userSettingsList: any[]; // replace "any" with the correct type
+  contractSettingsList: any[]; // replace "any" with the correct type
+  partiesSettingsList: any[]; // replace "any" with the correct type
+  tagsSettingsList: any[]; // replace "any" with the correct type
+}
+
 const initialValues = {
   userSettingsList: [],
   contractSettingsList: [],
@@ -69,7 +76,7 @@ const Index: FC = () => {
   const [inputPartiesValue, setInputPartiesValue] = useState("");
   const [inputTagsValue, setInputTagsValue] = useState("");
 
-  const onSubmit = (values) => {
+  const onSubmit = (values: SettingsFormValues) => {
     console.log(values);
   };
   const {
@@ -81,7 +88,7 @@ const Index: FC = () => {
     errors,
     handleBlur,
     // handleChange
-  } = useFormik({
+  } = useFormik<SettingsFormValues>({
     initialValues,
     onSubmit,
   });
@@ -117,22 +124,22 @@ const Index: FC = () => {
     ));
   };
 
-  const handleUserChange = (e) => {
+  const handleUserChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     setInputUserValue(newValue);
   };
 
-  const handleContractChange = (e) => {
+  const handleContractChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     setInputContractValue(newValue);
   };
 
-  const handlePartiesChange = (e) => {
+  const handlePartiesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     setInputPartiesValue(newValue);
   };
 
-  const handleTagsChange = (e) => {
+  const handleTagsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     setInputTagsValue(newValue);
   };

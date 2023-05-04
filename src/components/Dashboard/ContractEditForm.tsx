@@ -18,6 +18,10 @@ import { SET_CONTRACT, GetShowContractInfo } from "../../redux/contractReducer";
 // import Dropzone from "react-dropzone";
 import { useRouter } from "next/router";
 
+interface OnDropFunction {
+  (acceptedFiles: File[]): void;
+}
+
 function ContractEditForm() {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -64,11 +68,11 @@ function ContractEditForm() {
     onSubmit,
   });
 
-  // const [field, meta, helpers] = useField({ name });
+  // const [field, meta, helpers] = useField({ name })
 
-  const onDrop = (acceptedFiles) => {
-    helpers.setValue(acceptedFiles);
-  };
+  // const onDrop: OnDropFunction = (acceptedFiles) => {
+  //   helpers.setValue(acceptedFiles);
+  // };
 
   return (
     <form onSubmit={handleSubmit}>

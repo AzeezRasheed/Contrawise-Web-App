@@ -1,11 +1,23 @@
-import React from "react";
+import React, { FC } from "react";
 import Stack from "../Stack";
 import Typography from "../Typography";
 import { Field } from "formik";
 import Button from "../Button";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 
-const PartiesSettings = ({
+interface PartiesSettingsProps {
+  value: string;
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
+  setFieldValue: (
+    field: string,
+    value: any,
+    shouldValidate?: boolean | undefined
+  ) => void;
+  values: any;
+}
+
+const PartiesSettings: FC<PartiesSettingsProps> = ({
   value,
   handleChange,
   handleBlur,
@@ -67,7 +79,7 @@ const PartiesSettings = ({
           Parties List
         </Typography>
         {/* Box for user list */}
-        {values.partiesSettingsList.map((value, index) => (
+        {values.partiesSettingsList.map((value: string, index: number) => (
           <div
             key={index}
             className="px-4 py-2 bg-white w-full max-w-[427px] flex justify-between items-center"

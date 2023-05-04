@@ -22,9 +22,11 @@ export const createContractSchema = Yup.object().shape({
   noticePeriod: Yup.date().required("Notice period is required"),
   amount: Yup.string().required("Amount is required"),
   comment: Yup.string(),
-  attachedFiles: Yup.mixed<AnyPresentValue>().test(
-    "fileSize",
-    "File is too large",
-    (value) => value && value.size <= 10000000 // 10MB
-  ),
+  attachedFiles: Yup.mixed<AnyPresentValue>()
 });
+
+// attachedFiles: Yup.mixed<AnyPresentValue>().test(
+//   "fileSize",
+//   "File is too large",
+//   (value) => value && value.size <= 10000000 // 10MB
+// ),

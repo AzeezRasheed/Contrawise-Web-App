@@ -1,11 +1,23 @@
-import React from "react";
+import React, { FC } from "react";
 import Stack from "../Stack";
 import Typography from "../Typography";
 import { Field } from "formik";
 import Button from "../Button";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 
-const UserSettings = ({
+interface UserSettingsProps {
+  value: string;
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
+  setFieldValue: (
+    field: string,
+    value: any,
+    shouldValidate?: boolean | undefined
+  ) => void;
+  values: any;
+}
+
+const UserSettings: FC<UserSettingsProps> = ({
   value,
   handleChange,
   handleBlur,
@@ -69,7 +81,7 @@ const UserSettings = ({
         </Typography>
 
         {/* Box for user list */}
-        {values.userSettingsList.map((value, index) => (
+        {values.userSettingsList.map((value: string, index: number) => (
           <div
             key={index}
             className="px-4 py-2 bg-white w-full max-w-[427px] flex justify-between items-center"

@@ -4,7 +4,7 @@ import Modal from "./modalReducer";
 
 const store = configureStore({
   reducer: {
-    createContract: CreareContrat,
+    contract: CreareContrat,
     modal: Modal,
   },
 });

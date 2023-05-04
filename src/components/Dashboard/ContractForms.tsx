@@ -12,11 +12,12 @@ import "react-datepicker/dist/react-datepicker.css";
 import { createContractSchema } from "../../helper";
 import { contractClass, contractTag } from "../../data";
 import SelectForm from "../UI/SelectForm";
-import ContractButton from "../UI/ContractButton";
 import { ContractFormValues } from "../../utilities/types";
 import ContractLabelForm from "../UI/ContractLabelForm";
 import { useDispatch } from "react-redux";
 import { SET_CONTRACT } from "../../redux/contractReducer";
+import { useRouter } from "next/router";
+import { isBoolean } from "lodash";
 // import Dropzone from "react-dropzone";
 
 const initialValues = {
@@ -28,18 +29,20 @@ const initialValues = {
   noticePeriod: new Date(),
   amount: "",
   comment: "",
-  attachedFiles: null,
+  attachedFiles: [],
 };
 
 function ContractForms() {
   const dispatch = useDispatch();
+  const router = useRouter();
+
   const onSubmit = (values: ContractFormValues) => {
-    const formData = new FormData();
+    // const formData = new FormData();
     dispatch(SET_CONTRACT(values));
     console.log(values);
-    if (values.attachedFiles) {
-      formData.append("attachedFiles", values.attachedFiles);
-    }
+    // if (values.attachedFiles) {
+    //   formData.append("attachedFiles", values.attachedFiles);
+    // }
     // Make a network request with the ContractLabelForm data
   };
 
@@ -51,6 +54,7 @@ function ContractForms() {
     setFieldValue,
     touched,
     errors,
+    isValid,
     handleBlur,
   } = useFormik<ContractFormValues>({
     initialValues,
@@ -60,10 +64,11 @@ function ContractForms() {
 
   // const [field, meta, helpers] = useField({ name });
 
-  const onDrop = (acceptedFiles) => {
-    helpers.setValue(acceptedFiles);
-  };
+  // const onDrop = (acceptedFiles) => {
+  //   helpers.setValue(acceptedFiles);
+  // };
 
+  console.log(isValid);
   return (
     <form onSubmit={handleSubmit}>
       <Formik initialValues={initialValues} onSubmit={onSubmit}>
@@ -371,12 +376,12 @@ function ContractForms() {
                             name="attachedFiles"
                             type="file"
                             multiple
-                            // required
                             onChange={(event) => {
-                              setFieldValue(
-                                "attachedFiles",
-                                event?.currentTarget?.files?.[0]
-                              );
+                              const files = Array.from(event.target.files);
+                              setFieldValue("attachedFiles", [
+                                ...(values.attachedFiles || []),
+                                ...files,
+                              ]);
                             }}
                             className="opacity-0 absolute top-0 left-0 h-full w-full cursor-pointer"
                           />
@@ -407,32 +412,29 @@ function ContractForms() {
                     ) : null}
                   </div>
                 </ContractLabelForm>
-                {/* 
-                <Dropzone onDrop={onDrop}>
-                  {({ getRootProps, getInputProps }) => (
-                    <section>
-                      <div {...getRootProps()}>
-                        <input {...getInputProps()} />
-                        <p>
-                          Drag and drop some files here, or click to select
-                          files
-                        </p>
-                      </div>
-                      {meta.touched && meta.error ? (
-                        <div>{meta.error}</div>
-                      ) : null}
-                      {field.value &&
-                        Array.isArray(field.value) &&
-                        field.value.length > 0 &&
-                        field.value.map((file, i) => (
-                          <div key={i}>
-                            <span>{file.name}</span>
-                          </div>
-                        ))}
-                    </section>
-                  )}
-                </Dropzone> */}
-                <ContractButton />
+
+                <button
+                  onClick={() => {
+                    isValid === true &&
+                      router.push(
+                        "/contracts/[contractsDetail]",
+                        "/contracts/info"
+                      );
+                  }}
+                >
+                  <Stack
+                    alignItems="center"
+                    className=" px-4 py-2.5 bg-[#112F82] rounded-[6px]"
+                  >
+                    <Typography
+                      as="h3"
+                      variant="white"
+                      className="text-[14px] font-normal leading-[24px] font-Inter "
+                    >
+                      Publish Contract
+                    </Typography>
+                  </Stack>
+                </button>
               </div>
             </div>
           </div>

@@ -2,33 +2,33 @@ import React, { FC } from "react";
 import Stack from "../Stack";
 import { splitedAlphabet } from "../../helper";
 import Typography from "../Typography";
-import {
-  GetShowAgreementDate,
-  GetShowAmount,
-  GetShowAttachedFiles,
-  GetShowComment,
-  GetShowContractClass,
-  GetShowContractDuration,
-  GetShowContractInfo,
-  GetShowNoticePeriod,
-} from "../../redux/contractReducer";
+import { GetShowContractInfo } from "../../redux/contractReducer";
+import moment from "moment";
 
-function ContractInfo() {
+interface PartyProps {
+  label: string;
+  index: number;
+}
+
+interface CommentProps {
+  title: string;
+  label: string;
+}
+
+interface TheRestProps {
+  title: string;
+  label: string;
+}
+
+// interface ContractInfoProps {
+//   ContractInfo: {
+//     parties?: string[];
+//   };
+// }
+
+const ContractInfo = () => {
   const ContractInfo = GetShowContractInfo();
-  const ContractClass = GetShowContractClass();
-  const AgreementDate = GetShowAgreementDate();
-  const ContractDuration = GetShowContractDuration();
-  const NoticePeriod = GetShowNoticePeriod();
-  const Amount = GetShowAmount();
-  const AttachedFiles = GetShowAttachedFiles();
-  const Comment = GetShowComment();
-  console.log(Comment);
-  console.log(ContractInfo);
 
-  interface PartyProps {
-    label: string;
-    index: number;
-  }
   const Party: FC<PartyProps> = ({ index, label }) => {
     return (
       <Stack
@@ -53,8 +53,9 @@ function ContractInfo() {
     );
   };
 
-  console.log(AttachedFiles);
-  const CommentFN = ({ title, label }) => {
+  // console.log(AttachedFiles);
+
+  const CommentFN: FC<CommentProps> = ({ title, label }) => {
     return (
       <Stack
         direction="column"
@@ -78,7 +79,7 @@ function ContractInfo() {
     );
   };
 
-  const TheRest = ({ title, label }) => {
+  const TheRest: FC<TheRestProps> = ({ title, label }) => {
     return (
       <Stack
         direction="row"
@@ -101,6 +102,15 @@ function ContractInfo() {
       </Stack>
     );
   };
+  const agreementDate = ContractInfo.agreementDate;
+  const contractDuration = ContractInfo.contractDuration;
+  const noticePeriod = ContractInfo.noticePeriod;
+
+  const formatedDate = (datee: any) => {
+    const formatedDate = moment(datee).format("MMMM Do YYYY");
+    return formatedDate;
+  };
+
   return (
     <Stack
       direction="column"
@@ -109,30 +119,33 @@ function ContractInfo() {
       className="gap-4 text-start "
     >
       {ContractInfo &&
-        ContractInfo?.parties?.map((value, index) => (
+        ContractInfo?.parties?.map((value: string, index: number) => (
           <div key={index}>
             <Party index={index} label={` ${value}`} />
           </div>
         ))}
 
-      <TheRest title="Contract Class:" label={ContractClass} />
       <TheRest
-        title="Aggrement Date:"
-        label={AgreementDate?.toLocaleString()}
+        title="Contract Class:"
+        label={ContractInfo?.contractClass?.toLocaleString()}
       />
+
+      <TheRest title="Aggrement Date:" label={formatedDate(agreementDate)} />
       <TheRest
         title="Contract Duration:"
-        label={`${AgreementDate?.toLocaleString()} - ${ContractDuration?.toLocaleString()}`}
+        label={`${formatedDate(agreementDate)} - ${formatedDate(
+          contractDuration
+        )}`}
       />
-      <TheRest title="Notice Period:" label={NoticePeriod?.toLocaleString()} />
-      <TheRest title="Amount:" label={`$${Amount}`} />
+      <TheRest title="Notice Period:" label={formatedDate(noticePeriod)} />
+      <TheRest title="Amount:" label={`$${ContractInfo?.amount}`} />
       <TheRest
         title="Attached Files:"
-        label={`${AttachedFiles?.length} files`}
+        label={`${ContractInfo?.attachedFiles?.length} files`}
       />
-      <CommentFN title="Comment:" label={Comment} />
+      <CommentFN title="Comment:" label={ContractInfo?.comment} />
     </Stack>
   );
-}
+};
 
 export default ContractInfo;

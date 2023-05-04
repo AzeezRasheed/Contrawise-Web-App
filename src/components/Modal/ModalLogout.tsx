@@ -4,7 +4,11 @@ import Modal from "./Modal";
 import { useDispatch } from "react-redux";
 import { SET_MODAL_OPEN, GetIsModalOpen } from "../../redux/modalReducer";
 
-const ModalLogout = (props) => {
+interface ModalLogoutProps {
+  isOpen: boolean;
+}
+
+const ModalLogout = (props: ModalLogoutProps) => {
   const { isOpen } = props;
   const dispatch = useDispatch();
   //   const setClose = dispatch(SET_MODAL_OPEN(false));

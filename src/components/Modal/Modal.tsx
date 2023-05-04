@@ -1,12 +1,20 @@
-import React, { Fragment } from "react";
+import React, { FC, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { MdClear } from "react-icons/md";
 import { SET_MODAL_OPEN } from "../../redux/modalReducer";
 import { useDispatch } from "react-redux";
 import Link from "next/link";
 
-function Modal(props) {
-  const { isOpen, title, size, share, isFileDropped } = props;
+interface ModalProps {
+  isOpen: boolean;
+  title?: string;
+  size?: "xs" | "lg" | undefined;
+  share?: () => void;
+  children: React.ReactNode;
+}
+
+const Modal: FC<ModalProps> = (props) => {
+  const { isOpen, title, size, share, children } = props;
 
   const dispatch = useDispatch();
   const setIsOpen = dispatch(SET_MODAL_OPEN(true));
@@ -68,7 +76,7 @@ function Modal(props) {
               {title && (
                 <div className="absolute top-0 w-full text-center border-b py-2 font-semibold">
                   <Dialog.Title className="inline-block">{title}</Dialog.Title>
-                  {share && isFileDropped() && (
+                  {share && (
                     <Link
                       href={"/"}
                       className="absolute right-5 text-sky-500"
@@ -86,6 +94,6 @@ function Modal(props) {
       </Transition>
     </>
   );
-}
+};
 
 export default Modal;

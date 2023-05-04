@@ -1,7 +1,35 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 
-const initialState = {
+interface ContractState {
+  contract: any;
+  contractTag: string;
+  contractClass: string;
+  agreementDate: string;
+  contractDuration: number | null;
+  noticePeriod: number | null;
+  amount: string;
+  attachedFiles: null | any;
+  comment: string;
+}
+
+type ContractActionPayload = {
+  contract: any;
+  aggrementDate: string;
+  contractTag: string;
+  agreementDate: string;
+  contractDuration: number | null;
+  amount: string;
+  comment: string;
+  attachedFiles: null | any;
+};
+
+interface ContractAction {
+  type: string;
+  payload: ContractActionPayload;
+}
+
+const initialState: ContractState = {
   contract: {},
   contractTag: "",
   contractClass: "",
@@ -17,10 +45,10 @@ const ContractReducer = createSlice({
   name: "contractReducer",
   initialState,
   reducers: {
-    SET_CONTRACT: (state, action) => {
+    SET_CONTRACT: (state: ContractState, action: ContractAction) => {
       state.contract = action.payload;
     },
-    SET_DATA: (state, action) => {
+    SET_DATA: (state: ContractState, action: ContractAction) => {
       const data = action.payload;
 
       state.contract = data.contract;
@@ -38,79 +66,13 @@ const ContractReducer = createSlice({
 export default ContractReducer.reducer;
 
 export const { SET_CONTRACT, SET_DATA } = ContractReducer.actions;
+
 function GetShowContractInfo() {
-  const showContract = useSelector((state) => state.createContract.contract);
+  const showContract = useSelector(
+    (state: ContractState) => state.contract.contract
+  );
 
   return showContract;
 }
 
-function GetShowContractTag() {
-  const contractTag = useSelector(
-    (state) => state.createContract.contract.contract
-  );
-
-  return contractTag;
-}
-
-function GetShowContractClass() {
-  const contractClass = useSelector(
-    (state) => state.createContract.contract.contractClass
-  );
-
-  return contractClass;
-}
-
-function GetShowAgreementDate() {
-  const agreementDate = useSelector(
-    (state) => state.createContract.contract.agreementDate
-  );
-
-  return agreementDate;
-}
-
-function GetShowContractDuration() {
-  const contractDuration = useSelector(
-    (state) => state.createContract.contract.contractDuration
-  );
-  return contractDuration;
-}
-
-function GetShowNoticePeriod() {
-  const noticePeriod = useSelector(
-    (state) => state.createContract.contract.noticePeriod
-  );
-
-  return noticePeriod;
-}
-
-function GetShowAmount() {
-  const amount = useSelector((state) => state.createContract.contract.amount);
-
-  return amount;
-}
-
-function GetShowAttachedFiles() {
-  const attachedFiles = useSelector(
-    (state) => state.createContract.contract.attachedFiles
-  );
-
-  return attachedFiles;
-}
-
-function GetShowComment() {
-  const comment = useSelector((state) => state.createContract.contract.comment);
-
-  return comment;
-}
-
-export {
-  GetShowContractInfo,
-  GetShowContractTag,
-  GetShowContractClass,
-  GetShowAgreementDate,
-  GetShowContractDuration,
-  GetShowNoticePeriod,
-  GetShowAmount,
-  GetShowAttachedFiles,
-  GetShowComment,
-};
+export { GetShowContractInfo };
