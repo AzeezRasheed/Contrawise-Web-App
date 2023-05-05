@@ -41,7 +41,7 @@ function ContractEditForm() {
     comment: contractInfo?.comment ? contractInfo?.comment : "",
     attachedFiles: contractInfo?.attachedFiles
       ? contractInfo?.attachedFiles
-      : "",
+      : [],
   };
   const onSubmit = (values: ContractFormValues) => {
     const formData = new FormData();
@@ -372,9 +372,8 @@ function ContractEditForm() {
                             variant="white"
                             className="text-[14px] leading-[24px] tracking-[0.25px]  "
                           >
-                            {values?.attachedFiles?.name
-                              ? values?.attachedFiles?.name
-                              : contractInfo?.attachedFiles?.name}
+                            {values?.attachedFiles &&
+                              `${values?.attachedFiles.length} files`}
                           </Typography>
                           <RiFolderUploadLine size={24} />
                           <input
@@ -384,10 +383,11 @@ function ContractEditForm() {
                             multiple
                             // required
                             onChange={(event) => {
-                              setFieldValue(
-                                "attachedFiles",
-                                event?.currentTarget?.files?.[0]
-                              );
+                              const files = Array.from(event.target.files);
+                              setFieldValue("attachedFiles", [
+                                ...(values.attachedFiles || []),
+                                ...files,
+                              ]);
                             }}
                             className="opacity-0 absolute top-0 left-0 h-full w-full cursor-pointer"
                           />

@@ -365,9 +365,13 @@ function ContractForms() {
                             variant="white"
                             className="text-[14px] leading-[24px] tracking-[0.25px]  "
                           >
-                            {values?.attachedFiles?.name
-                              ? values?.attachedFiles?.name
-                              : "Select attachedFiles"}
+                            {values?.attachedFiles.length === 0
+                              ? "Select attachedFiles"
+                              : `${values?.attachedFiles?.length} ${
+                                  values?.attachedFiles.length < 2
+                                    ? "file"
+                                    : "files"
+                                } `}
                           </Typography>
                           <RiFolderUploadLine size={24} />
                           <input
