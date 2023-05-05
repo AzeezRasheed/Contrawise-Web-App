@@ -64,7 +64,6 @@ export interface ContractFormValues {
   amount: string;
   comment: string;
   attachedFiles: any;
-
 }
 
 export interface ContractActionPayload {
