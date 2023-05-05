@@ -73,7 +73,7 @@ function ContractEditForm() {
   // const onDrop: OnDropFunction = (acceptedFiles) => {
   //   helpers.setValue(acceptedFiles);
   // };
-
+  console.log(values.parties);
   return (
     <form onSubmit={handleSubmit}>
       <Formik initialValues={initialValues} onSubmit={onSubmit}>
@@ -91,99 +91,100 @@ function ContractEditForm() {
                     justifyContent="spacebetween"
                     className="gap-4 flex-wrap"
                   >
-                    {values.parties.map((party, index) => {
-                      return (
-                        <div
-                          key={index}
-                          className="flex flex-col gap-2 items-start w-full  max-w-[406px]"
-                        >
-                          <ContractLabelForm label="Add Party">
-                            <div
-                              className="w-full flex flex-col  items-start"
-                              key={index}
-                            >
-                              <Field
-                                className="border flex border-solid border-[#D1D5DB] bg-[#FFFFFF] rounded-[4px] py-[12px] px-[16px] w-full placeholder:text-[#6B7280] text-[#6B7280] text-[14px] leading-[24px] tracking-[0.25px] font-Inter   "
-                                name={`parties[${index}]`}
-                                value={values.parties[index]}
-                                placeholder={`${contractInfo?.parties[index]}`}
-                                onChange={handleChange}
-                                error={
-                                  touched.parties && Boolean(errors.parties)
-                                }
-                                onBlur={handleBlur}
-                              />
-                              {touched.parties && errors.parties ? (
-                                <Typography
-                                  as={"span"}
-                                  className="text-sm text-error"
-                                >
-                                  {errors.parties[index]}
-                                </Typography>
-                              ) : null}
-                              {index > 0 ? (
-                                <Stack
-                                  direction="row"
-                                  alignItems="center"
-                                  justifyContent="spacebetween"
-                                >
-                                  {index > 1 ? (
+                    {values?.parties &&
+                      values?.parties?.map((party, index) => {
+                        return (
+                          <div
+                            key={index}
+                            className="flex flex-col gap-2 items-start w-full  max-w-[406px]"
+                          >
+                            <ContractLabelForm label="Add Party">
+                              <div
+                                className="w-full flex flex-col  items-start"
+                                key={index}
+                              >
+                                <Field
+                                  className="border flex border-solid border-[#D1D5DB] bg-[#FFFFFF] rounded-[4px] py-[12px] px-[16px] w-full placeholder:text-[#6B7280] text-[#6B7280] text-[14px] leading-[24px] tracking-[0.25px] font-Inter   "
+                                  name={`parties[${index}]`}
+                                  value={values.parties[index]}
+                                  placeholder={`${contractInfo?.parties[index]}`}
+                                  onChange={handleChange}
+                                  error={
+                                    touched.parties && Boolean(errors.parties)
+                                  }
+                                  onBlur={handleBlur}
+                                />
+                                {touched.parties && errors.parties ? (
+                                  <Typography
+                                    as={"span"}
+                                    className="text-sm text-error"
+                                  >
+                                    {errors.parties[index]}
+                                  </Typography>
+                                ) : null}
+                                {index > 0 ? (
+                                  <Stack
+                                    direction="row"
+                                    alignItems="center"
+                                    justifyContent="spacebetween"
+                                  >
+                                    {index > 1 ? (
+                                      <button
+                                        type="button"
+                                        onClick={() => {
+                                          arrayHelpers.remove(index);
+                                          setValues({
+                                            ...values,
+                                            parties: values.parties.filter(
+                                              (_, i) => i !== index
+                                            ),
+                                          });
+                                        }}
+                                      >
+                                        <IoMdRemove size={24} />
+                                      </button>
+                                    ) : (
+                                      <div></div>
+                                    )}
                                     <button
                                       type="button"
                                       onClick={() => {
-                                        arrayHelpers.remove(index);
-                                        setValues({
-                                          ...values,
-                                          parties: values.parties.filter(
-                                            (_, i) => i !== index
-                                          ),
+                                        const newIndex = values.parties.length;
+                                        arrayHelpers.push("");
+                                        handleChange({
+                                          target: {
+                                            name: `parties[${newIndex}]`,
+                                            value: "",
+                                          },
                                         });
                                       }}
                                     >
-                                      <IoMdRemove size={24} />
-                                    </button>
-                                  ) : (
-                                    <div></div>
-                                  )}
-                                  <button
-                                    type="button"
-                                    onClick={() => {
-                                      const newIndex = values.parties.length;
-                                      arrayHelpers.push("");
-                                      handleChange({
-                                        target: {
-                                          name: `parties[${newIndex}]`,
-                                          value: "",
-                                        },
-                                      });
-                                    }}
-                                  >
-                                    <Stack
-                                      direction="row"
-                                      alignItems="center"
-                                      className="gap-0.5"
-                                    >
-                                      <MdAddBox
-                                        size={24}
-                                        className="text-[#22237F]"
-                                      />
-                                      <Typography
-                                        as={"span"}
-                                        className="font-Inter italic text-[#22237F] text-[14px] leading-[4px] font-normal "
+                                      <Stack
+                                        direction="row"
+                                        alignItems="center"
+                                        className="gap-0.5"
                                       >
-                                        add Party
-                                      </Typography>
-                                    </Stack>
-                                  </button>
-                                </Stack>
-                              ) : (
-                                <div></div>
-                              )}
-                            </div>
-                          </ContractLabelForm>
-                        </div>
-                      );
-                    })}
+                                        <MdAddBox
+                                          size={24}
+                                          className="text-[#22237F]"
+                                        />
+                                        <Typography
+                                          as={"span"}
+                                          className="font-Inter italic text-[#22237F] text-[14px] leading-[4px] font-normal "
+                                        >
+                                          add Party
+                                        </Typography>
+                                      </Stack>
+                                    </button>
+                                  </Stack>
+                                ) : (
+                                  <div></div>
+                                )}
+                              </div>
+                            </ContractLabelForm>
+                          </div>
+                        );
+                      })}
                   </Stack>
                 </div>
               )}

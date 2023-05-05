@@ -7,7 +7,7 @@ import Stack from "../../components/Stack";
 import Image from "next/image";
 import Header from "../../components/Dashboard/Header";
 import Footer from "../../components/Dashboard/Footer";
-import data from "./data";
+import data from "../../data/activitiesData";
 
 const Card = styled.div`
   ${tw`

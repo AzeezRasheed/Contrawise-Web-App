@@ -5,7 +5,6 @@ import Stack from "../../../components/Stack";
 import Layout from "../../../layouts/DashboardLayout";
 import Header from "../../../components/Dashboard/Header";
 import Footer from "../../../components/Dashboard/Footer";
-import ContractForms from "../../../components/Dashboard/ContractForms";
 import ContractEditForm from "../../../components/Dashboard/ContractEditForm";
 
 const Wrapper = styled.div`
@@ -20,7 +19,7 @@ flex-col
 `}
 `;
 
-function Index() {
+const Index = () => {
   return (
     <Stack direction="row" className="h-screen">
       <Layout>
@@ -42,6 +41,6 @@ function Index() {
       </Layout>
     </Stack>
   );
-}
+};
 
 export default Index;

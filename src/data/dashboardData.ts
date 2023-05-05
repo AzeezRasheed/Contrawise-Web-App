@@ -1,5 +1,5 @@
-import UserImg1 from "../../assets/images/UserI.png";
-import UserImg2 from "../../assets/images/User2.png";
+import UserImg1 from "../assets/images/UserI.png";
+import UserImg2 from "../assets/images/User2.png";
 
 const data = [
   {

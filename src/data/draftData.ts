@@ -1,7 +1,7 @@
-import UserImg1 from "../../assets/images/UserImg.png";
-import UserImg2 from "../../assets/images/UserImg.png";
-import UserImg3 from "../../assets/images/UserImg.png";
-import UserImg4 from "../../assets/images/UserImg.png";
+import UserImg1 from "../assets/images/UserImg.png";
+import UserImg2 from "../assets/images/UserImg.png";
+import UserImg3 from "../assets/images/UserImg.png";
+import UserImg4 from "../assets/images/UserImg.png";
 import type { StaticImageData } from "next/image";
 const data = [
   {

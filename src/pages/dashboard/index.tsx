@@ -8,7 +8,7 @@ import { FiFolder } from "react-icons/fi";
 import Image from "next/image";
 import DashboardContractTable from "../../components/Dashboard/DashboardContractTable";
 import Dashboard from "../../components/Dashboard/Dashboard";
-import data from "./data";
+import data from "../../data/dashboardData";
 import userData from "../../components/Dashboard/dummiedata";
 
 const Boxs = styled.div`

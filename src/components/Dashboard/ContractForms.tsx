@@ -85,7 +85,7 @@ function ContractForms() {
                     justifyContent="spacebetween"
                     className="gap-4 flex-wrap"
                   >
-                    {values.parties.map((party, index) => {
+                    {values?.parties?.map((party, index) => {
                       return (
                         <div
                           key={index}
