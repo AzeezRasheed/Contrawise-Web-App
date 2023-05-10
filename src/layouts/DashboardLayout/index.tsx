@@ -45,7 +45,7 @@ export default function Layout({ children }: DashboardLayoutProps) {
           sx={{ justifyContent: "start", alignSelf: "start" }}
           onClick={handleDrawerOpen}
         >
-          <FaBell size={24} />
+          <FaBell size={24} color="#8E8FE1" />
         </IconButton>
       )}
     </>

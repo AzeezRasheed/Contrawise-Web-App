@@ -138,7 +138,7 @@ function Login() {
                     href="/auth/register"
                     className="text-[16px] flex flex-row font-medium text-black hover:text-indigo-700 "
                   >
-                    <p>Don't have an account? &nbsp;</p>
+                    <p>Don&apos;t have an account? &nbsp;</p>
                     <p>Register</p>
                   </Link>
                 </div>
