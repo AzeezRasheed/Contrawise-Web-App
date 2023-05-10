@@ -60,7 +60,7 @@ function Login() {
                   Sign in to your account
                 </h2>
               </div>
-              <div className="mt-8 space-y-6" onSubmit={handleSubmit}>
+              <div className="mt-8 space-y-6">
                 <input type="hidden" name="remember" value="true" />
                 <div className="flex flex-col -space-y-px rounded-md shadow-sm gap-2">
                   <div>
