@@ -41,8 +41,8 @@ const initialState: ContractState = {
   comment: "",
 };
 
-const ContractReducer = createSlice({
-  name: "contractReducer",
+const contractSlice = createSlice({
+  name: "contractSlice",
   initialState,
   reducers: {
     SET_CONTRACT: (state: ContractState, action: ContractAction) => {
@@ -63,9 +63,9 @@ const ContractReducer = createSlice({
   },
 });
 
-export default ContractReducer.reducer;
+export default contractSlice.reducer;
 
-export const { SET_CONTRACT, SET_DATA } = ContractReducer.actions;
+export const { SET_CONTRACT, SET_DATA } = contractSlice.actions;
 
 function GetShowContractInfo() {
   const showContract = useSelector(

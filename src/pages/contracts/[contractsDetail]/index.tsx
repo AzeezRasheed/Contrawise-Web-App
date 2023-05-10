@@ -12,7 +12,7 @@ import Typography from "../../../components/Typography";
 import { BsArrowDown, BsBookmarkCheck } from "react-icons/bs";
 import { BiEditAlt } from "react-icons/bi";
 import { useRouter } from "next/router";
-import { GetShowContractInfo } from "../../../redux/contractReducer";
+import { GetShowContractInfo } from "../../../redux/contractSlice";
 
 const Wrapper = styled.div`
   ${tw`

@@ -1,7 +1,7 @@
 import React, { FC, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { MdClear } from "react-icons/md";
-import { SET_MODAL_OPEN } from "../../redux/modalReducer";
+import { SET_MODAL_OPEN } from "../../redux/modalSlice";
 import { useDispatch } from "react-redux";
 import Link from "next/link";
 

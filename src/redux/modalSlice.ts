@@ -16,8 +16,8 @@ const initialState = {
   isModalOpen: false,
 };
 
-const ModalReducer = createSlice({
-  name: "modalReducer",
+const modalSlice = createSlice({
+  name: "modalSlice",
   initialState,
   reducers: {
     SET_MODAL_OPEN: (state: ModalSliceState, action: ModalAction) => {
@@ -33,8 +33,8 @@ function GetIsModalOpen() {
   return isModalOpen;
 }
 
-export default ModalReducer.reducer;
+export default modalSlice.reducer;
 
-export const { SET_MODAL_OPEN } = ModalReducer.actions;
+export const { SET_MODAL_OPEN } = modalSlice.actions;
 
 export { GetIsModalOpen };

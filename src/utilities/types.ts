@@ -66,6 +66,20 @@ export interface ContractFormValues {
   attachedFiles: any;
 }
 
+export interface LoginFormValues {
+  email: string;
+  password: string;
+}
+
+export interface SignupFormValues {
+  first_name: string;
+  last_name: string;
+  email: string;
+  job_title: string;
+  password: string;
+  password2: string;
+}
+
 export interface ContractActionPayload {
   parties: string[];
   contractTag: string;

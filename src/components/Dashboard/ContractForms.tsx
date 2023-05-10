@@ -15,7 +15,7 @@ import SelectForm from "../UI/SelectForm";
 import { ContractFormValues } from "../../utilities/types";
 import ContractLabelForm from "../UI/ContractLabelForm";
 import { useDispatch } from "react-redux";
-import { SET_CONTRACT } from "../../redux/contractReducer";
+import { SET_CONTRACT } from "../../redux/contractSlice";
 import { useRouter } from "next/router";
 // import Dropzone from "react-dropzone";
 

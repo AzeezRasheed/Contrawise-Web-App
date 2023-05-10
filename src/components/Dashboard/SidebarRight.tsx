@@ -31,22 +31,28 @@ const Container = styled.div`
     `}
 `;
 
-interface Props {
-  isRightMobileMenuOpen: boolean;
-}
-
 interface NotificationFC {
   time: string;
   label: string;
   icon: string;
 }
-const SidebarRight: React.FC<Props> = ({
-  isRightMobileMenuOpen,
-  //   setIsLeftMobileMenuOpen,
-}) => {
+const SidebarRight = (
+  {
+    //   setIsLeftMobileMenuOpen,
+  }
+) => {
   const Notification: React.FC<NotificationFC> = ({ time, label, icon }) => (
-    <Stack direction="row" justifyContent="spacebetween" alignItems="center" className="gap-10">
-      <Stack direction="row" alignItems="center" className="gap-3 flex-1 l text-start">
+    <Stack
+      direction="row"
+      justifyContent="spacebetween"
+      alignItems="center"
+      className="gap-10"
+    >
+      <Stack
+        direction="row"
+        alignItems="center"
+        className="gap-3 flex-1 l text-start"
+      >
         <div>
           {icon === "red" ? (
             <Image
@@ -81,7 +87,7 @@ const SidebarRight: React.FC<Props> = ({
     </Stack>
   );
   return (
-    <Container className={isRightMobileMenuOpen ? "hidden" : "block"}>
+    <Container>
       <Stack
         direction="column"
         alignItems="center"

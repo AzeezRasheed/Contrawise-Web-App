@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import CreareContrat from "./contractReducer";
-import Modal from "./modalReducer";
+import CreareContrat from "./contractSlice";
+import Modal from "./modalSlice";
 
 const store = configureStore({
   reducer: {
