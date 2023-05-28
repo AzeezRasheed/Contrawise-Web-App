@@ -1,47 +1,65 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { useLocalStorage } from "../hooks/useLocalStorage";
+import { useSelector } from "react-redux";
+import { UserData } from "../utilities/types";
 
-const first_name = localStorage.getItem("first_name")
-  ? JSON.parse(localStorage.getItem("first_name"))
-  : null;
+interface User {
+  first_name: string;
+  last_name: string;
+  email: string;
+  job_title: string;
+  org_admin: boolean;
+  org: number;
+}
 
-  const initialState = {
-    isLoggedIn: false,
-    first_name:  first_name ? first_name : "",
-    user: {
-      first_name: "",
-      last_name: "",
-      email: "",
-      phone: "",
-    //   bio: "",
-    //   photo: "",
+interface AuthState {
+  isLoggedIn: boolean;
+  user_name: string;
+  user: User;
+}
+
+const initialState: AuthState = {
+  isLoggedIn: false,
+  user_name: "",
+  user: {
+    first_name: "",
+    last_name: "",
+    email: "",
+    job_title: "",
+    org_admin: false,
+    org: 0,
+  },
+};
+
+const authSlice = createSlice({
+  name: "auth",
+  initialState,
+  reducers: {
+    setLogin: (state, action: PayloadAction<boolean>) => {
+      state.isLoggedIn = action.payload;
     },
-  };
-
-  const authSlice = createSlice({
-    name: "auth",
-    initialState,
-    reducers: {
-      SET_LOGIN: (state, action) => {
-        state.isLoggedIn = action.payload;
-      },
-      SET_FIRSTNAME: (state, action) => {
-        localStorage.setItem("first_name", JSON.stringify(action.payload));
-        state.first_name = action.payload;
-      },
-      SET_USER: (state, action) => {
-        const data = action.payload;
-        state.user.first_name = data.first_name;
-        state.user.last_name = data.last_name;
-        state.user.email = data.email;
-        state.user.phone = data.phone;
-        // state.user.bio = data.bio;
-        // state.user.photo= data.photo;
-      },
+    setUsername: (state, action: PayloadAction<string>) => {
+      state.user_name = action.payload;
     },
-  });
-  
-  export default authSlice.reducer;
-export const { SET_LOGIN, SET_USER, SET_FIRSTNAME } = authSlice.actions;
-export const selectIsLoggedIn = (state) => state.auth.isLoggedIn;
-export const selectFirstName = (state) => state.auth.first_name;
-export const selectUser = (state) => state.auth.user;
+    setUserData: (state, action: PayloadAction<UserData>) => {
+      const { first_name, last_name, email, job_title, org_admin, org } =
+        action.payload;
+      state.user = { first_name, last_name, email, job_title, org_admin, org };
+    },
+  },
+});
+
+export default authSlice.reducer;
+export const { setLogin, setUserData, setUsername } = authSlice.actions;
+
+export function useIsUserLoggedIn() {
+  return useSelector((state: any) => state.auth.isLoggedIn);
+}
+
+export function useUsername() {
+  return useSelector((state: any) => state.auth.user_name);
+}
+
+export function useUserData() {
+  return useSelector((state: any) => state.auth.user);
+}

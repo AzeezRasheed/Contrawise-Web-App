@@ -14,8 +14,11 @@ import { AiOutlineLogout } from "react-icons/ai";
 import { useRouter } from "next/router";
 import UserImg from "../../assets/images/UserImg.png";
 import ModalLogout from "../Modal/ModalLogout";
-import { SET_MODAL_OPEN, GetIsModalOpen } from "../../redux/modalSlice";
+import { SET_LOGOUT_MODAL_OPEN, GetIsLogoutModalOpen } from "../../redux/modalSlice";
 import { useDispatch } from "react-redux";
+import { useUserData, useUsername } from "../../redux/authSlice";
+
+
 const Container = styled.div`
   ${tw`
   flex-none
@@ -55,6 +58,11 @@ const SidebarLeft: React.FC<Props> = ({
   //   setIsLeftMobileMenuOpen,
 }) => {
   const router = useRouter();
+  const userData = useUserData();
+  const username = useUsername();
+
+console.log({userData})
+console.log({username})
 
   const LinkButton: React.FC<Button> = ({ path, label, icon }) => (
     <Button
@@ -167,7 +175,7 @@ const SidebarLeft: React.FC<Props> = ({
             <Button
               ripple={true}
               onClick={() => {
-                dispatch(SET_MODAL_OPEN(true));
+                dispatch(SET_LOGOUT_MODAL_OPEN(true));
               }}
               className={`w-[170px] `}
             >
@@ -212,7 +220,7 @@ const SidebarLeft: React.FC<Props> = ({
               className="text-[12px] w-full font-DmSans leading-[16px] font-bold text-[#FFFFFF]"
               as="h2"
             >
-              Idoko Ichaba
+              {username ? username : "Welcome"}
             </Typography>
           </Stack>
         </Stack>

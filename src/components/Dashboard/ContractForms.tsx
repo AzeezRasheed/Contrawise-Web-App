@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import DatePicker from "react-datepicker";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { RiFolderUploadLine } from "react-icons/ri";
@@ -10,39 +10,79 @@ import Stack from "../Stack";
 import Typography from "../Typography";
 import "react-datepicker/dist/react-datepicker.css";
 import { createContractSchema } from "../../helper";
-import { contractClass, contractTag } from "../../data";
+import { contractTag, contractClass } from "../../data";
 import SelectForm from "../UI/SelectForm";
 import { ContractFormValues } from "../../utilities/types";
 import ContractLabelForm from "../UI/ContractLabelForm";
 import { useDispatch } from "react-redux";
 import { SET_CONTRACT } from "../../redux/contractSlice";
 import { useRouter } from "next/router";
+import { CREATE_CONTRACT } from "../../services/contractServices";
+import Spinner from "../Loader/Spinner";
 // import Dropzone from "react-dropzone";
 
 const initialValues = {
   parties: ["", ""],
-  contractTag: "",
-  contractClass: "",
-  agreementDate: new Date(),
-  contractDuration: new Date(),
-  noticePeriod: new Date(),
+  tag: "",
+  customClass: "",
+  agreement_date: new Date(),
+  termination_date: new Date(),
+  notice_date: new Date(),
   amount: "",
   comment: "",
-  attachedFiles: [],
+  upload: [],
 };
 
 function ContractForms() {
   const dispatch = useDispatch();
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const onSubmit = (values: ContractFormValues) => {
-    // const formData = new FormData();
-    dispatch(SET_CONTRACT(values as ContractFormValues));
-    console.log(values);
-    // if (values.attachedFiles) {
-    //   formData.append("attachedFiles", values.attachedFiles);
-    // }
-    // Make a network request with the ContractLabelForm data
+  const onSubmit = async (values: ContractFormValues) => {
+    const {
+      agreement_date,
+      amount,
+      comment,
+      notice_date,
+      parties,
+      termination_date,
+      upload,
+      customClass,
+    } = values;
+
+    const formData = new FormData();
+    formData.append("title", "Techbro");
+    formData.append("class", customClass);
+    formData.append("agreement_date", agreement_date.toISOString());
+    formData.append("termination_date", termination_date.toISOString());
+    formData.append("notice_date", notice_date.toISOString());
+    formData.append("amount", amount);
+    formData.append("category", 2);
+    formData.append("comment", comment);
+    formData.append("parties", JSON.stringify(parties));
+    // formData.append("upload", upload);
+
+    const files = Array.from(upload); // Convert the FileList object to an array
+    for (let i = 0; i < files.length; i++) {
+      formData.append(`upload[${i}]`, files[i]);
+    }
+
+    // upload.forEach((file, index) => {
+    //   formData.append(`upload[${index}]`, file);
+    // });
+
+    setIsLoading(true);
+    try {
+      console.log(...formData);
+      console.log(values);
+      const data = await CREATE_CONTRACT(formData);
+      dispatch(SET_CONTRACT(values as ContractFormValues));
+      console.log(data);
+      data && router.push("/contracts/[contractsDetail]", "/contracts/info");
+    } catch (error) {
+      // Handle error
+      setIsLoading(false);
+    }
   };
 
   const {
@@ -67,9 +107,9 @@ function ContractForms() {
   //   helpers.setValue(acceptedFiles);
   // };
 
-  console.log(isValid);
   return (
     <form onSubmit={handleSubmit}>
+      {isLoading && <Spinner />}
       <Formik initialValues={initialValues} onSubmit={onSubmit}>
         <div className="bg-[#F7F9FB] rounded-[12px] w-full max-w-[932px] ">
           <div className="flex flex-col gap-3 p-6 pb-12">
@@ -184,37 +224,35 @@ function ContractForms() {
             />
 
             <div className="flex flex-col gap-8">
-              {/* This is the select inputs for Tags and Class */}
+              {/* This is the select inputs for Tags and customClass */}
               <div className="flex flex-wrap gap-4 justify-between items-center">
                 <ContractLabelForm label="Select tags">
                   <SelectForm
-                    name="contractTag"
+                    name="tag"
                     label="Select an option"
                     options={contractTag}
-                    value={values.contractTag}
+                    value={values.tag}
                     onChange={handleChange}
-                    error={touched.contractTag && Boolean(errors.contractTag)}
+                    error={touched.tag && Boolean(errors.tag)}
                   />
-                  {touched.contractTag && errors.contractTag ? (
+                  {touched.tag && errors.tag ? (
                     <Typography as={"span"} className="text-sm text-error">
-                      {errors.contractTag}
+                      {errors.tag}
                     </Typography>
                   ) : null}
                 </ContractLabelForm>
-                <ContractLabelForm label="Select class">
+                <ContractLabelForm label="Select customClass">
                   <SelectForm
-                    name="contractClass"
+                    name="customClass"
                     label="Select an option"
                     options={contractClass}
-                    value={values.contractClass}
+                    value={values.customClass}
                     onChange={handleChange}
-                    error={
-                      touched.contractClass && Boolean(errors.contractClass)
-                    }
+                    error={touched.customClass && Boolean(errors.customClass)}
                   />
-                  {touched.contractClass && errors.contractClass ? (
+                  {touched.customClass && errors.customClass ? (
                     <Typography as={"span"} className="text-sm text-error">
-                      {errors.contractClass}
+                      {errors.customClass}
                     </Typography>
                   ) : null}
                 </ContractLabelForm>
@@ -223,13 +261,13 @@ function ContractForms() {
               <div className="flex flex-wrap gap-4 justify-between items-center">
                 <ContractLabelForm label="Select agreement date">
                   <div className="relative w-full max-w-[406px]">
-                    <Field name="agreementDate" onBlur={handleBlur}>
+                    <Field name="agreement_date" onBlur={handleBlur}>
                       {({ field }: { field: FieldInputProps<any> }) => (
                         <DatePicker
                           {...field}
-                          selected={values.agreementDate}
+                          selected={values.agreement_date}
                           onChange={(date) =>
-                            setFieldValue("agreementDate", date)
+                            setFieldValue("agreement_date", date)
                           }
                           dateFormat="dd/MM/yyyy"
                           className="w-full max-w-[406px] rounded-[4px] text-[#6B7280] text-[14px] leading-[24px] tracking-[0.25px] font-Inter py-[12px] px-16 border border-solid border-[#D1D5DB] bg-[#FFFFFF]"
@@ -240,10 +278,10 @@ function ContractForms() {
                         />
                       )}
                     </Field>
-                    {/* {touched.agreementDate && errors.agreementDate ? (
+                    {/* {touched.agreement_date && errors.agreement_date ? (
                       <>
                         <Typography as={"span"} className="text-sm text-error">
-                          {errors.agreementDate}
+                          {errors.agreement_date}
                         </Typography>
                       </>
                     ) : null} */}
@@ -263,13 +301,13 @@ function ContractForms() {
                   <div className="relative w-full max-w-[406px]">
                     <>
                       <div className="relative w-full max-w-[406px]">
-                        <Field name="contractDuration" onBlur={handleBlur}>
+                        <Field name="termination_date" onBlur={handleBlur}>
                           {({ field }: { field: FieldInputProps<any> }) => (
                             <DatePicker
                               {...field}
-                              selected={values.contractDuration}
+                              selected={values.termination_date}
                               onChange={(date) => {
-                                setFieldValue("contractDuration", date);
+                                setFieldValue("termination_date", date);
                               }}
                               dateFormat="dd/MM/yyyy"
                               className="w-full max-w-[406px] rounded-[4px] text-[#6B7280] text-[14px] leading-[24px] tracking-[0.25px] font-Inter py-[12px] px-16 border border-solid border-[#D1D5DB] bg-[#FFFFFF]"
@@ -299,11 +337,11 @@ function ContractForms() {
               <div className="flex flex-wrap gap-4 justify-between items-center">
                 <ContractLabelForm label="Select notice period">
                   <div className="relative w-full max-w-[406px]">
-                    <Field name="noticePeriod">
-                      {({ field }) => (
+                    <Field name="notice_date">
+                      {({ ...field }) => (
                         <DatePicker
                           {...field}
-                          selected={values.noticePeriod}
+                          selected={values.notice_date}
                           dateFormat="dd/MM/yyyy"
                           className="w-full max-w-[406px] rounded-[4px] text-[#6B7280] text-[14px] leading-[24px] tracking-[0.25px] font-Inter py-[12px] px-16 border border-solid border-[#D1D5DB] bg-[#FFFFFF]"
                           placeholderText="Select a date"
@@ -311,7 +349,7 @@ function ContractForms() {
                           showYearDropdown
                           onBlur={handleBlur}
                           onChange={(date) =>
-                            setFieldValue("noticePeriod", date)
+                            setFieldValue("notice_date", date)
                           }
                         />
                       )}
@@ -350,7 +388,7 @@ function ContractForms() {
               </div>
 
               <div className="flex flex-wrap gap-4 justify-between items-baseline">
-                <ContractLabelForm label=" Upload attachedFiles">
+                <ContractLabelForm label=" Upload upload">
                   <button className="w-full max-w-[406px]">
                     <div className="relative">
                       <div className=" rounded-[4px] text-[#FFFFFF] text-[14px] leading-[24px] tracking-[0.25px] font-Inter py-[12px] px-3 border border-solid border-[#D1D5DB] bg-[#8E8FE1]">
@@ -365,26 +403,27 @@ function ContractForms() {
                             variant="white"
                             className="text-[14px] leading-[24px] tracking-[0.25px]  "
                           >
-                            {values?.attachedFiles.length === 0
-                              ? "Select attachedFiles"
-                              : `${values?.attachedFiles?.length} ${
-                                  values?.attachedFiles.length < 2
-                                    ? "file"
-                                    : "files"
+                            {values?.upload?.length === 0
+                              ? "Select upload"
+                              : `${values?.upload?.length} ${
+                                  values?.upload.length < 2 ? "file" : "files"
                                 } `}
                           </Typography>
                           <RiFolderUploadLine size={24} />
                           <input
-                            id="attachedFiles"
-                            name="attachedFiles"
+                            id="upload"
+                            name="upload"
                             type="file"
                             multiple
                             onChange={(event) => {
-                              const files = Array.from(event.target.files);
-                              setFieldValue("attachedFiles", [
-                                ...(values.attachedFiles || []),
-                                ...files,
-                              ]);
+                              const files = event.target.files;
+                              // ? Array.from(event.target.files)
+                              // : [];
+                              // setFieldValue("upload", [
+                              //   ...(values.upload || []),
+                              //   ...files,
+                              // ]);
+                              setFieldValue("upload", files);
                             }}
                             className="opacity-0 absolute top-0 left-0 h-full w-full cursor-pointer"
                           />
@@ -394,7 +433,7 @@ function ContractForms() {
                   </button>
                 </ContractLabelForm>
 
-                <ContractLabelForm label="Add Comment">
+                <ContractLabelForm label="Add comment">
                   <div className="relative w-full max-w-[406px]">
                     <Field
                       as="textarea"
@@ -416,15 +455,7 @@ function ContractForms() {
                   </div>
                 </ContractLabelForm>
 
-                <button
-                  onClick={() => {
-                    isValid === true &&
-                      router.push(
-                        "/contracts/[contractsDetail]",
-                        "/contracts/info"
-                      );
-                  }}
-                >
+                <button type="submit">
                   <Stack
                     alignItems="center"
                     className=" px-4 py-2.5 bg-[#112F82] rounded-[6px]"

@@ -192,7 +192,7 @@ const Index: FC = () => {
   return (
     <form onSubmit={handleSubmit}>
       <Formik initialValues={initialValues}>
-        <Stack direction="row" className="h-screen">
+        <Stack direction="row" className="h-screen flex flex-wrap">
           <Layout>
             <Wrapper>
               <div className="static flex w-full  ">

@@ -53,7 +53,7 @@ const ContractInfo = () => {
     );
   };
 
-  // console.log(AttachedFiles);
+  // console.log(upload);
 
   const CommentFN: FC<CommentProps> = ({ title, label }) => {
     return (
@@ -102,9 +102,9 @@ const ContractInfo = () => {
       </Stack>
     );
   };
-  const agreementDate = ContractInfo.agreementDate;
-  const contractDuration = ContractInfo.contractDuration;
-  const noticePeriod = ContractInfo.noticePeriod;
+  const agreement_date = ContractInfo.agreement_date;
+  const termination_date = ContractInfo.termination_date;
+  const notice_date = ContractInfo.notice_date;
 
   const formatedDate = (datee: any) => {
     const formatedDate = moment(datee).format("MMMM Do YYYY");
@@ -127,23 +127,23 @@ const ContractInfo = () => {
 
       <TheRest
         title="Contract Class:"
-        label={ContractInfo?.contractClass?.toLocaleString()}
+        label={ContractInfo?.class?.toLocaleString()}
       />
 
-      <TheRest title="Aggrement Date:" label={formatedDate(agreementDate)} />
+      <TheRest title="Aggrement Date:" label={formatedDate(agreement_date)} />
       <TheRest
         title="Contract Duration:"
-        label={`${formatedDate(agreementDate)} - ${formatedDate(
-          contractDuration
+        label={`${formatedDate(agreement_date)} - ${formatedDate(
+          termination_date
         )}`}
       />
-      <TheRest title="Notice Period:" label={formatedDate(noticePeriod)} />
+      <TheRest title="Notice Period:" label={formatedDate(notice_date)} />
       <TheRest title="Amount:" label={`$${ContractInfo?.amount}`} />
       <TheRest
         title="Attached Files:"
-        label={`${ContractInfo?.attachedFiles?.length} files`}
+        label={`${ContractInfo?.upload?.length} files`}
       />
-      <CommentFN title="Comment:" label={ContractInfo?.comment} />
+      <CommentFN title="comment:" label={ContractInfo?.comment} />
     </Stack>
   );
 };

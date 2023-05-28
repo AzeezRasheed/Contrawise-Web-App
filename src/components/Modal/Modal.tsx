@@ -1,7 +1,12 @@
 import React, { FC, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { MdClear } from "react-icons/md";
-import { SET_MODAL_OPEN } from "../../redux/modalSlice";
+import {
+  SET_LOGIN_MODAL_OPEN,
+  SET_LOGOUT_MODAL_OPEN,
+  SET_REGISTER_MODAL_OPEN,
+  SET_RESETP_MODAL_OPEN,
+} from "../../redux/modalSlice";
 import { useDispatch } from "react-redux";
 import Link from "next/link";
 
@@ -9,19 +14,19 @@ interface ModalProps {
   isOpen: boolean;
   title?: string;
   size?: "xs" | "lg" | undefined;
-  share?: () => void;
+  subtitle?: string;
   children: React.ReactNode;
 }
 
 const Modal: FC<ModalProps> = (props) => {
-  const { isOpen, title, size, share, children } = props;
+  const { isOpen, title, size, subtitle, children } = props;
 
   const dispatch = useDispatch();
-  const setIsOpen = dispatch(SET_MODAL_OPEN(true));
-  //   const setClose = dispatch(SET_MODAL_OPEN(false));
+  const setIsOpen = dispatch(SET_LOGOUT_MODAL_OPEN(true));
+  //   const setClose = dispatch(SET_LOGOUT_MODAL_OPEN(false));
 
   console.log(size);
-  const getSizeClasses = (size) => {
+  const getSizeClasses = (size: any) => {
     let utilities = "";
 
     if (size === "xs") {
@@ -44,15 +49,25 @@ const Modal: FC<ModalProps> = (props) => {
       <Transition show={isOpen} as={Fragment}>
         <Dialog
           as="div"
-          className="fixed z-50 flex items-center justify-center inset-0 overflow-y-auto"
-          onClose={() => dispatch(SET_MODAL_OPEN(false))}
+          className="fixed z-50 flex items-center justify-center inset-0 overflow-scroll"
+          onClose={() => {
+            dispatch(SET_LOGOUT_MODAL_OPEN(false));
+            dispatch(SET_LOGIN_MODAL_OPEN(false));
+            dispatch(SET_REGISTER_MODAL_OPEN(false));
+            dispatch(SET_RESETP_MODAL_OPEN(false));
+          }}
         >
           <Dialog.Overlay className="fixed inset-0 bg-neutral-800 bg-opacity-95 transition-opacity" />
 
           <button
             type="button"
             className={`absolute right-6 top-4 text-white text-2xl`}
-            onClick={() => dispatch(SET_MODAL_OPEN(false))}
+            onClick={() => {
+              dispatch(SET_LOGOUT_MODAL_OPEN(false));
+              dispatch(SET_LOGIN_MODAL_OPEN(false));
+              dispatch(SET_REGISTER_MODAL_OPEN(false));
+              dispatch(SET_RESETP_MODAL_OPEN(false));
+            }}
           >
             <MdClear />
           </button>
@@ -69,21 +84,20 @@ const Modal: FC<ModalProps> = (props) => {
             leaveTo="opacity-0"
           >
             <div
-              className={`flex items-center justify-center bg-white  border-1 border-[#B165E9] overflow-hidden shadow-xl transform transition-all align-middle w-3/4  md:w-full ${
+              className={`flex items-center justify-center  bg-[#F6F9FF] ${
+                size === "xs" && "border-1 border-[#B165E9] bg-white"
+              } overflow-scroll shadow-xl transform transition-all align-middle w-3/4  md:w-full ${
                 title ? "pt-10" : ""
               } ${getSizeClasses(size)}`}
             >
               {title && (
-                <div className="absolute top-0 w-full text-center border-b py-2 font-semibold">
+                <div className="absolute top-0 w-full  flex gap-2 flex-col text-center py-2 font-semibold">
                   <Dialog.Title className="inline-block">{title}</Dialog.Title>
-                  {share && (
-                    <Link
-                      href={"/"}
-                      className="absolute right-5 text-sky-500"
-                      onClick={share}
-                    >
-                      Share
-                    </Link>
+
+                  {subtitle && (
+                    <Dialog.Description className="inline-block">
+                      text
+                    </Dialog.Description>
                   )}
                 </div>
               )}

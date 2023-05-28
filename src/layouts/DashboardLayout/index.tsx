@@ -2,7 +2,7 @@ import { useState } from "react";
 import SidebarLeft from "../../components/Dashboard/SidebarLeft";
 import SidebarRight from "../../components/Dashboard/SidebarRight";
 import { DashboardLayoutProps } from "./interface";
-import { GetIsModalOpen } from "../../redux/modalSlice";
+import { GetIsLogoutModalOpen } from "../../redux/modalSlice";
 import ModalLogout from "../../components/Modal/ModalLogout";
 import { Drawer, IconButton } from "@mui/material";
 import { FaBell } from "react-icons/fa";
@@ -25,7 +25,7 @@ export default function Layout({ children }: DashboardLayoutProps) {
     setIsDrawerOpen(false);
   };
 
-  const modalIsOpen = GetIsModalOpen();
+  const modalIsOpen = GetIsLogoutModalOpen();
   return (
     <>
       {modalIsOpen && <ModalLogout isOpen={modalIsOpen} />}

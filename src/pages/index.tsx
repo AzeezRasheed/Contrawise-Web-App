@@ -23,8 +23,11 @@ import Image from "next/image";
 import CardCarousel from "../components/CardCarousel";
 import Collapsible from "../components/Collapsible";
 import { faq } from "../utilities/data";
+import { SET_LOGOUT_MODAL_OPEN } from "../redux/modalSlice";
+import { useDispatch } from "react-redux";
 
 const Home: NextPageWithLayout = () => {
+  const dispatch = useDispatch();
   return (
     <>
       <CommonHeader>
@@ -37,13 +40,19 @@ const Home: NextPageWithLayout = () => {
             <h1 className={styles.boldText}>{FIRST_SECTION_TITLE}</h1>
             <p>{FIRST_SECTION_DESCRIPTION}</p>
             <div className={styles.actionArea}>
-              <Button ripple className={styles.button} onClick={() => {}}>
-                <>
+              <Button
+                ripple
+                className={styles.button}
+                onClick={() => {
+                  dispatch(SET_LOGOUT_MODAL_OPEN(true));
+                }}
+              >
+                <div className="items-center flex justify-center">
                   <span>{GET_STARTED}</span>
                   <span>
                     <ArrowIcon color="#FFFF" />
                   </span>
-                </>
+                </div>
               </Button>
             </div>
           </div>

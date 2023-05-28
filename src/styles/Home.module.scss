@@ -7,6 +7,7 @@
     left: 110px;
     top: 1088px;
     transition: all 2s ease;
+    align-items: center;
     background: linear-gradient(90deg, $purple 7.84%, $blue 94.32%);
     &:active{
         background: linear-gradient(90deg, $blue 7.84%,  $purple 94.32%);

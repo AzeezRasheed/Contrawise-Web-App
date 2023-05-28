@@ -1,7 +1,12 @@
 import axios from "axios";
 import { toast } from "react-toastify";
+import { BACKEND_URL } from "../../config";
 
-export const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+console.log({ BACKEND_URL });
+
+const testing_uri = `${BACKEND_URL}/api/auth/login`;
+
+console.log(testing_uri);
 
 export const REGISTER_USER = async (formData: any) => {
   try {
@@ -33,6 +38,7 @@ export const LOGIN_USER = async (formData: any) => {
     if (response.status === 200) {
       toast.success("Welcome ☺️");
     }
+    console.log(response.data);
     return response.data;
   } catch (error: any) {
     const message =

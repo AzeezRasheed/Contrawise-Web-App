@@ -9,7 +9,7 @@ import Stack from "../Stack";
 import Typography from "../Typography";
 import "react-datepicker/dist/react-datepicker.css";
 import { createContractSchema } from "../../helper";
-import { contractClass, contractTag } from "../../data";
+import { contractTag, contractClass } from "../../data";
 import SelectForm from "../UI/SelectForm";
 import { ContractFormValues } from "../../utilities/types";
 import ContractLabelForm from "../UI/ContractLabelForm";
@@ -30,25 +30,21 @@ function ContractEditForm() {
 
   const initialValues = {
     parties: contractInfo?.parties ? contractInfo.parties : "",
-    contractTag: contractInfo?.contractTag ? contractInfo?.contractTag : "",
-    contractClass: contractInfo?.contractClass
-      ? contractInfo?.contractClass
-      : "",
-    agreementDate: new Date(),
-    contractDuration: new Date(),
-    noticePeriod: new Date(),
+    tag: contractInfo?.tag ? contractInfo?.tag : "",
+    class: contractInfo?.class ? contractInfo?.class : "",
+    agreement_date: new Date(),
+    termination_date: new Date(),
+    notice_date: new Date(),
     amount: contractInfo?.amount ? contractInfo?.amount : "",
     comment: contractInfo?.comment ? contractInfo?.comment : "",
-    attachedFiles: contractInfo?.attachedFiles
-      ? contractInfo?.attachedFiles
-      : [],
+    upload: contractInfo?.upload ? contractInfo?.upload : [],
   };
   const onSubmit = (values: ContractFormValues) => {
     const formData = new FormData();
     dispatch(SET_CONTRACT(values as ContractFormValues));
     console.log(values);
-    if (values.attachedFiles) {
-      formData.append("attachedFiles", values.attachedFiles);
+    if (values.upload) {
+      formData.append("upload", values.upload);
     }
     // Make a network request with the ContractLabelForm data
   };
@@ -195,33 +191,31 @@ function ContractEditForm() {
               <div className="flex flex-wrap gap-4 justify-between items-center">
                 <ContractLabelForm label="Select tags">
                   <SelectForm
-                    name="contractTag"
-                    label={`${contractInfo?.contractTag}`}
-                    options={contractTag}
-                    value={values.contractTag}
+                    name="tag"
+                    label={`${contractInfo?.tag}`}
+                    options={contractClass}
+                    value={values.tag}
                     onChange={handleChange}
-                    error={touched.contractTag && Boolean(errors.contractTag)}
+                    error={touched.tag && Boolean(errors.tag)}
                   />
-                  {touched.contractTag && errors.contractTag ? (
+                  {touched.tag && errors.tag ? (
                     <Typography as={"span"} className="text-sm text-error">
-                      {errors.contractTag}
+                      {errors.tag}
                     </Typography>
                   ) : null}
                 </ContractLabelForm>
                 <ContractLabelForm label="Select class">
                   <SelectForm
-                    name="contractClass"
-                    label={`${contractInfo?.contractClass}`}
-                    options={contractClass}
-                    value={values.contractClass}
+                    name="class"
+                    label={`${contractInfo?.class}`}
+                    options={contractTag}
+                    value={values.class}
                     onChange={handleChange}
-                    error={
-                      touched.contractClass && Boolean(errors.contractClass)
-                    }
+                    error={touched.class && Boolean(errors.class)}
                   />
-                  {touched.contractClass && errors.contractClass ? (
+                  {touched.class && errors.class ? (
                     <Typography as={"span"} className="text-sm text-error">
-                      {errors.contractClass}
+                      {errors.class}
                     </Typography>
                   ) : null}
                 </ContractLabelForm>
@@ -230,27 +224,27 @@ function ContractEditForm() {
               <div className="flex flex-wrap gap-4 justify-between items-center">
                 <ContractLabelForm label="Select agreement date">
                   <div className="relative w-full max-w-[406px]">
-                    <Field name="agreementDate" onBlur={handleBlur}>
+                    <Field name="agreement_date" onBlur={handleBlur}>
                       {({ field }: { field: FieldInputProps<any> }) => (
                         <DatePicker
                           {...field}
-                          selected={values.agreementDate}
+                          selected={values.agreement_date}
                           onChange={(date) =>
-                            setFieldValue("agreementDate", date)
+                            setFieldValue("agreement_date", date)
                           }
                           dateFormat="dd/MM/yyyy"
                           className="w-full max-w-[406px] rounded-[4px] text-[#6B7280] text-[14px] leading-[24px] tracking-[0.25px] font-Inter py-[12px] px-16 border border-solid border-[#D1D5DB] bg-[#FFFFFF]"
-                          placeholderText={`${contractInfo?.agreementDate}`}
+                          placeholderText={`${contractInfo?.agreement_date}`}
                           showMonthDropdown
                           showYearDropdown
                           dropdownMode="select"
                         />
                       )}
                     </Field>
-                    {/* {touched.agreementDate && errors.agreementDate ? (
+                    {/* {touched.agreement_date && errors.agreement_date ? (
                       <>
                         <Typography as={"span"} className="text-sm text-error">
-                          {errors.agreementDate}
+                          {errors.agreement_date}
                         </Typography>
                       </>
                     ) : null} */}
@@ -270,17 +264,17 @@ function ContractEditForm() {
                   <div className="relative w-full max-w-[406px]">
                     <>
                       <div className="relative w-full max-w-[406px]">
-                        <Field name="contractDuration" onBlur={handleBlur}>
+                        <Field name="termination_date" onBlur={handleBlur}>
                           {({ field }: { field: FieldInputProps<any> }) => (
                             <DatePicker
                               {...field}
-                              selected={values.contractDuration}
+                              selected={values.termination_date}
                               onChange={(date) => {
-                                setFieldValue("contractDuration", date);
+                                setFieldValue("termination_date", date);
                               }}
                               dateFormat="dd/MM/yyyy"
                               className="w-full max-w-[406px] rounded-[4px] text-[#6B7280] text-[14px] leading-[24px] tracking-[0.25px] font-Inter py-[12px] px-16 border border-solid border-[#D1D5DB] bg-[#FFFFFF]"
-                              placeholderText={`${contractInfo?.contractDuration}`}
+                              placeholderText={`${contractInfo?.termination_date}`}
                               showMonthDropdown
                               showYearDropdown
                               dropdownMode="select"
@@ -306,19 +300,19 @@ function ContractEditForm() {
               <div className="flex flex-wrap gap-4 justify-between items-center">
                 <ContractLabelForm label="Select notice period">
                   <div className="relative w-full max-w-[406px]">
-                    <Field name="noticePeriod">
+                    <Field name="notice_date">
                       {({ field }) => (
                         <DatePicker
                           {...field}
-                          selected={values.noticePeriod}
+                          selected={values.notice_date}
                           dateFormat="dd/MM/yyyy"
                           className="w-full max-w-[406px] rounded-[4px] text-[#6B7280] text-[14px] leading-[24px] tracking-[0.25px] font-Inter py-[12px] px-16 border border-solid border-[#D1D5DB] bg-[#FFFFFF]"
-                          placeholderText={`${contractInfo?.noticePeriod}`}
+                          placeholderText={`${contractInfo?.notice_date}`}
                           showMonthDropdown
                           showYearDropdown
                           onBlur={handleBlur}
                           onChange={(date) =>
-                            setFieldValue("noticePeriod", date)
+                            setFieldValue("notice_date", date)
                           }
                         />
                       )}
@@ -357,7 +351,7 @@ function ContractEditForm() {
               </div>
 
               <div className="flex flex-wrap gap-4 justify-between items-baseline">
-                <ContractLabelForm label=" Upload attachedFiles">
+                <ContractLabelForm label=" Upload upload">
                   <button className="w-full max-w-[406px]">
                     <div className="relative">
                       <div className=" rounded-[4px] text-[#FFFFFF] text-[14px] leading-[24px] tracking-[0.25px] font-Inter py-[12px] px-3 border border-solid border-[#D1D5DB] bg-[#8E8FE1]">
@@ -372,20 +366,19 @@ function ContractEditForm() {
                             variant="white"
                             className="text-[14px] leading-[24px] tracking-[0.25px]  "
                           >
-                            {values?.attachedFiles &&
-                              `${values?.attachedFiles.length} files`}
+                            {values?.upload && `${values?.upload.length} files`}
                           </Typography>
                           <RiFolderUploadLine size={24} />
                           <input
-                            id="attachedFiles"
-                            name="attachedFiles"
+                            id="upload"
+                            name="upload"
                             type="file"
                             multiple
                             // required
                             onChange={(event) => {
                               const files = Array.from(event.target.files);
-                              setFieldValue("attachedFiles", [
-                                ...(values.attachedFiles || []),
+                              setFieldValue("upload", [
+                                ...(values.upload || []),
                                 ...files,
                               ]);
                             }}
@@ -397,7 +390,7 @@ function ContractEditForm() {
                   </button>
                 </ContractLabelForm>
 
-                <ContractLabelForm label="Add Comment">
+                <ContractLabelForm label="Add comment">
                   <div className="relative w-full max-w-[406px]">
                     <Field
                       as="textarea"

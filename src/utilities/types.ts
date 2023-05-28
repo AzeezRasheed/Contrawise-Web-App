@@ -56,14 +56,14 @@ export interface AllPanelProps {
 
 export interface ContractFormValues {
   parties: string[];
-  contractTag: string;
-  contractClass: any;
-  agreementDate: any;
-  contractDuration: any;
-  noticePeriod: any;
+  tag: string;
+  customClass: string;
+  agreement_date: Date | null;
+  termination_date: Date | null;
+  notice_date: Date | null;
   amount: string;
   comment: string;
-  attachedFiles: any;
+  upload: any;
 }
 
 export interface LoginFormValues {
@@ -75,19 +75,31 @@ export interface SignupFormValues {
   first_name: string;
   last_name: string;
   email: string;
-  job_title: string;
+  company: string;
+  country: string;
+  industry: string;
   password: string;
-  password2: string;
+  phoneNumber: string;
+  confirm_password: string;
 }
 
 export interface ContractActionPayload {
   parties: string[];
-  contractTag: string;
-  contractClass: string;
-  agreementDate: any;
-  contractDuration: any;
-  noticePeriod: any;
+  tag: string;
+  customClass: string;
+  agreement_date: any;
+  termination_date: any;
+  notice_date: any;
   amount: string;
   comment: string;
-  attachedFiles: any;
+  upload: any;
+}
+
+export interface UserData {
+  first_name: string;
+  last_name: string;
+  email: string;
+  job_title: string;
+  org_admin: boolean;
+  org: number;
 }

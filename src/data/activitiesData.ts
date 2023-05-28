@@ -4,10 +4,10 @@ import UserImg2 from "../assets/images/User2.png";
 const data = [
   {
     id: 1,
-    img: UserImg1,
-    name: "Idoko Ichaba",
+    img: UserImg2,
+    name: "Samuel Adebisi",
     activity: "Created a Contract",
-    date: "11.00 am",
+    date: "11.29 am",
   },
   {
     id: 2,
@@ -20,7 +20,7 @@ const data = [
     id: 3,
     img: UserImg1,
     name: "Samuel Adebisi",
-    activity: "Viewed a Contract",
+    activity: "Created a Contract",
     date: "11.29 am",
   },
   {

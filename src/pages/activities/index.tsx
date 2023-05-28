@@ -13,7 +13,7 @@ const Card = styled.div`
   ${tw`
 w-full
 h-full
-max-w-[732px]
+// max-w-[1024px]
 bg-main
 rounded-[12px]
 items-center
@@ -86,11 +86,11 @@ const index: FC = () => {
                   <Stack
                     direction="row"
                     justifyContent="spacebetween"
-                    className="gap-10 flex-1 "
+                    className="gap-12 flex-1 "
                   >
                     <Typography
                       as={"span"}
-                      className="text-[#737588] leading-[14px] text-[9px] font-normal font-Inter"
+                      className="text-[#737588] leading-[14px] text-[9px] ml-2 font-normal font-Inter"
                     >
                       Activity
                     </Typography>
@@ -137,7 +137,7 @@ const index: FC = () => {
                     <Stack
                       direction="row"
                       justifyContent="spacebetween"
-                      className="gap-10 flex-1 "
+                      className="gap-10 flex-1 text-right  "
                     >
                       <Typography
                         as={"span"}

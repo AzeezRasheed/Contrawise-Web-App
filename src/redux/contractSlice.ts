@@ -3,25 +3,25 @@ import { useSelector } from "react-redux";
 
 interface ContractState {
   contract?: any;
-  contractTag: string;
-  contractClass: string;
-  agreementDate: any;
-  contractDuration: any;
-  noticePeriod: any;
+  tag: string;
+  customClass: string;
+  agreement_date: any;
+  termination_date: any;
+  notice_date: any;
   amount: string;
-  attachedFiles: any;
+  upload: any;
   comment: string;
 }
 
 type ContractActionPayload = {
   contract?: any;
-  contractTag: string;
-  agreementDate: any;
-  contractDuration: any;
-  noticePeriod: any;
+  tag: string;
+  agreement_date: any;
+  termination_date: any;
+  notice_date: any;
   amount: string;
   comment: string;
-  attachedFiles: any;
+  upload: any;
 };
 
 interface ContractAction {
@@ -31,13 +31,13 @@ interface ContractAction {
 
 const initialState: ContractState = {
   contract: {},
-  contractTag: "",
-  contractClass: "",
-  agreementDate: "",
-  contractDuration: "",
-  noticePeriod: "",
+  tag: "",
+  customClass: "",
+  agreement_date: "",
+  termination_date: "",
+  notice_date: "",
   amount: "",
-  attachedFiles: [],
+  upload: [],
   comment: "",
 };
 
@@ -52,13 +52,13 @@ const contractSlice = createSlice({
       const data = action.payload;
 
       state.contract = data.contract;
-      (state.agreementDate = data.agreementDate),
-        (state.contractTag = data.contractTag),
-        (state.agreementDate = data.agreementDate),
-        (state.contractDuration = data.contractDuration),
+      (state.agreement_date = data.agreement_date),
+        (state.tag = data.tag),
+        (state.agreement_date = data.agreement_date),
+        (state.termination_date = data.termination_date),
         (state.amount = data.amount),
         (state.comment = data.comment),
-        (state.attachedFiles = data.attachedFiles);
+        (state.upload = data.upload);
     },
   },
 });

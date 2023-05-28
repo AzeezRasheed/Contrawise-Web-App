@@ -2,7 +2,7 @@ import { Dialog } from "@headlessui/react";
 import React from "react";
 import Modal from "./Modal";
 import { useDispatch } from "react-redux";
-import { SET_MODAL_OPEN, GetIsModalOpen } from "../../redux/modalSlice";
+import { SET_LOGOUT_MODAL_OPEN, GetIsLogoutModalOpen } from "../../redux/modalSlice";
 import { useRouter } from "next/router";
 
 interface ModalLogoutProps {
@@ -13,8 +13,8 @@ const ModalLogout = (props: ModalLogoutProps) => {
   const { isOpen } = props;
   const dispatch = useDispatch();
   const router = useRouter();
-  //   const setClose = dispatch(SET_MODAL_OPEN(false));
-  console.log(GetIsModalOpen());
+  //   const setClose = dispatch(SET_LOGOUT_MODAL_OPEN(false));
+  console.log(GetIsLogoutModalOpen());
   return (
     <Modal isOpen={isOpen} size="xs">
       <div className="inline-block max-w-md w-full p-6 my-8 overflow-hidden text-center align-middle  ">
@@ -29,7 +29,7 @@ const ModalLogout = (props: ModalLogoutProps) => {
             type="button"
             className="inline-flex justify-center px-4 py-2 text-[14px]  font-normal font-Poppins text-[#000000] border-1 border-[#B165E9] rounded-md hover:bg-[] focus:outline-none focus:ring-2 focus:ring-offset-2 "
             onClick={() => {
-              dispatch(SET_MODAL_OPEN(false));
+              dispatch(SET_LOGOUT_MODAL_OPEN(false));
             }}
           >
             No

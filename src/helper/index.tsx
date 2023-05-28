@@ -15,14 +15,14 @@ export const createContractSchema = Yup.object().shape({
     .of(Yup.string().required("Party is required"))
     .min(2, "Must have at least two parties")
     .required("Parties are required"),
-  contractTag: Yup.string().required("Select Tags option is required"),
-  contractClass: Yup.string().required("Select Class option is required"),
-  agreementDate: Yup.date().required("Agreement date is required"),
-  contractDuration: Yup.date().required("Agreement duration is required"),
-  noticePeriod: Yup.date().required("Notice period is required"),
+  tag: Yup.string().required("Select Tags option is required"),
+  customClass: Yup.string().required("Select Class option is required"),
+  agreement_date: Yup.date().required("Agreement date is required"),
+  termination_date: Yup.date().required("Agreement duration is required"),
+  notice_date: Yup.date().required("Notice period is required"),
   amount: Yup.string().required("Amount is required"),
   comment: Yup.string(),
-  attachedFiles: Yup.mixed<AnyPresentValue>(),
+  upload: Yup.mixed<AnyPresentValue>(),
 });
 
 export const authLoginSchema = Yup.object().shape({
@@ -33,24 +33,31 @@ export const authLoginSchema = Yup.object().shape({
       "Invalid email address"
     )
     .required("Email is required"),
-  password: Yup.string().required("Password is required"),
+  password: Yup.string()
+    .required("Password is required")
+    .min(8, "Password must be at least 8 characters"),
 });
 
 export const signupLoginSchema = Yup.object().shape({
   first_name: Yup.string().required("first name is required"),
   last_name: Yup.string().required("last name is required"),
-  job_title: Yup.string().required("Job title is required"),
   email: Yup.string()
     .email("Invalid email address")
     .required("emali address is required"),
+  company: Yup.string().required("Company name is required"),
+  industry: Yup.string().required("Industry is required"),
+  country: Yup.string().required("Country is required"),
+  phone: Yup.string()
+    .matches(/^\+(?:[0-9]){1,3}[0-9-]{4,14}(?:x.+)?$/, "Invalid phone number")
+    .required("Phone number is required"),
   password: Yup.string()
     .required("Password is required")
     .min(8, "Password must be at least 8 characters"),
-  password2: Yup.string()
+  confirm_password: Yup.string()
     .required("Confirm your password")
     .oneOf([Yup.ref("password"), undefined], "Passwords must match"),
 });
-// attachedFiles: Yup.mixed<AnyPresentValue>().test(
+// upload: Yup.mixed<AnyPresentValue>().test(
 //   "fileSize",
 //   "File is too large",
 //   (value) => value && value.size <= 10000000 // 10MB
