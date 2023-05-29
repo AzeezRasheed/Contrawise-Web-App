@@ -23,13 +23,33 @@ import Image from "next/image";
 import CardCarousel from "../components/CardCarousel";
 import Collapsible from "../components/Collapsible";
 import { faq } from "../utilities/data";
-import { SET_LOGOUT_MODAL_OPEN } from "../redux/modalSlice";
+import {
+  GetIsLoginModalOpen,
+  GetIsRegisterModalOpen,
+  GetIsResetPModalOpen,
+  SET_LOGIN_MODAL_OPEN,
+  SET_LOGOUT_MODAL_OPEN,
+} from "../redux/modalSlice";
 import { useDispatch } from "react-redux";
+import ModalLogin from "../components/Modal/ModalLogin";
+import ModalRegister from "../components/Modal/ModalRegister";
+import ModalResetP from "../components/Modal/ModalResetP";
+import { useIsUserLoggedIn } from "../redux/authSlice";
+import { useRouter } from "next/router";
 
 const Home: NextPageWithLayout = () => {
+  const router = useRouter();
   const dispatch = useDispatch();
+  const isUserLoggedIn = useIsUserLoggedIn();
+  const modalLoginIsOpen = GetIsLoginModalOpen();
+  const modalResetPIsOpen = GetIsResetPModalOpen();
+  const modalRegisterIsOpen = GetIsRegisterModalOpen();
   return (
     <>
+      {modalLoginIsOpen && <ModalLogin isOpen={modalLoginIsOpen} />}
+      {modalRegisterIsOpen && <ModalRegister isOpen={modalRegisterIsOpen} />}
+      {modalResetPIsOpen && <ModalResetP isOpen={modalResetPIsOpen} />}
+
       <CommonHeader>
         <title>{HOME_TITLE}</title>
       </CommonHeader>
@@ -44,7 +64,9 @@ const Home: NextPageWithLayout = () => {
                 ripple
                 className={styles.button}
                 onClick={() => {
-                  dispatch(SET_LOGOUT_MODAL_OPEN(true));
+                  isUserLoggedIn
+                    ? router.push("/dashboard")
+                    : dispatch(SET_LOGIN_MODAL_OPEN(true));
                 }}
               >
                 <div className="items-center flex justify-center">
@@ -99,13 +121,21 @@ const Home: NextPageWithLayout = () => {
               <h1>{FOURTH_SECTION_TITLE}</h1>
               <p>{FOURTH_SECTION_DESCRIPTION}</p>
               <div className={styles.actionArea}>
-                <Button ripple className={styles.button} onClick={() => {}}>
-                  <>
+                <Button
+                  ripple
+                  className={styles.button}
+                  onClick={() => {
+                    isUserLoggedIn
+                      ? router.push("/dashboard")
+                      : dispatch(SET_LOGIN_MODAL_OPEN(true));
+                  }}
+                >
+                  <div className="items-center flex justify-center">
                     <span>{GET_STARTED}</span>
                     <span>
                       <ArrowIcon color="#FFFF" />
                     </span>
-                  </>
+                  </div>
                 </Button>
               </div>
             </div>

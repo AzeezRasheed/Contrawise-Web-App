@@ -38,6 +38,16 @@ export const authLoginSchema = Yup.object().shape({
     .min(8, "Password must be at least 8 characters"),
 });
 
+export const resetPasswordSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Invalid email address")
+    .matches(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+      "Invalid email address"
+    )
+    .required("Email is required"),
+});
+
 export const signupLoginSchema = Yup.object().shape({
   first_name: Yup.string().required("first name is required"),
   last_name: Yup.string().required("last name is required"),
@@ -47,7 +57,7 @@ export const signupLoginSchema = Yup.object().shape({
   company: Yup.string().required("Company name is required"),
   industry: Yup.string().required("Industry is required"),
   country: Yup.string().required("Country is required"),
-  phone: Yup.string()
+  phone_number: Yup.string()
     .matches(/^\+(?:[0-9]){1,3}[0-9-]{4,14}(?:x.+)?$/, "Invalid phone number")
     .required("Phone number is required"),
   password: Yup.string()

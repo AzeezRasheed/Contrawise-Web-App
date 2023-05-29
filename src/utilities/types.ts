@@ -71,6 +71,10 @@ export interface LoginFormValues {
   password: string;
 }
 
+export interface ResetPFormValues {
+  email: string;
+}
+
 export interface SignupFormValues {
   first_name: string;
   last_name: string;
@@ -79,7 +83,7 @@ export interface SignupFormValues {
   country: string;
   industry: string;
   password: string;
-  phoneNumber: string;
+  phone_number: string;
   confirm_password: string;
 }
 

@@ -19,6 +19,7 @@ import { RiLoginBoxLine } from "react-icons/ri";
 import {
   SET_LOGIN_MODAL_OPEN,
   SET_REGISTER_MODAL_OPEN,
+  SET_RESETP_MODAL_OPEN,
 } from "../../redux/modalSlice";
 
 const initialValues = {
@@ -75,9 +76,23 @@ const ModalLogin = (props: any) => {
             Sign in
           </Dialog.Title>
 
-          <Typography size="authSubTitle" variant="black">
-            Don’t have an account yet? sign up
-          </Typography>
+          <div className="flex flex-wrap gap-1 align-middle m-auto justify-center items-center">
+            <Typography size="authSubTitle" variant="black">
+              Don’t have an account yet?
+            </Typography>
+
+            <Button
+              ripple
+              onClick={() => {
+                dispatch(SET_LOGIN_MODAL_OPEN(false)),
+                  dispatch(SET_REGISTER_MODAL_OPEN(true));
+              }}
+            >
+              <span className="text-[20px] leading-[24px] font-normal font-Inter text-[#112F82] ">
+                sign up
+              </span>
+            </Button>
+          </div>
         </div>
 
         <form onSubmit={handleSubmit}>
@@ -87,7 +102,7 @@ const ModalLogin = (props: any) => {
                 <div className="w-full max-w-[507px] space-y-8">
                   <div className="mt-8 space-y-6 ">
                     <input type="hidden" name="remember" value="true" />
-                    <div className="flex flex-col -space-y-px rounded-md shadow-sm gap-10 text-start">
+                    <div className="flex flex-col -space-y-px rounded-md gap-10 text-start">
                       <div>
                         <label htmlFor="email-address">Email</label>
                         <input
@@ -139,7 +154,7 @@ const ModalLogin = (props: any) => {
                         ripple
                         onClick={() => {
                           dispatch(SET_LOGIN_MODAL_OPEN(false)),
-                            dispatch(SET_REGISTER_MODAL_OPEN(true));
+                            dispatch(SET_RESETP_MODAL_OPEN(true));
                         }}
                         className="text-[16px] flex flex-row font-medium text-black hover:text-indigo-700 "
                       >
@@ -150,20 +165,15 @@ const ModalLogin = (props: any) => {
                     </div>
 
                     <div className={styles.actionArea}>
-                      <Button
-                        ripple
-                        className={styles.button}
-                        onClick={() => {}}
-                      >
+                      <button type="submit" className={styles.button}>
                         <div className="items-center flex justify-center">
                           <span>Continue</span>
                           <span>
                             <ArrowIcon color="#FFFF" />
                           </span>
                         </div>
-                      </Button>
+                      </button>
                     </div>
-                    
                   </div>
                 </div>
               </div>

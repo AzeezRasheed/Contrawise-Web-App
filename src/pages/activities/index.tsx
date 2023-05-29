@@ -86,11 +86,11 @@ const index: FC = () => {
                   <Stack
                     direction="row"
                     justifyContent="spacebetween"
-                    className="gap-12 flex-1 "
+                    className="gap-10 flex-1 "
                   >
                     <Typography
                       as={"span"}
-                      className="text-[#737588] leading-[14px] text-[9px] ml-2 font-normal font-Inter"
+                      className="text-[#737588] leading-[14px] text-[9px] font-normal font-Inter"
                     >
                       Activity
                     </Typography>
@@ -111,7 +111,7 @@ const index: FC = () => {
                     direction="row"
                     justifyContent="spacebetween"
                     alignItems="center"
-                    className="gap-28 pr-8"
+                    className="md:gap-28 gap-10 pr-8"
                   >
                     <div>
                       <Stack
@@ -137,7 +137,7 @@ const index: FC = () => {
                     <Stack
                       direction="row"
                       justifyContent="spacebetween"
-                      className="gap-10 flex-1 text-right  "
+                      className="gap-10 flex-1 "
                     >
                       <Typography
                         as={"span"}

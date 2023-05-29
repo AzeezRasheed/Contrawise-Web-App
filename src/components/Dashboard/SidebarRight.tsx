@@ -14,7 +14,7 @@ const Container = styled.div`
   bg-white
   h-screen
   w-full
-  max-w-[216px]
+  // max-w-[216px]
   border
   border-solid
   border-[#ECECEC]
@@ -26,8 +26,7 @@ const Container = styled.div`
   right-0
   overflow-x-hidden
   z-50
-  absolute
-  sm:relative
+  relative
     `}
 `;
 

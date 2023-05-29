@@ -18,6 +18,10 @@ import ArrowIcon from "../../svgComponents/ArrowIcon";
 import { City, Country, State } from "country-state-city";
 import { FormControl } from "@mui/material";
 import Select from "react-select";
+import {
+  SET_LOGIN_MODAL_OPEN,
+  SET_REGISTER_MODAL_OPEN,
+} from "../../redux/modalSlice";
 
 const initialValues = {
   first_name: "",
@@ -27,7 +31,7 @@ const initialValues = {
   industry: "",
   country: "",
   password: "",
-  phoneNumber: "",
+  phone_number: "",
   confirm_password: "",
 };
 
@@ -36,7 +40,11 @@ const ModalRegister = (props: any) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
-
+  const IndustriesOptions = [
+    { label: "Option 1", value: "option1" },
+    { label: "Option 2", value: "option2" },
+    { label: "Option 3", value: "option3" },
+  ];
   const countries = Country.getAllCountries();
   const updatedCountries = countries.map((country) => ({
     label: country.name,
@@ -48,29 +56,36 @@ const ModalRegister = (props: any) => {
     setIsLoading(true);
     // Submit form logic here
     console.log(values);
-    const { first_name, last_name, email, company, industry, password } =
-      values;
-
+    const {
+      first_name,
+      last_name,
+      email,
+      company,
+      industry,
+      phone_number,
+      password,
+    } = values;
     try {
-      // const data = await REGISTER_USER({
-      //   first_name,
-      //   last_name,
-      //   email,
-      //   company,
-      //   industry,
-      //   password,
-      // });
-      // await dispatch(setUserData(data));
-      // const user_name = `${data.first_name} ${data.last_name}`;
-      // localStorage.setItem("user_name", JSON.stringify(user_name));
-      // await dispatch(setUsername(user_name));
-      // await dispatch(setLogin(true));
-      // // Store the bearer token in local storage
-      // localStorage.setItem("token", data.token);
-      // // Set the default Authorization header for Axios requests
-      // axios.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
-      // router.push("/dashboard");
-      // setIsLoading(false);
+      const data = await REGISTER_USER({
+        first_name,
+        last_name,
+        email,
+        company,
+        industry,
+        phone_number,
+        password,
+      });
+      await dispatch(setUserData(data));
+      const user_name = `${data.first_name} ${data.last_name}`;
+      localStorage.setItem("user_name", JSON.stringify(user_name));
+      await dispatch(setUsername(user_name));
+      await dispatch(setLogin(true));
+      // Store the bearer token in local storage
+      localStorage.setItem("token", data.token);
+      // Set the default Authorization header for Axios requests
+      axios.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
+      router.push("/dashboard");
+      setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
     }
@@ -93,7 +108,6 @@ const ModalRegister = (props: any) => {
   } = formik;
   return (
     <Modal isOpen={isOpen}>
-      {isLoading && <Spinner />}
       <div className=" flex flex-col gap-6  w-full p-6 mt-8 overflow-scroll text-center align-middle ">
         <div className="flex flex-col align-middle">
           <Dialog.Title
@@ -103,18 +117,34 @@ const ModalRegister = (props: any) => {
             Create an account
           </Dialog.Title>
 
-          <Typography size="authSubTitle" variant="black">
-            Already have an account? sign in
-          </Typography>
+          <div className="flex flex-wrap gap-1 align-middle m-auto justify-center items-center">
+            <Typography size="authSubTitle" variant="black">
+              Already have an account?
+            </Typography>
+
+            <Button
+              ripple
+              onClick={() => {
+                dispatch(SET_LOGIN_MODAL_OPEN(true)),
+                  dispatch(SET_REGISTER_MODAL_OPEN(false));
+              }}
+            >
+              <span className="text-[20px] leading-[24px] font-normal font-Inter text-[#112F82] ">
+                sign in
+              </span>
+            </Button>
+          </div>
         </div>
       </div>
       <form onSubmit={handleSubmit}>
+        {isLoading && <Spinner />}
+
         <Formik initialValues={initialValues} onSubmit={onSubmit}>
-          <div className="flex min-h-full items-center justify-center ">
+          <div className="flex min-h-full items-center justify-center px-4 ">
             <div className="w-full max-w-[507px] space-y-8">
               <div className="mt-8 space-y-6">
                 <input type="hidden" name="remember" value="true" />
-                <div className="flex flex-col -space-y-px rounded-md  gap-2 w-full pb-8 ">
+                <div className="flex flex-col -space-y-px rounded-md  gap-6 w-full pb-8 ">
                   {/* first_name and last_name */}
                   <div className="flex flex-wrap w-full gap-4 justify-between items-center ">
                     {/* first_name */}
@@ -134,7 +164,7 @@ const ModalRegister = (props: any) => {
                             ? "border-error"
                             : ""
                         }`}
-                        placeholder="Firstname"
+                        placeholder="First name"
                       />
                       {errors.first_name && touched.first_name && (
                         <div className="text-error text-sm mt-1">
@@ -159,7 +189,7 @@ const ModalRegister = (props: any) => {
                             ? "border-error"
                             : ""
                         }`}
-                        placeholder="Lastname"
+                        placeholder="Last name"
                       />
                       {errors.last_name && touched.last_name && (
                         <div className="text-error text-sm mt-1">
@@ -170,7 +200,7 @@ const ModalRegister = (props: any) => {
                   </div>
 
                   {/* Email Address */}
-                  <div>
+                  <div className="flex flex-col gap-2">
                     <label htmlFor="email">Email address</label>
                     <input
                       id="email"
@@ -193,7 +223,7 @@ const ModalRegister = (props: any) => {
                   </div>
 
                   {/* Company */}
-                  <div>
+                  <div className="flex flex-col gap-2">
                     <label htmlFor="company">Company</label>
                     <input
                       id="company"
@@ -215,69 +245,91 @@ const ModalRegister = (props: any) => {
                     )}
                   </div>
 
-                  {/* country */}
-                  <div>
-                  
+                  <div className="flex flex-wrap w-full gap-4 justify-between items-center ">
+                    {/* country and industry */}
+                    {/* Industry */}
+                    <div className="w-full md:max-w-[237px] flex flex-col gap-2">
+                      <label htmlFor="industry">Industry</label>
+                      <FormControl fullWidth>
+                        <Field
+                          component={Select}
+                          name="industry"
+                          id="industry"
+                          value={values.industry ? values.industry.value : ""}
+                          options={IndustriesOptions}
+                          onChange={(value: any) => {
+                            setValues((prevValues) => ({
+                              ...prevValues,
+                              industry: value.value,
+                            }));
+                          }}
+                          error={touched.industry && Boolean(errors.industry)}
+                          onBlur={handleBlur}
+                        />
+                      </FormControl>
+
+                      {errors.industry && touched.industry && (
+                        <div className="text-error text-sm mt-1">
+                          {errors.industry}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* country */}
+                    <div className="w-full md:max-w-[237px] flex flex-col gap-2">
                       <label htmlFor="country">Country</label>
-                     
-                   
                       <FormControl fullWidth>
                         <Field
                           component={Select}
                           name="country"
                           id="country"
-                          value={values.country ? values.country.isoCode : ""}
+                          value={values.country ? values.country.name : ""}
                           options={updatedCountries}
-                          onChange={(value:any) => {
+                          onChange={(value: any) => {
                             setValues((prevValues) => ({
                               ...prevValues,
-                              country: value.isoCode,
-                              state: null,
-                              city: null,
+                              country: value.name,
                             }));
-                            console.log(values.country);
                           }}
                           error={touched.country && Boolean(errors.country)}
                           onBlur={handleBlur}
                         />
                       </FormControl>
-                      {touched.country && errors.country ? (
-                        <Typography
-                          as={"span"}
-                          className="text-sm text-[#F75E54]"
-                        >
+                      {errors.country && touched.country && (
+                        <div className="text-error text-sm mt-1">
                           {errors.country}
-                        </Typography>
-                      ) : null}
+                        </div>
+                      )}
+                    </div>
                   </div>
 
-                  {/* Industry */}
-                  <div>
-                    <label htmlFor="industry">Industry</label>
+                  {/* Phone Number */}
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="phone_number">Phone Number</label>
                     <input
-                      id="industry"
-                      name="industry"
-                      type="text"
-                      value={values.industry}
-                      autoComplete="industry"
+                      id="phone_number"
+                      name="phone_number"
+                      type="phone_number"
+                      value={values.phone_number}
+                      autoComplete="phone_number"
                       onChange={handleChange}
                       onBlur={handleBlur}
                       className={`relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 ${
-                        errors.industry && touched.industry
+                        errors.phone_number && touched.phone_number
                           ? "border-error"
                           : ""
                       }`}
-                      placeholder="Organisation Id"
+                      placeholder="+234"
                     />
-                    {errors.industry && touched.industry && (
+                    {errors.phone_number && touched.phone_number && (
                       <div className="text-error text-sm mt-1">
-                        {errors.industry}
+                        {errors.phone_number}
                       </div>
                     )}
                   </div>
 
                   {/* Password */}
-                  <div>
+                  <div className="flex flex-col gap-2">
                     <label htmlFor="password">Password</label>
                     <input
                       id="password"
@@ -302,7 +354,7 @@ const ModalRegister = (props: any) => {
                   </div>
 
                   {/* Confirm Password */}
-                  <div>
+                  <div className="flex flex-col gap-2">
                     <label htmlFor="confirm_password">Confirm Password</label>
                     <input
                       id="confirm_password"
@@ -328,14 +380,14 @@ const ModalRegister = (props: any) => {
 
                 <div className="flex items-center justify-center m-auto p-4 ">
                   <div className={styles.actionArea}>
-                    <Button ripple className={styles.button} onClick={() => {}}>
+                    <button type="submit" className={styles.button}>
                       <div className="items-center flex justify-center">
                         <span>Continue</span>
                         <span>
                           <ArrowIcon color="#FFFF" />
                         </span>
                       </div>
-                    </Button>
+                    </button>
                   </div>
                 </div>
               </div>

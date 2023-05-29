@@ -25,7 +25,6 @@ const Modal: FC<ModalProps> = (props) => {
   const setIsOpen = dispatch(SET_LOGOUT_MODAL_OPEN(true));
   //   const setClose = dispatch(SET_LOGOUT_MODAL_OPEN(false));
 
-  console.log(size);
   const getSizeClasses = (size: any) => {
     let utilities = "";
 
@@ -86,7 +85,7 @@ const Modal: FC<ModalProps> = (props) => {
             <div
               className={`flex items-center justify-center  bg-[#F6F9FF] ${
                 size === "xs" && "border-1 border-[#B165E9] bg-white"
-              } overflow-scroll shadow-xl transform transition-all align-middle w-3/4  md:w-full ${
+              } overflow-scroll shadow-xl transform transition-all align-middle w-[90%] md:w-full ${
                 title ? "pt-10" : ""
               } ${getSizeClasses(size)}`}
             >

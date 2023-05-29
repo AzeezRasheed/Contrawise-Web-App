@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import {
   GetIsLoginModalOpen,
   GetIsRegisterModalOpen,
+  GetIsResetPModalOpen,
   SET_LOGIN_MODAL_OPEN,
   SET_LOGOUT_MODAL_OPEN,
 } from "../../redux/modalSlice";
@@ -22,17 +23,20 @@ import ModalLogout from "../Modal/ModalLogout";
 import ModalLogin from "../Modal/ModalLogin";
 import { useIsUserLoggedIn } from "../../redux/authSlice";
 import ModalRegister from "../Modal/ModalRegister";
+import ModalResetP from "../Modal/ModalResetP";
 
 const Hero: FC = () => {
   const dispatch = useDispatch();
   const modalLoginIsOpen = GetIsLoginModalOpen();
   const modalRegisterIsOpen = GetIsRegisterModalOpen();
+  const modalResetPIsOpen = GetIsResetPModalOpen();
   const router = useRouter();
   const isUserLoggedIn = useIsUserLoggedIn();
   return (
     <div className={styles.hero}>
       {modalLoginIsOpen && <ModalLogin isOpen={modalLoginIsOpen} />}
       {modalRegisterIsOpen && <ModalRegister isOpen={modalRegisterIsOpen} />}
+      {modalResetPIsOpen && <ModalResetP isOpen={modalResetPIsOpen} />}
       <div className="w-100 h-100 position-relative">
         <Image
           src="/images/transparent__plate.png"

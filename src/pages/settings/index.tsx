@@ -41,7 +41,8 @@ overflow-y-scroll
 bg-[#F7F9FB]
 shadow-2xl
 w-full
-max-w-[841px]
+md:max-w-[841px]
+// max-w-[350px]
 h-full
 md:h-[628px]
 border
@@ -49,7 +50,7 @@ border-solid
 border-[#ECECEC]
 rounded-[12px]
 p-3
-ml-6
+lg:ml-6
 mt-6 
 
 `}
@@ -107,7 +108,7 @@ const Index: FC = () => {
         onClick={() => {
           setActiveTab(tab.id);
         }}
-        className="w-full max-w-[167px] "
+        className="w-full md:max-w-[167px] "
       >
         <Stack
           className={`items-start  border-l-[3px] ${
@@ -191,7 +192,7 @@ const Index: FC = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Formik initialValues={initialValues}>
+      <Formik onSubmit={onSubmit} initialValues={initialValues}>
         <Stack direction="row" className="h-screen flex flex-wrap">
           <Layout>
             <Wrapper>
@@ -201,17 +202,17 @@ const Index: FC = () => {
                 </div>
               </div>
               <Card>
-                <div className=" flex flex-row gap-4 w-full flex-wrap">
+                <div className=" flex flex-col gap-4 w-full md:flex-row">
                   <Stack
                     direction="column"
                     alignItems="start"
                     justifyContent="start"
-                    className="gap-10 text-start w-full max-w-[167px] "
+                    className="gap-10 text-start w-full md:max-w-[167px] "
                   >
                     <Stack
                       justifyContent="start"
                       alignItems="start"
-                      className="ml-4 pt-3 text-start w-full max-w-[167px]  "
+                      className="ml-4 pt-3 text-start w-full md:max-w-[167px]  "
                     >
                       <Typography
                         variant="bold"
@@ -221,7 +222,10 @@ const Index: FC = () => {
                       </Typography>
                     </Stack>
 
-                    <Stack direction="column" className="w-full max-w-[167px]">
+                    <Stack
+                      direction="column"
+                      className="w-full md:max-w-[167px]"
+                    >
                       {renderTabs()}
                     </Stack>
                   </Stack>

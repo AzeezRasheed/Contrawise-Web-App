@@ -2,7 +2,10 @@ import { Dialog } from "@headlessui/react";
 import React from "react";
 import Modal from "./Modal";
 import { useDispatch } from "react-redux";
-import { SET_LOGOUT_MODAL_OPEN, GetIsLogoutModalOpen } from "../../redux/modalSlice";
+import {
+  SET_LOGOUT_MODAL_OPEN,
+  GetIsLogoutModalOpen,
+} from "../../redux/modalSlice";
 import { useRouter } from "next/router";
 
 interface ModalLogoutProps {
@@ -39,7 +42,8 @@ const ModalLogout = (props: ModalLogoutProps) => {
             className="inline-flex justify-center px-4 py-2 text-[14px]  font-normal font-Poppins text-[#000000] border-1 border-[#B165E9] rounded-md hover:bg-[] focus:outline-none focus:ring-2 focus:ring-offset-2 "
             onClick={() => {
               console.log("Logout confirmed");
-              router.push("/auth/login");
+              dispatch(SET_LOGOUT_MODAL_OPEN(false));
+              router.push("/");
             }}
           >
             Yes
