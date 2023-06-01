@@ -1,21 +1,13 @@
 import React, { FC, useState } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
-
 import Layout from "../../layouts/DashboardLayout";
 import Stack from "../../components/Stack";
 import Header from "../../components/Dashboard/Header";
 import Footer from "../../components/Dashboard/Footer";
 import Typography from "../../components/Typography";
 import Button from "../../components/Button";
-import {
-  Formik,
-  Field,
-  FieldArray,
-  useFormik,
-  FieldInputProps,
-  useField,
-} from "formik";
+import { Formik, useFormik } from "formik";
 import UserSettings from "../../components/Settings/UserSettings";
 import ContractSettings from "../../components/Settings/ContractSettings";
 import PartiesSettings from "../../components/Settings/PartiesSettings";

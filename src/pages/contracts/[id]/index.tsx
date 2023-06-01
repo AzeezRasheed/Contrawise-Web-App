@@ -12,7 +12,6 @@ import Typography from "../../../components/Typography";
 import { BsArrowDown, BsBookmarkCheck } from "react-icons/bs";
 import { BiEditAlt } from "react-icons/bi";
 import { useRouter } from "next/router";
-import { GetShowContractInfo } from "../../../redux/contractSlice";
 import { useDispatch } from "react-redux";
 import { GET_CONTRACT } from "../../../services/contractServices";
 import Spinner from "../../../components/Loader/Spinner";

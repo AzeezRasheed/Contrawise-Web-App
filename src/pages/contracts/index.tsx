@@ -2,17 +2,11 @@ import React, { useEffect, useState } from "react";
 import Stack from "../../components/Stack";
 import Layout from "../../layouts/DashboardLayout";
 import Header from "../../components/Dashboard/Header";
-import Image from "next/image";
 import Footer from "../../components/Dashboard/Footer";
 import styled from "styled-components";
 import tw from "twin.macro";
 import Button from "../../components/Button";
 import Typography from "../../components/Typography";
-import AllData from "../../data/allData";
-import DraftsData from "../../data/draftData";
-import ExecutedData from "../../data/executedData";
-import AtRiskData from "../../data/atRiskData";
-import ArchiveData from "../../data/archiveData";
 import DraftPanel from "../../components/Dashboard/DraftPanel";
 import ExecutedPanel from "../../components/Dashboard/ExecutedPanel";
 import ArchievePanel from "../../components/Dashboard/ArchievePanel";
@@ -25,7 +19,6 @@ import {
   GetShowDraftInfo,
   GetShowExecutedInfo,
 } from "../../redux/contractSlice";
-import { GET_CONTRACTS } from "../../services/contractServices";
 
 const Wrapper = styled.div`
   ${tw`
