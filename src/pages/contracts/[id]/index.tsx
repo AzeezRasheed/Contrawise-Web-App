@@ -80,7 +80,7 @@ function Index() {
       }
     };
     fetchData();
-  }, []);
+  }, [router.query]);
 
   return (
     <Stack direction="row" className="h-screen">

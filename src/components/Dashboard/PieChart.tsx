@@ -120,12 +120,14 @@ const PieChart = () => {
     <div className="flex flex-col  gap-3  ">
       <DoughnutChart data={chartData} options={options} />
       {data &&
-        data.map((data) => (
-          <LegendItem
+        data.map((data,i) => (
+        <div key={i}>
+            <LegendItem
             color={data.color}
             name={data.tagName}
             detail={data.percentage}
           />
+        </div>
         ))}
     </div>
   );

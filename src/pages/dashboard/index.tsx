@@ -129,7 +129,7 @@ const Index: FC = () => {
     };
 
     fetchData();
-  }, []);
+  }, [dispatch]);
 
   // Filter for draft
   useEffect(() => {
@@ -139,7 +139,7 @@ const Index: FC = () => {
         contract.class.toLowerCase().includes("draft".toLowerCase())
     );
     dispatch(SET_DRAFT(filteredCollection));
-  }, [contracts]);
+  }, [contracts, dispatch]);
 
   // Filter for executed
   useEffect(() => {
@@ -149,7 +149,7 @@ const Index: FC = () => {
         contract.class.toLowerCase().includes("executed".toLowerCase())
     );
     dispatch(SET_EXECUTED(filteredCollection));
-  }, [contracts]);
+  }, [contracts, dispatch]);
 
   // Filter for at_risk
   useEffect(() => {
@@ -159,7 +159,7 @@ const Index: FC = () => {
         contract.class.toLowerCase().includes("at-risk".toLowerCase())
     );
     dispatch(SET_AT_RISK(filteredCollection));
-  }, [contracts]);
+  }, [contracts, dispatch]);
 
   // Filter for archived
   useEffect(() => {
@@ -169,7 +169,7 @@ const Index: FC = () => {
         contract.class.toLowerCase().includes("archived".toLowerCase())
     );
     dispatch(SET_ARCHIVED(filteredCollection));
-  }, [contracts]);
+  }, [contracts, dispatch]);
 
   const draft = GetShowDraftInfo();
   const executed = GetShowExecutedInfo();

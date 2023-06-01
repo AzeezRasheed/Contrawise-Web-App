@@ -35,7 +35,7 @@ const Wrapper = styled.div`
   flex-col
 `}
 `;
-const index: FC = () => {
+const Index: FC = () => {
   const [isLoading, setLoading] = useState(false);
   const contracts = GetShowContractsInfo();
   console.log(contracts);
@@ -136,9 +136,9 @@ const index: FC = () => {
 
                   {/* This is where we map all the values of the user coming from the backend */}
                   {/* user datas */}
-                  {sortedContracts.map((contract, index) => (
+                  {sortedContracts.map((contract, Index) => (
                     <Stack
-                      key={index}
+                      key={Index}
                       direction="row"
                       justifyContent="spacebetween"
                       alignItems="center"
@@ -210,4 +210,4 @@ const index: FC = () => {
   );
 };
 
-export default index;
+export default Index;
