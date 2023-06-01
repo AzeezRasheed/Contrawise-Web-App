@@ -7,6 +7,9 @@ import { Provider } from "react-redux";
 import store from "../redux/store";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import setAuthorizationToken from "../helper/useAuthorizationToken";
+import { setLogin } from "../redux/authSlice";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 function ContraApp({ Component, pageProps }: AppProps) {
   const getLayout =
@@ -15,6 +18,7 @@ function ContraApp({ Component, pageProps }: AppProps) {
         getLayout: (page: ReactNode) => ReactNode;
       }
     ).getLayout || ((page: ReactNode) => page);
+
   return getLayout(
     <Provider store={store}>
       <Component {...pageProps} />

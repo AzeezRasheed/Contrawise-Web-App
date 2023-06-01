@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 import Layout from "../../layouts/DashboardLayout";
@@ -12,10 +12,27 @@ import data from "../../data/dashboardData";
 import userData from "../../components/Dashboard/dummiedata";
 import { Chart } from "react-google-charts";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
+import PieChart from "../../components/Dashboard/PieChart";
+import { useDispatch } from "react-redux";
+import { GET_CONTRACTS } from "../../services/contractServices";
+import {
+  GetShowArchivedInfo,
+  GetShowAtRiskInfo,
+  GetShowContractsInfo,
+  GetShowDraftInfo,
+  GetShowExecutedInfo,
+  SET_ARCHIVED,
+  SET_AT_RISK,
+  SET_CONTRACTS,
+  SET_DRAFT,
+  SET_EXECUTED,
+} from "../../redux/contractSlice";
+import Spinner from "../../components/Loader/Spinner";
 
 const Boxs = styled.div`
   ${tw`
-w-[232px]
+w-full
+md:w-[232px]
 h-[92px]
 border 
 border-solid
@@ -91,192 +108,278 @@ const Box: FC<BoxProp> = ({ label, color, number }) => (
   </Boxs>
 );
 const Index: FC = () => {
-  const options = {
-    title: "Project Status",
-  };
+  const dispatch = useDispatch();
+  // const user_name = useLocalStorage("user_name", "", true);
+  const [isLoading, setLoading] = useState(false);
+  const contracts = GetShowContractsInfo();
 
-  const chartdata = [
-    ["Task", "Hours per Day"],
-    ["Drafts", 11],
-    ["Executed", 2],
-    ["At Risk", 2],
-    ["Achieve", 7],
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const data = await GET_CONTRACTS();
+        if (data) {
+          setLoading(false);
+          dispatch(SET_CONTRACTS(data));
+        }
+      } catch (error) {
+        setLoading(false);
+        // Handle the error appropriately
+      }
+    };
 
-  const user_name = useLocalStorage("user_name", "", true);
-  console.log({ user_name });
+    fetchData();
+  }, []);
+
+  // Filter for draft
+  useEffect(() => {
+    const filteredCollection = contracts.filter(
+      (contract: any) =>
+        contract?.class &&
+        contract.class.toLowerCase().includes("draft".toLowerCase())
+    );
+    dispatch(SET_DRAFT(filteredCollection));
+  }, [contracts]);
+
+  // Filter for executed
+  useEffect(() => {
+    const filteredCollection = contracts.filter(
+      (contract: any) =>
+        contract?.class &&
+        contract.class.toLowerCase().includes("executed".toLowerCase())
+    );
+    dispatch(SET_EXECUTED(filteredCollection));
+  }, [contracts]);
+
+  // Filter for at_risk
+  useEffect(() => {
+    const filteredCollection = contracts.filter(
+      (contract: any) =>
+        contract?.class &&
+        contract.class.toLowerCase().includes("at-risk".toLowerCase())
+    );
+    dispatch(SET_AT_RISK(filteredCollection));
+  }, [contracts]);
+
+  // Filter for archived
+  useEffect(() => {
+    const filteredCollection = contracts.filter(
+      (contract: any) =>
+        contract?.class &&
+        contract.class.toLowerCase().includes("archived".toLowerCase())
+    );
+    dispatch(SET_ARCHIVED(filteredCollection));
+  }, [contracts]);
+
+  const draft = GetShowDraftInfo();
+  const executed = GetShowExecutedInfo();
+  const at_risk = GetShowAtRiskInfo();
+  const archived = GetShowArchivedInfo();
+
+  // Create a copy of contracts array
+  const contractsCopy = [...contracts];
+
+  // Sort contracts by created_at in descending order
+  const sortedContracts = contractsCopy.sort(
+    (a: any, b: any) => new Date(b.created_at) - new Date(a.created_at)
+  );
+
+  // Get the first ten contracts
+  const firstTenContracts = sortedContracts.slice(0, 10);
+
   return (
     <Stack direction="row" className="h-screen">
       <Layout>
         <Dashboard>
-          <Stack
-            direction="column"
-            alignItems="center"
-            className="m-auto px-3 py-4"
-          >
+          {isLoading ? (
+            <Spinner />
+          ) : (
             <Stack
-              direction="row"
+              direction="column"
               alignItems="center"
-              className="flex-wrap gap-3 mb-4"
+              justifyContent="center"
+              className="m-auto px-3 py-4"
             >
-              <Box label="Drafts" color="#E8E9F7" number={10} />
-              <Box label="Executed" color="#D9DAF5" number={300} />
-              <Box label="At Risk" color="#BCBDF5" number={500} />
-              <Box label="Archive" color="#8E8FE1" number={500} />
-            </Stack>
-            <Stack
-              direction="row"
-              alignItems="center"
-              justifyContent="spacebetween"
-              className="flex flex-wrap gap-2 "
-            >
-              <Chart
-                chartType="PieChart"
-                data={chartdata}
-                options={{
-                  legend: { position: "bottom" },
-                  title: "Project Status",
-                  // other options...
-                }}
-                // width={"50%"}
-                height={"400px"}
-                legendToggle
-              />
+              <Stack
+                direction="row"
+                alignItems="center"
+                className="flex-wrap justify-between   gap-3 mb-4"
+              >
+                <Box label="Drafts" color="#E8E9F7" number={draft.length} />
+                <Box
+                  label="Executed"
+                  color="#D9DAF5"
+                  number={executed.length}
+                />
+                <Box label="At Risk" color="#BCBDF5" number={at_risk.length} />
+                <Box label="Archive" color="#8E8FE1" number={archived.length} />
+              </Stack>
 
-              <Card>
-                <Stack
-                  direction="column"
-                  alignItems="center"
-                  className="p-3 gap-2"
-                >
-                  {/* Activities --->>> Header */}
-                  <Stack
-                    direction="row"
-                    justifyContent="spacebetween"
-                    alignItems="center"
+              {/* Pie Chart */}
+              <Stack
+                direction="row"
+                alignItems="baseline"
+                justifyContent="center"
+                className="flex flex-wrap gap-10 m-auto   "
+              >
+                <div className="  bg-main rounded-[12px] items-center px-4 py-3 gap-2 ">
+                  <Typography
+                    as={"h3"}
+                    variant="bold"
+                    className="leading-[15px] text-[10px] font-bold font-Inter"
                   >
-                    <Typography
-                      as={"h3"}
-                      variant="bold"
-                      className="leading-[15px] text-[10px] font-bold font-Inter"
-                    >
-                      Activities
-                    </Typography>
-                    <div></div>
-                  </Stack>
-                  {/* by,activities,time -->>> Description */}
-
+                    Project Status
+                  </Typography>
+                  <PieChart />
+                </div>
+                <Card>
                   <Stack
-                    direction="row"
-                    justifyContent="spacebetween"
+                    direction="column"
                     alignItems="center"
-                    className="gap-28 pl-2 pr-12 border-b border-solid border-b-[#ECECEC] "
+                    className="p-3 gap-2"
                   >
-                    <div className="w-[90px]">
-                      <Typography
-                        as={"span"}
-                        className="text-[#737588] leading-[14px] text-[9px] font-normal font-Inter"
-                      >
-                        By
-                      </Typography>
-                    </div>
-
+                    {/* Activities --->>> Header */}
                     <Stack
-                      direction="row"
-                      justifyContent="spacebetween"
-                      className="gap-10 flex-1 "
-                    >
-                      <Typography
-                        as={"span"}
-                        className="text-[#737588] leading-[14px] text-[9px] font-normal font-Inter"
-                      >
-                        Activity
-                      </Typography>
-                    </Stack>
-                    <Typography
-                      as={"span"}
-                      className="text-[#737588] leading-[14px] text-[9px] font-normal font-Inter"
-                    >
-                      Time
-                    </Typography>
-                  </Stack>
-
-                  {/* This is where we map all the values of the user coming from the backend */}
-                  {/* user datas */}
-                  {data.map((user, index) => (
-                    <Stack
-                      key={index}
                       direction="row"
                       justifyContent="spacebetween"
                       alignItems="center"
-                      className="md:gap-28 gap-10 pr-8"
                     >
-                      <div>
-                        <Stack
-                          direction="row"
-                          alignItems="center"
-                          className="gap-2"
+                      <Typography
+                        as={"h3"}
+                        variant="bold"
+                        className="leading-[15px] text-[10px] font-bold font-Inter"
+                      >
+                        Activities
+                      </Typography>
+                      <div></div>
+                    </Stack>
+                    {/* by,activities,time -->>> Description */}
+
+                    <Stack
+                      direction="row"
+                      justifyContent="spacebetween"
+                      alignItems="center"
+                      className="gap-28 pl-2 pr-12 border-b border-solid border-b-[#ECECEC] "
+                    >
+                      <div className=" w-[50px]  md:w-[130px]">
+                        <Typography
+                          as={"span"}
+                          className="text-[#737588] leading-[14px] text-[9px] font-normal font-Inter"
                         >
-                          <Image
-                            src={user.img}
-                            alt="User"
-                            className="w-8 h-8 rounded-full"
-                          />
-                          <Typography
-                            as={"span"}
-                            variant="black"
-                            className=" leading-[14px] text-[9px] font-normal font-Inter"
-                          >
-                            {user.name}
-                          </Typography>
-                        </Stack>
+                          By
+                        </Typography>
                       </div>
 
                       <Stack
                         direction="row"
                         justifyContent="spacebetween"
-                        className="gap-10 flex-1 "
+                        className="gap-10 flex-1 w-full "
                       >
                         <Typography
                           as={"span"}
                           className="text-[#737588] leading-[14px] text-[9px] font-normal font-Inter"
                         >
-                          {user.activity}
+                          Activity
                         </Typography>
                         <Typography
                           as={"span"}
-                          variant="black"
-                          className=" leading-[14px] text-[9px] font-normal font-Inter"
+                          className="text-[#737588] leading-[14px] text-[9px] font-normal font-Inter"
                         >
-                          {user.date}
+                          Time
                         </Typography>
                       </Stack>
                     </Stack>
-                  ))}
-                </Stack>
-              </Card>
-            </Stack>
 
-            {/* Recent contracts table */}
-            <Stack direction="column" alignItems="center" className="gap-3 ">
-              <Stack
-                direction="row"
-                justifyContent="spacebetween"
-                alignItems="center"
-              >
-                <Typography
-                  as={"h3"}
-                  variant="bold"
-                  className=" leading-[15px] text-[11px]  font-bold font-Inter"
-                >
-                  Recent contracts
-                </Typography>
-                <div></div>
+                    {/* This is where we map all the values of the user coming from the backend */}
+                    {/* user datas */}
+                    {firstTenContracts.map((contract, index) => (
+                      <Stack
+                        key={index}
+                        direction="row"
+                        justifyContent="spacebetween"
+                        alignItems="center"
+                        className="md:gap-28 gap-10 pr-8"
+                      >
+                        <div className="flex w-[130px] ">
+                          <Stack
+                            direction="row"
+                            alignItems="center"
+                            justifyContent="start"
+                            className="gap-2 "
+                          >
+                            {/* <Image
+                              src={user.img}
+                              alt="User"
+                              className="w-8 h-8 rounded-full"
+                            /> */}
+                            <Typography
+                              as={"span"}
+                              variant="black"
+                              className=" leading-[14px] text-[9px] font-normal font-Inter"
+                            >
+                              {contract?.user?.first_name}{" "}
+                              {contract?.user?.last_name}
+                            </Typography>
+                          </Stack>
+                        </div>
+
+                        <Stack
+                          direction="row"
+                          justifyContent="spacebetween"
+                          className="gap-10 flex-1  "
+                        >
+                          <Typography
+                            as={"span"}
+                            className="text-[#737588] leading-[14px] text-[9px] font-normal font-Inter"
+                          >
+                            created a contract
+                          </Typography>
+                          <Typography
+                            as={"span"}
+                            variant="black"
+                            className=" leading-[14px] text-[9px] font-normal font-Inter"
+                          >
+                            {new Date(contract?.created_at).toLocaleTimeString(
+                              [],
+                              {
+                                hour: "numeric",
+                                minute: "numeric",
+                                hour12: true,
+                              }
+                            )}
+                          </Typography>
+                        </Stack>
+                      </Stack>
+                    ))}
+                  </Stack>
+                </Card>
               </Stack>
 
-              <DashboardContractTable userData={userData} />
+              {/* Recent contracts table */}
+              <Stack
+                direction="column"
+                alignItems="center"
+                className="gap-3 mt-4 "
+              >
+                <Stack
+                  direction="row"
+                  justifyContent="spacebetween"
+                  alignItems="center"
+                >
+                  <Typography
+                    as={"h3"}
+                    variant="bold"
+                    className=" leading-[15px] text-[11px]  font-bold font-Inter"
+                  >
+                    Recent contracts
+                  </Typography>
+                  <div></div>
+                </Stack>
+
+                <DashboardContractTable userData={firstTenContracts} />
+              </Stack>
             </Stack>
-          </Stack>
+          )}
         </Dashboard>
       </Layout>
     </Stack>

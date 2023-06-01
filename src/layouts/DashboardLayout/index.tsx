@@ -9,12 +9,14 @@ import { FaBell } from "react-icons/fa";
 import { GoThreeBars } from "react-icons/go";
 import { useResponsive } from "use-responsive";
 import { useMediaQuery } from "react-responsive";
+import { GET_CONTRACTS } from "../../services/contractServices";
+import { useDispatch } from "react-redux";
+import { SET_CONTRACTS } from "../../redux/contractSlice";
 // components/layout.js
 
 export default function Layout({ children }: DashboardLayoutProps) {
   const isMobile = useMediaQuery({ maxWidth: "640px" });
-
-  const [isLeftMobileMenuOpen, setIsLeftMobileMenuOpen] = useState(false);
+  const [isLeftMobileMenuOpen, setIsLeftMobileMenuOpen] = useState(true);
 
   const toggleLeftMobileMenu = () =>
     setIsLeftMobileMenuOpen(!isLeftMobileMenuOpen);
@@ -32,7 +34,7 @@ export default function Layout({ children }: DashboardLayoutProps) {
   };
 
   const modalIsOpen = GetIsLogoutModalOpen();
-  console.log(isMobile);
+
   return (
     <>
       {modalIsOpen && <ModalLogout isOpen={modalIsOpen} />}

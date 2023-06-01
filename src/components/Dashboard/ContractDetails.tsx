@@ -1,9 +1,11 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Stack from "../Stack";
 import { splitedAlphabet } from "../../helper";
 import Typography from "../Typography";
 import { GetShowContractInfo } from "../../redux/contractSlice";
 import moment from "moment";
+import { useRouter } from "next/router";
+import { GET_CONTRACT } from "../../services/contractServices";
 
 interface PartyProps {
   label: string;
@@ -26,9 +28,9 @@ interface TheRestProps {
 //   };
 // }
 
-const ContractInfo = () => {
-  const ContractInfo = GetShowContractInfo();
-
+const ContractInfo = (props: any) => {
+  const { contract } = props;
+  const [data, setData] = useState(null);
   const Party: FC<PartyProps> = ({ index, label }) => {
     return (
       <Stack
@@ -102,49 +104,59 @@ const ContractInfo = () => {
       </Stack>
     );
   };
-  const agreement_date = ContractInfo.agreement_date;
-  const termination_date = ContractInfo.termination_date;
-  const notice_date = ContractInfo.notice_date;
 
-  const formatedDate = (datee: any) => {
-    const formatedDate = moment(datee).format("MMMM Do YYYY");
+  const formatedDate = (date: any) => {
+    const formatedDate = moment(date).format("MMMM Do YYYY");
     return formatedDate;
   };
 
   return (
-    <Stack
-      direction="column"
-      justifyContent="start"
-      alignItems="start"
-      className="gap-4 text-start "
-    >
-      {ContractInfo &&
-        ContractInfo?.parties?.map((value: string, index: number) => (
-          <div key={index}>
-            <Party index={index} label={` ${value}`} />
-          </div>
-        ))}
+    <>
+      {contract.map((contractItem: any, index: number) => (
+        <div key={index}>
+          <Stack
+            direction="column"
+            justifyContent="start"
+            alignItems="start"
+            className="gap-4 text-start"
+          >
+            {contractItem?.parties?.map(
+              (value: { name: string }, partyIndex: number) => (
+                <div key={partyIndex}>
+                  <Party index={partyIndex} label={` ${value?.name}`} />
+                </div>
+              )
+            )}
 
-      <TheRest
-        title="Contract Class:"
-        label={ContractInfo?.class?.toLocaleString()}
-      />
+            <TheRest title="Contract Class:" label={contractItem?.class} />
 
-      <TheRest title="Aggrement Date:" label={formatedDate(agreement_date)} />
-      <TheRest
-        title="Contract Duration:"
-        label={`${formatedDate(agreement_date)} - ${formatedDate(
-          termination_date
-        )}`}
-      />
-      <TheRest title="Notice Period:" label={formatedDate(notice_date)} />
-      <TheRest title="Amount:" label={`$${ContractInfo?.amount}`} />
-      <TheRest
-        title="Attached Files:"
-        label={`${ContractInfo?.upload?.length} files`}
-      />
-      <CommentFN title="comment:" label={ContractInfo?.comment} />
-    </Stack>
+            <TheRest
+              title="Agreement Date:"
+              label={formatedDate(new Date(contractItem?.agreement_date))}
+            />
+            <TheRest
+              title="Contract Duration:"
+              label={`${formatedDate(
+                new Date(contractItem?.agreement_date)
+              )} - ${formatedDate(new Date(contractItem?.termination_date))}`}
+            />
+            <TheRest
+              title="Notice Period:"
+              label={formatedDate(new Date(contractItem?.notice_date))}
+            />
+            <TheRest title="Amount:" label={`$${contractItem?.amount}`} />
+            {/* <TheRest
+            title="Attached Files:"
+            label={`${contractItem?.upload?.length} files`}
+          /> */}
+            <CommentFN
+              title="comment:"
+              label={contractItem?.comments[0]?.content}
+            />
+          </Stack>
+        </div>
+      ))}
+    </>
   );
 };
 

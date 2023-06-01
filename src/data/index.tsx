@@ -10,8 +10,8 @@ export const contractTag = [
 
 export const contractClass = [
   { label: "Select an Option", value: "" },
-  { label: "Drafts", value: "Drafts" },
-  { label: "Executed", value: "Executed" },
-  { label: "At Risk", value: "At Risk" },
-  { label: "Archive", value: "Archive" },
+  { label: "Drafts", value: "draft" },
+  { label: "Executed", value: "executed" },
+  { label: "At Risk", value: "at-risk" },
+  { label: "Archive", value: "archived" },
 ];

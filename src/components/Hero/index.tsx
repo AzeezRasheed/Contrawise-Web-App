@@ -15,7 +15,6 @@ import {
   GetIsRegisterModalOpen,
   GetIsResetPModalOpen,
   SET_LOGIN_MODAL_OPEN,
-  SET_LOGOUT_MODAL_OPEN,
 } from "../../redux/modalSlice";
 import { useDispatch } from "react-redux";
 import { GetIsLogoutModalOpen } from "../../redux/modalSlice";
@@ -24,6 +23,7 @@ import ModalLogin from "../Modal/ModalLogin";
 import { useIsUserLoggedIn } from "../../redux/authSlice";
 import ModalRegister from "../Modal/ModalRegister";
 import ModalResetP from "../Modal/ModalResetP";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 const Hero: FC = () => {
   const dispatch = useDispatch();
@@ -32,6 +32,8 @@ const Hero: FC = () => {
   const modalResetPIsOpen = GetIsResetPModalOpen();
   const router = useRouter();
   const isUserLoggedIn = useIsUserLoggedIn();
+  const token = useLocalStorage("token", "", true);
+  console.log(token);
   return (
     <div className={styles.hero}>
       {modalLoginIsOpen && <ModalLogin isOpen={modalLoginIsOpen} />}

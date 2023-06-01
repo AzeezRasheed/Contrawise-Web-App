@@ -29,7 +29,7 @@ function Index() {
               <Header />
             </div>
           </div>
-          <div className="relative p-4  h-full overflow-y-scroll">
+          <div className="relative  h-full overflow-y-scroll">
             <ContractForms />
           </div>
           <div className="static flex w-full  ">

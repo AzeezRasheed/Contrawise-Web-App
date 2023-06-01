@@ -22,6 +22,7 @@ import {
   SET_LOGIN_MODAL_OPEN,
   SET_REGISTER_MODAL_OPEN,
 } from "../../redux/modalSlice";
+import setAuthorizationToken from "../../helper/useAuthorizationToken";
 
 const initialValues = {
   first_name: "",
@@ -82,8 +83,7 @@ const ModalRegister = (props: any) => {
       await dispatch(setLogin(true));
       // Store the bearer token in local storage
       localStorage.setItem("token", data.token);
-      // Set the default Authorization header for Axios requests
-      axios.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
+      setAuthorizationToken(data.token);
       router.push("/dashboard");
       setIsLoading(false);
     } catch (error) {

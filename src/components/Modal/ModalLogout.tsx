@@ -1,5 +1,5 @@
 import { Dialog } from "@headlessui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import Modal from "./Modal";
 import { useDispatch } from "react-redux";
 import {
@@ -7,6 +7,9 @@ import {
   GetIsLogoutModalOpen,
 } from "../../redux/modalSlice";
 import { useRouter } from "next/router";
+import { setLogin, useIsUserLoggedIn } from "../../redux/authSlice";
+import setAuthorizationToken from "../../helper/useAuthorizationToken";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 interface ModalLogoutProps {
   isOpen: boolean;
@@ -16,8 +19,18 @@ const ModalLogout = (props: ModalLogoutProps) => {
   const { isOpen } = props;
   const dispatch = useDispatch();
   const router = useRouter();
+
+  const token = useLocalStorage("token", "", true);
+  console.log(token);
+
   //   const setClose = dispatch(SET_LOGOUT_MODAL_OPEN(false));
-  console.log(GetIsLogoutModalOpen());
+  const isUserLoggedIn = useIsUserLoggedIn();
+  console.log({ isUserLoggedIn });
+  // useEffect(() => {
+  //   if (!isUserLoggedIn) {
+
+  //   }
+  // }, [useIsUserLoggedIn]);
   return (
     <Modal isOpen={isOpen} size="xs">
       <div className="inline-block max-w-md w-full p-6 my-8 overflow-hidden text-center align-middle  ">
@@ -42,6 +55,9 @@ const ModalLogout = (props: ModalLogoutProps) => {
             className="inline-flex justify-center px-4 py-2 text-[14px]  font-normal font-Poppins text-[#000000] border-1 border-[#B165E9] rounded-md hover:bg-[] focus:outline-none focus:ring-2 focus:ring-offset-2 "
             onClick={() => {
               console.log("Logout confirmed");
+              localStorage.removeItem("token");
+              setAuthorizationToken("");
+              dispatch(setLogin(false));
               dispatch(SET_LOGOUT_MODAL_OPEN(false));
               router.push("/");
             }}

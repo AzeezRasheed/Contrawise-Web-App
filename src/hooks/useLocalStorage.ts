@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
 
-export function useLocalStorage<T>(key: string, fallbackValue: T, readOnly?: boolean) {
+export function useLocalStorage<T>(
+  key: string,
+  fallbackValue: any,
+  readOnly?: boolean
+) {
   const [value, setValue] = useState(fallbackValue);
 
   useEffect(() => {
-    const stored = localStorage.getItem(key);
-    setValue(stored ? JSON.parse(stored) : fallbackValue);
+    const stored = localStorage.getItem(key) || null;
+    console.log(stored);
+    setValue(stored ? stored : fallbackValue);
   }, [fallbackValue, key]);
 
   useEffect(() => {

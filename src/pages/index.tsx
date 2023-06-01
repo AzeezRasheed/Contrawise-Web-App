@@ -28,14 +28,15 @@ import {
   GetIsRegisterModalOpen,
   GetIsResetPModalOpen,
   SET_LOGIN_MODAL_OPEN,
-  SET_LOGOUT_MODAL_OPEN,
 } from "../redux/modalSlice";
 import { useDispatch } from "react-redux";
 import ModalLogin from "../components/Modal/ModalLogin";
 import ModalRegister from "../components/Modal/ModalRegister";
 import ModalResetP from "../components/Modal/ModalResetP";
-import { useIsUserLoggedIn } from "../redux/authSlice";
+import { setLogin, useIsUserLoggedIn } from "../redux/authSlice";
 import { useRouter } from "next/router";
+import setAuthorizationToken from "../helper/useAuthorizationToken";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 const Home: NextPageWithLayout = () => {
   const router = useRouter();
@@ -44,6 +45,14 @@ const Home: NextPageWithLayout = () => {
   const modalLoginIsOpen = GetIsLoginModalOpen();
   const modalResetPIsOpen = GetIsResetPModalOpen();
   const modalRegisterIsOpen = GetIsRegisterModalOpen();
+
+  // we want to keep the user always logged in
+  const token = useLocalStorage("token", "", true);
+  console.log(token);
+  if (token) {
+    setAuthorizationToken(token);
+    dispatch(setLogin(true));
+  }
   return (
     <>
       {modalLoginIsOpen && <ModalLogin isOpen={modalLoginIsOpen} />}

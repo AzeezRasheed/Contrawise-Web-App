@@ -26,3 +26,32 @@ export const CREATE_CONTRACT = async (formData: any) => {
     throw error;
   }
 };
+
+export const GET_CONTRACTS = async () => {
+  try {
+    const response = await axios.get(`${BACKEND_URL}/api/contracts`);
+
+    return response.data;
+  } catch (error: any) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    toast.error(message);
+    throw error;
+  }
+};
+
+export const GET_CONTRACT = async (id: any) => {
+  try {
+    const response = await axios.get(`${BACKEND_URL}/api/contracts/${id}`);
+    return response.data;
+  } catch (error: any) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    toast.error(message);
+    throw error;
+  }
+};

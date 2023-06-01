@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Stack from "../../components/Stack";
 import Layout from "../../layouts/DashboardLayout";
 import Header from "../../components/Dashboard/Header";
@@ -18,6 +18,14 @@ import ExecutedPanel from "../../components/Dashboard/ExecutedPanel";
 import ArchievePanel from "../../components/Dashboard/ArchievePanel";
 import AtRiskPanel from "../../components/Dashboard/AtRiskPanel";
 import AllPanel from "../../components/Dashboard/AllPanel";
+import {
+  GetShowArchivedInfo,
+  GetShowAtRiskInfo,
+  GetShowContractsInfo,
+  GetShowDraftInfo,
+  GetShowExecutedInfo,
+} from "../../redux/contractSlice";
+import { GET_CONTRACTS } from "../../services/contractServices";
 
 const Wrapper = styled.div`
   ${tw`
@@ -34,15 +42,13 @@ flex-col
 function Index() {
   const [activeTab, setActiveTab] = useState("all");
 
-  const allData = AllData;
-  const draftsData = DraftsData;
-  const executedData = ExecutedData;
-  const atRiskData = AtRiskData;
-  const archiveData = ArchiveData;
+  const contracts = GetShowContractsInfo();
 
-  // interface TabProps {
-  //   id: string;
-  // }
+  // i already sorted out the contracts based on their class and stored them in redux store
+  const draft = GetShowDraftInfo();
+  const executed = GetShowExecutedInfo();
+  const at_risk = GetShowAtRiskInfo();
+  const archived = GetShowArchivedInfo();
 
   const tabs = [
     { id: "all", label: "All" },
@@ -76,11 +82,11 @@ function Index() {
                 activeTab === tab.id ? "#22237F" : "#808091"
               }] font-Inter font-normal text-[14px] leading-[7px]`}
             >
-              {tab.label === "All" && `(${allData.length})`}
-              {tab.label === "Executed" && `(${executedData.length})`}
-              {tab.label === "Draft" && `(${draftsData.length})`}
-              {tab.label === "Archive" && `(${archiveData.length})`}
-              {tab.label === "At Risk" && `(${atRiskData.length})`}
+              {tab.label === "All" && `(${contracts.length})`}
+              {tab.label === "Executed" && `(${executed.length})`}
+              {tab.label === "Draft" && `(${draft.length})`}
+              {tab.label === "Archive" && `(${archived.length})`}
+              {tab.label === "At Risk" && `(${at_risk.length})`}
             </Typography>
           </Stack>
           {activeTab === tab.id ? (
@@ -93,18 +99,43 @@ function Index() {
     ));
   };
 
+  // Sort contract by created_at in descending order
+  const sortedContracts = [...contracts].sort(
+    (a: any, b: any) => new Date(b.created_at) - new Date(a.created_at)
+  );
+
+  // Sort draft by created_at in descending order
+  const sortedDraft = [...draft].sort(
+    (a: any, b: any) => new Date(b.created_at) - new Date(a.created_at)
+  );
+
+  // Sort executed by created_at in descending order
+  const sortedExecuted = [...executed].sort(
+    (a: any, b: any) => new Date(b.created_at) - new Date(a.created_at)
+  );
+
+  // Sort at_risk by created_at in descending order
+  const sortedAtRisk = [...at_risk].sort(
+    (a: any, b: any) => new Date(b.created_at) - new Date(a.created_at)
+  );
+
+  // Sort archived by created_at in descending order
+  const sortedArchived = [...archived].sort(
+    (a: any, b: any) => new Date(b.created_at) - new Date(a.created_at)
+  );
+
   const renderPanel = () => {
     switch (activeTab) {
       case "draft":
-        return <DraftPanel draftData={draftsData} />;
+        return <DraftPanel draftData={sortedDraft} />;
       case "executed":
-        return <ExecutedPanel executedData={executedData} />;
+        return <ExecutedPanel executedData={sortedExecuted} />;
       case "archive":
-        return <ArchievePanel archiveData={archiveData} />;
+        return <ArchievePanel archiveData={sortedArchived} />;
       case "at-risk":
-        return <AtRiskPanel atRiskData={atRiskData} />;
+        return <AtRiskPanel atRiskData={sortedAtRisk} />;
       default:
-        return <AllPanel allData={allData} />;
+        return <AllPanel allData={sortedContracts} />;
     }
   };
   return (

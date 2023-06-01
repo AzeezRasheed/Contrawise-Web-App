@@ -22,8 +22,6 @@ const Modal: FC<ModalProps> = (props) => {
   const { isOpen, title, size, subtitle, children } = props;
 
   const dispatch = useDispatch();
-  const setIsOpen = dispatch(SET_LOGOUT_MODAL_OPEN(true));
-  //   const setClose = dispatch(SET_LOGOUT_MODAL_OPEN(false));
 
   const getSizeClasses = (size: any) => {
     let utilities = "";
