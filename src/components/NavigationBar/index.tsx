@@ -33,7 +33,7 @@ const NavigationBar: FC<NavigationBarProps> = ({ mobile }) => {
 		return (
 			<ul className={styles.nav}>
 				{items.map((item) => (
-					<li key={item.id}>
+					<li key={item.id} className="flex flex-row gap-1 items-center cursor-pointer">
 						<span>{item.title}</span>
 						<span>
 							<Image
