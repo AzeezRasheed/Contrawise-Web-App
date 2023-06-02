@@ -9,7 +9,7 @@ import { ContractTableProps } from "../../utilities/types";
 import { GetShowContractsInfo } from "../../redux/contractSlice";
 const Table = styled.table`
   ${tw`
-  w-full text-sm   min-w-full ml-0
+  w-full text-sm   min-w-full ml-0 overflow-x-auto
 `}
 `;
 
@@ -21,7 +21,7 @@ const TableRow = styled.tr`
 
 const TableCell = styled.th`
   ${tw`
-px-6 py-3 items-start  m-auto flex 
+px-6 py-3 items-start  m-auto flex  w-[150px]
 `}
 `;
 
@@ -29,11 +29,8 @@ const DashboardContractTable: FC<ContractTableProps> = ({ userData }) => {
   const colors = ["#B165E9", "#112F82", "#F074A8"];
 
   return (
-    <div className="w-full overflow-x-auto">
-      <Stack
-        direction="column"
-        className="gap-1 mb-4  lg:w-full relative w-fit "
-      >
+    <div className="flex w-full overflow-x-auto">
+      <div className="gap-1 mb-4 relative flex flex-col w-full ">
         {userData.length > 1 && (
           <>
             {userData.map((data, i) => {
@@ -48,7 +45,7 @@ const DashboardContractTable: FC<ContractTableProps> = ({ userData }) => {
                           direction="row"
                           alignItems="center"
                           justifyContent="start"
-                          className="gap-2 text-start w-[150px]"
+                          className="gap-2 text-start w-full "
                         >
                           <span className="text-[#B5C6D0]">
                             <IoDocumentTextOutline size={30} />
@@ -56,7 +53,7 @@ const DashboardContractTable: FC<ContractTableProps> = ({ userData }) => {
                           <Typography
                             as={"h3"}
                             variant="black"
-                            className="text-center leading-[14px] text-[11px] font-normal font-DmSans   "
+                            className="text-center leading-[14px] text-[11px] font-normal font-DmSans w-full "
                           >
                             {data?.title.length > 20
                               ? `${data?.title.substring(0, 18)}...`
@@ -253,7 +250,7 @@ const DashboardContractTable: FC<ContractTableProps> = ({ userData }) => {
             })}
           </>
         )}
-      </Stack>
+      </div>
     </div>
   );
 };
