@@ -48,7 +48,6 @@ const Home: NextPageWithLayout = () => {
 
   // we want to keep the user always logged in
   const token = useLocalStorage("token", "", true);
-  console.log(token);
   if (token) {
     setAuthorizationToken(token);
     dispatch(setLogin(true));

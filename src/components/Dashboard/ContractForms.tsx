@@ -83,7 +83,7 @@ function ContractForms() {
     setIsLoading(true);
     try {
       const data = await CREATE_CONTRACT(contractData);
-      dispatch(SET_CONTRACT(values as ContractFormValues));
+      dispatch(SET_CONTRACT(values as any));
       setIsLoading(false);
       console.log(data);
       data && router.push("/contracts/[id]", `/contracts/${data?.id}`);
@@ -110,8 +110,6 @@ function ContractForms() {
   });
 
   // const uploadArray = ;
-
-  // console.log(uploadArray);
 
   return (
     <div>
@@ -146,7 +144,7 @@ function ContractForms() {
                                 <Field
                                   className="border flex border-solid border-[#D1D5DB] bg-[#FFFFFF] rounded-[4px] py-[12px] px-[16px] w-full placeholder:text-[#6B7280] text-[#6B7280] text-[14px] leading-[24px] tracking-[0.25px] font-Inter   "
                                   name={`parties[${index}]`}
-                                  value={values.parties[index]}
+                                  value={party[index]}
                                   placeholder={`Input party ${splitedAlphabet[index]}`}
                                   onChange={handleChange}
                                   error={

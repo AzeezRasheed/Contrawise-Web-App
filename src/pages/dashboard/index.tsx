@@ -23,6 +23,8 @@ import {
   SET_EXECUTED,
 } from "../../redux/contractSlice";
 import Spinner from "../../components/Loader/Spinner";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { useRouter } from "next/router";
 
 const Boxs = styled.div`
   ${tw`
@@ -104,6 +106,15 @@ const Box: FC<BoxProp> = ({ label, color, number }) => (
 );
 const Index: FC = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
+  const token = useLocalStorage("token", "", true);
+
+  // useEffect(() => {
+  //   if (!token) {
+  //     router.push("/");
+  //   }
+  // }, [token]);
+
   // const user_name = useLocalStorage("user_name", "", true);
   const [isLoading, setLoading] = useState(false);
   const contracts = GetShowContractsInfo();

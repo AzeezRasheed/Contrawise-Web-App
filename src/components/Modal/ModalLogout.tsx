@@ -20,17 +20,6 @@ const ModalLogout = (props: ModalLogoutProps) => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const token = useLocalStorage("token", "", true);
-  console.log(token);
-
-  //   const setClose = dispatch(SET_LOGOUT_MODAL_OPEN(false));
-  const isUserLoggedIn = useIsUserLoggedIn();
-  console.log({ isUserLoggedIn });
-  // useEffect(() => {
-  //   if (!isUserLoggedIn) {
-
-  //   }
-  // }, [useIsUserLoggedIn]);
   return (
     <Modal isOpen={isOpen} size="xs">
       <div className="inline-block max-w-md w-full p-6 my-8 overflow-hidden text-center align-middle  ">
