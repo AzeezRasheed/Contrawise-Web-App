@@ -55,13 +55,15 @@ export interface AllPanelProps {
 }
 
 export interface ContractFormValues {
+  title: string;
+  // category: string;
   parties: string[];
   tag: string;
   customClass: string;
   agreement_date: Date | null;
   termination_date: Date | null;
   notice_date: Date | null;
-  amount: string;
+  amount: any;
   comment: string;
   upload: any;
 }

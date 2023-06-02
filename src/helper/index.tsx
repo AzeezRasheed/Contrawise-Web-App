@@ -16,11 +16,13 @@ export const createContractSchema = Yup.object().shape({
     .min(2, "Must have at least two parties")
     .required("Parties are required"),
   tag: Yup.string().required("Select Tags option is required"),
+  title: Yup.string().required("Title is required"),
+  // category: Yup.string().required("Category is required"),
   customClass: Yup.string().required("Select Class option is required"),
   agreement_date: Yup.date().required("Agreement date is required"),
   termination_date: Yup.date().required("Agreement duration is required"),
   notice_date: Yup.date().required("Notice period is required"),
-  amount: Yup.string().required("Amount is required"),
+  amount: Yup.number().required("Amount is required"),
   comment: Yup.string(),
   upload: Yup.mixed<AnyPresentValue>(),
 });

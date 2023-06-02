@@ -16,6 +16,7 @@ const Card = styled.div`
 w-full
 h-full
 bg-main
+overflow-y-scroll
 rounded-[12px]
 items-center
 mb-6

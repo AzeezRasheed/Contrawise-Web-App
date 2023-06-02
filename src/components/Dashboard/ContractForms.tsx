@@ -22,13 +22,15 @@ import Spinner from "../Loader/Spinner";
 // import Dropzone from "react-dropzone";
 
 const initialValues = {
+  category: "",
+  title: "",
   parties: ["", ""],
   tag: "",
   customClass: "",
   agreement_date: new Date(),
   termination_date: new Date(),
   notice_date: new Date(),
-  amount: "",
+  amount: null,
   comment: "",
   upload: [],
 };
@@ -48,16 +50,18 @@ function ContractForms() {
       termination_date,
       upload,
       customClass,
+      title,
+      // category,
     } = values;
 
     const contractData = {
-      title: "Abudu20 ",
+      title: title,
       class: customClass,
       agreement_date: agreement_date.getTime(),
       termination_date: termination_date.getTime(),
       notice_date: notice_date.getTime(),
       amount,
-      category: "2",
+      category: 1,
       comment,
       parties,
       upload: Array.from(upload),
@@ -92,7 +96,6 @@ function ContractForms() {
       setIsLoading(false);
     }
   };
-
   const {
     values,
     handleChange,
@@ -110,6 +113,7 @@ function ContractForms() {
   });
 
   // const uploadArray = ;
+  // console.log(values.category)
 
   return (
     <div>
@@ -118,6 +122,54 @@ function ContractForms() {
         <Formik initialValues={initialValues} onSubmit={onSubmit}>
           <div className="bg-[#F7F9FB] rounded-[12px] w-full max-w-[932px] ">
             <div className="flex flex-col gap-3 p-6 pb-12">
+              {/* Title and Category */}
+              <Stack
+                direction="row"
+                alignItems="baseline"
+                justifyContent="spacebetween"
+                className="gap-4 flex-wrap mb-2"
+              >
+                <div className="flex flex-col gap-2 items-start w-full  max-w-[406px]">
+                  <ContractLabelForm label="Title">
+                    <div className="w-full flex flex-col  items-start">
+                      <Field
+                        className="border flex border-solid border-[#D1D5DB] bg-[#FFFFFF] rounded-[4px] py-[12px] px-[16px] w-full placeholder:text-[#6B7280] text-[#6B7280] text-[14px] leading-[24px] tracking-[0.25px] font-Inter   "
+                        name={`title`}
+                        value={values.title}
+                        placeholder={`Title of the contract`}
+                        onChange={handleChange}
+                        error={touched.title && Boolean(errors.title)}
+                        onBlur={handleBlur}
+                      />
+                      {touched.title && errors.title ? (
+                        <Typography as={"span"} className="text-sm text-error">
+                          {errors.title}
+                        </Typography>
+                      ) : null}
+                    </div>
+                  </ContractLabelForm>
+                </div>
+                {/* <div className="flex flex-col gap-2 items-start w-full  max-w-[406px]">
+                  <ContractLabelForm label="Category">
+                    <div className="w-full flex flex-col  items-start">
+                      <Field
+                        className="border flex border-solid border-[#D1D5DB] bg-[#FFFFFF] rounded-[4px] py-[12px] px-[16px] w-full placeholder:text-[#6B7280] text-[#6B7280] text-[14px] leading-[24px] tracking-[0.25px] font-Inter   "
+                        name={`category`}
+                        value={values.category}
+                        placeholder={`Category`}
+                        onChange={handleChange}
+                        error={touched.category && Boolean(errors.category)}
+                        onBlur={handleBlur}
+                      />
+                      {touched.category && errors.category ? (
+                        <Typography as={"span"} className="text-sm text-error">
+                          {errors.category}
+                        </Typography>
+                      ) : null}
+                    </div>
+                  </ContractLabelForm>
+                </div> */}
+              </Stack>
               {/* This is the Input that allows users to add Party */}
 
               <FieldArray
@@ -376,6 +428,7 @@ function ContractForms() {
                       <Field
                         id="amount"
                         name="amount"
+                        type="number"
                         placeholder="amount"
                         onChange={handleChange}
                         onBlur={handleBlur}

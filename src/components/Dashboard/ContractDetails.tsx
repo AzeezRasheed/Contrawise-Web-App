@@ -30,7 +30,6 @@ interface TheRestProps {
 
 const ContractInfo = (props: any) => {
   const { contract } = props;
-  const [data, setData] = useState(null);
   const Party: FC<PartyProps> = ({ index, label }) => {
     return (
       <Stack
@@ -54,8 +53,6 @@ const ContractInfo = (props: any) => {
       </Stack>
     );
   };
-
-  // console.log(upload);
 
   const CommentFN: FC<CommentProps> = ({ title, label }) => {
     return (
@@ -120,6 +117,9 @@ const ContractInfo = (props: any) => {
             alignItems="start"
             className="gap-4 text-start"
           >
+            <TheRest title="Title:" label={`${contractItem?.title}`} />
+            <TheRest title="Category:" label={`${contractItem?.category_id}`} />
+
             {contractItem?.parties?.map(
               (value: { name: string }, partyIndex: number) => (
                 <div key={partyIndex}>

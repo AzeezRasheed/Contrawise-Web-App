@@ -47,7 +47,7 @@ const DashboardContractTable: FC<ContractTableProps> = ({ userData }) => {
                         direction="row"
                         alignItems="center"
                         justifyContent="start"
-                        className="gap-2 text-start w-[165px]"
+                        className="gap-2 text-start w-[173px]"
                       >
                         <span className="text-[#B5C6D0]">
                           <IoDocumentTextOutline size={30} />
@@ -65,7 +65,8 @@ const DashboardContractTable: FC<ContractTableProps> = ({ userData }) => {
                       <Stack
                         direction="column"
                         alignItems="center"
-                        className="gap-2"
+                        justifyContent="start"
+                        className="gap-2 "
                       >
                         <Stack
                           direction="column"

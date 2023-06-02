@@ -191,7 +191,7 @@ const Index: FC = () => {
   );
 
   // Get the first ten contracts
-  const firstTenContracts = sortedContracts.slice(0, 10);
+  const firstTenContracts = sortedContracts.slice(0, 19);
 
   return (
     <Stack direction="row" className="h-screen">
