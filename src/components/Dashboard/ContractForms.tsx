@@ -126,14 +126,19 @@ function ContractForms() {
               <Stack
                 direction="row"
                 alignItems="baseline"
-                justifyContent="spacebetween"
                 className="gap-4 flex-wrap mb-2"
               >
-                <div className="flex flex-col gap-2 items-start w-full  max-w-[406px]">
-                  <ContractLabelForm label="Title">
+                <div className="flex flex-col gap-2 items-start w-full  ">
+                  <div className="w-full flex flex-col items-start ">
+                    <label
+                      htmlFor="aggrementDuration"
+                      className="text-[#202020] mb-1 leading-[24px] text-[14px] tracking-[0.1px] font-normal font-Poppins  "
+                    >
+                      Title
+                    </label>
                     <div className="w-full flex flex-col  items-start">
                       <Field
-                        className="border flex border-solid border-[#D1D5DB] bg-[#FFFFFF] rounded-[4px] py-[12px] px-[16px] w-full placeholder:text-[#6B7280] text-[#6B7280] text-[14px] leading-[24px] tracking-[0.25px] font-Inter   "
+                        className="border flex border-solid border-[#D1D5DB] bg-[#FFFFFF] rounded-[4px] py-[12px] px-[16px] w-full placeholder:text-[#6B7280] text-[#6B7280] text-[14px] leading-[24px] tracking-[0.25px] font-Inter    "
                         name={`title`}
                         value={values.title}
                         placeholder={`Title of the contract`}
@@ -147,7 +152,7 @@ function ContractForms() {
                         </Typography>
                       ) : null}
                     </div>
-                  </ContractLabelForm>
+                  </div>
                 </div>
                 {/* <div className="flex flex-col gap-2 items-start w-full  max-w-[406px]">
                   <ContractLabelForm label="Category">

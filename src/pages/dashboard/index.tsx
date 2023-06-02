@@ -182,6 +182,7 @@ const Index: FC = () => {
   const at_risk = GetShowAtRiskInfo();
   const archived = GetShowArchivedInfo();
 
+  
   // Create a copy of contracts array
   const contractsCopy = [...contracts];
 
