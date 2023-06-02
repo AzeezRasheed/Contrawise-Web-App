@@ -29,160 +29,174 @@ const DashboardContractTable: FC<ContractTableProps> = ({ userData }) => {
   const colors = ["#B165E9", "#112F82", "#F074A8"];
 
   return (
-    <Stack
-      direction="column"
-      className="gap-1 mb-4 overflow-x-auto lg:w-full relative align-middle "
-    >
-      {userData.length > 1 && (
-        <>
-          {userData.map((data, i) => {
-            // const numOverflow = data?.img.length - 3;
+    <div className="w-full overflow-x-auto">
+      <Stack
+        direction="column"
+        className="gap-1 mb-4  lg:w-full relative w-fit "
+      >
+        {userData.length > 1 && (
+          <>
+            {userData.map((data, i) => {
+              // const numOverflow = data?.img.length - 3;
 
-            return (
-              <Table key={i}>
-                <thead>
-                  <TableRow>
-                    <TableCell>
-                      <Stack
-                        direction="row"
-                        alignItems="center"
-                        justifyContent="start"
-                        className="gap-2 text-start w-[173px]"
-                      >
-                        <span className="text-[#B5C6D0]">
-                          <IoDocumentTextOutline size={30} />
-                        </span>
-                        <Typography
-                          as={"h3"}
-                          variant="black"
-                          className="text-center leading-[14px] text-[11px] font-normal font-DmSans   "
-                        >
-                          {data?.title}
-                        </Typography>
-                      </Stack>
-                    </TableCell>
-                    <TableCell>
-                      <Stack
-                        direction="column"
-                        alignItems="center"
-                        justifyContent="start"
-                        className="gap-2 "
-                      >
+              return (
+                <Table key={i}>
+                  <thead>
+                    <TableRow>
+                      <TableCell>
                         <Stack
-                          direction="column"
-                          alignItems="start"
-                          className="gap-1 text-start"
+                          direction="row"
+                          alignItems="center"
+                          justifyContent="start"
+                          className="gap-2 text-start w-[150px]"
                         >
+                          <span className="text-[#B5C6D0]">
+                            <IoDocumentTextOutline size={30} />
+                          </span>
                           <Typography
                             as={"h3"}
                             variant="black"
                             className="text-center leading-[14px] text-[11px] font-normal font-DmSans   "
                           >
-                            {data?.parties[0]?.name}
-                          </Typography>
-                          <Typography
-                            as={"span"}
-                            className="text-center text-[#737588] leading-[13px] text-[10px] font-normal font-DmSans   "
-                          >
-                            {data?.user?.first_name}
-                            {""} {data?.user?.last_name}
+                            {data?.title.length > 20
+                              ? `${data?.title.substring(0, 18)}...`
+                              : data?.title}
                           </Typography>
                         </Stack>
-                        <Stack
-                          direction="column"
-                          alignItems="start"
-                          className="gap-1 text-start"
-                        >
-                          <Typography
-                            as={"h3"}
-                            variant="black"
-                            className="text-center leading-[14px] text-[11px] font-normal font-DmSans   "
-                          >
-                            {data?.parties[1]?.name}
-                          </Typography>
-                          <Typography
-                            as={"span"}
-                            className="text-center text-[#737588] leading-[13px] text-[10px] font-normal font-DmSans   "
-                          >
-                            {data?.user?.first_name}
-                            {""} {data?.user?.last_name}
-                          </Typography>
-                        </Stack>
-                      </Stack>
-                    </TableCell>
-                    <TableCell>
-                      <Stack
-                        direction="column"
-                        alignItems="center"
-                        className="gap-2"
-                      >
-                        <Stack
-                          direction="column"
-                          alignItems="start"
-                          className="gap-1 text-start"
-                        >
-                          <Typography
-                            as={"span"}
-                            className="text-center text-[#737588] leading-[13px] text-[10px] font-normal font-DmSans   "
-                          >
-                            Created
-                          </Typography>
-                          <Typography
-                            as={"h3"}
-                            variant="black"
-                            className="text-center leading-[14px] text-[11px] font-normal font-DmSans   "
-                          >
-                            {new Date(data?.created_at).toLocaleDateString(
-                              "en-US",
-                              {
-                                day: "numeric",
-                                month: "short",
-                                year: "numeric",
-                              }
-                            )}
-                          </Typography>
-                        </Stack>
-                        <Stack
-                          direction="column"
-                          alignItems="start"
-                          className="gap-1 text-start"
-                        >
-                          <Typography
-                            as={"span"}
-                            className="text-center text-[#737588] leading-[13px] text-[10px] font-normal font-DmSans   "
-                          >
-                            Owner
-                          </Typography>
-                          <Typography
-                            as={"h3"}
-                            variant="black"
-                            className="text-center leading-[14px] text-[11px] font-normal font-DmSans   "
-                          >
-                            {data?.user?.first_name}
-                            {""} {data?.user?.last_name}
-                          </Typography>
-                        </Stack>
-                      </Stack>
-                    </TableCell>
-                    <TableCell>
-                      <Stack
-                        direction="row"
-                        alignItems="center"
-                        className="gap-3 flex m-auto"
-                      >
+                      </TableCell>
+                      <TableCell>
                         <Stack
                           direction="column"
                           alignItems="center"
-                          className="gap-2 flex-1"
+                          justifyContent="start"
+                          className="gap-2 w-[150px]"
                         >
-                          <Typography
-                            as={"span"}
-                            className="text-center text-[#737588] leading-[13px] text-[10px] font-normal font-DmSans   "
+                          <Stack
+                            direction="column"
+                            alignItems="start"
+                            className="gap-1 text-start"
                           >
-                            Shared with
-                          </Typography>
-                          <div className="flex -space-x-4 ">
-                            {/* {data?.img.slice(0, 3).map((item, index) => (
+                            <Typography
+                              as={"h3"}
+                              variant="black"
+                              className="text-center leading-[14px] text-[11px] font-normal font-DmSans   "
+                            >
+                              {data?.parties[0]?.name > 20
+                                ? `${data?.parties[0]?.name.substring(
+                                    0,
+                                    18
+                                  )}...`
+                                : data?.parties[0]?.name}
+                            </Typography>
+                            <Typography
+                              as={"span"}
+                              className="text-center text-[#737588] leading-[13px] text-[10px] font-normal font-DmSans   "
+                            >
+                              {data?.user?.first_name}
+                              {""} {data?.user?.last_name}
+                            </Typography>
+                          </Stack>
+                          <Stack
+                            direction="column"
+                            alignItems="start"
+                            className="gap-1 text-start"
+                          >
+                            <Typography
+                              as={"h3"}
+                              variant="black"
+                              className="text-center leading-[14px] text-[11px] font-normal font-DmSans   "
+                            >
+                              {data?.parties[1]?.name > 20
+                                ? `${data?.parties[1]?.name.substring(
+                                    0,
+                                    18
+                                  )}...`
+                                : data?.parties[1]?.name}
+                            </Typography>
+                            <Typography
+                              as={"span"}
+                              className="text-center text-[#737588] leading-[13px] text-[10px] font-normal font-DmSans   "
+                            >
+                              {data?.user?.first_name}
+                              {""} {data?.user?.last_name}
+                            </Typography>
+                          </Stack>
+                        </Stack>
+                      </TableCell>
+                      <TableCell>
+                        <Stack
+                          direction="column"
+                          alignItems="center"
+                          justifyContent="start"
+                          className="gap-2 w-[150px]"
+                        >
+                          <Stack
+                            direction="column"
+                            alignItems="start"
+                            className="gap-1 text-start"
+                          >
+                            <Typography
+                              as={"span"}
+                              className="text-center text-[#737588] leading-[13px] text-[10px] font-normal font-DmSans   "
+                            >
+                              Created
+                            </Typography>
+                            <Typography
+                              as={"h3"}
+                              variant="black"
+                              className="text-center leading-[14px] text-[11px] font-normal font-DmSans   "
+                            >
+                              {new Date(data?.created_at).toLocaleDateString(
+                                "en-US",
+                                {
+                                  day: "numeric",
+                                  month: "short",
+                                  year: "numeric",
+                                }
+                              )}
+                            </Typography>
+                          </Stack>
+                          <Stack
+                            direction="column"
+                            alignItems="start"
+                            className="gap-1 text-start"
+                          >
+                            <Typography
+                              as={"span"}
+                              className="text-center text-[#737588] leading-[13px] text-[10px] font-normal font-DmSans   "
+                            >
+                              Owner
+                            </Typography>
+                            <Typography
+                              as={"h3"}
+                              variant="black"
+                              className="text-center leading-[14px] text-[11px] font-normal font-DmSans   "
+                            >
+                              {data?.user?.first_name}
+                              {""} {data?.user?.last_name}
+                            </Typography>
+                          </Stack>
+                        </Stack>
+                      </TableCell>
+                      <TableCell>
+                        <Stack
+                          direction="row"
+                          alignItems="center"
+                          className="gap-3 flex m-auto"
+                        >
+                          <Stack
+                            direction="column"
+                            alignItems="center"
+                            className="gap-2 flex-1 w-[100px]"
+                          >
+                            <Typography
+                              as={"span"}
+                              className="text-center text-[#737588] leading-[13px] text-[10px] font-normal font-DmSans   "
+                            >
+                              Shared with
+                            </Typography>
+                            <div className="flex -space-x-4 ">
+                              {/* {data?.img.slice(0, 3).map((item, index) => (
                               <div key={index}>
                                 {item.imageUrl ? (
                                   <>
@@ -209,10 +223,10 @@ const DashboardContractTable: FC<ContractTableProps> = ({ userData }) => {
                                 )}
                               </div>
                             ))} */}
-                          </div>
-                          <div>nil</div>
-                        </Stack>
-                        {/* {numOverflow > 0 ? (
+                            </div>
+                            <div>nil</div>
+                          </Stack>
+                          {/* {numOverflow > 0 ? (
                       <Typography
                         as={"span"}
                         className="text-center text-[#737588] leading-[16px] text-[12px] font-normal font-DmSans   "
@@ -222,24 +236,25 @@ const DashboardContractTable: FC<ContractTableProps> = ({ userData }) => {
                     ) : (
                       <div></div>
                     )} */}
-                      </Stack>
-                    </TableCell>
-                    <TableCell>
-                      <Typography
-                        as={"span"}
-                        className="text-center text-[#737588] leading-[13px] text-[10px] font-normal font-DmSans   "
-                      >
-                        {data?.class}
-                      </Typography>
-                    </TableCell>
-                  </TableRow>
-                </thead>
-              </Table>
-            );
-          })}
-        </>
-      )}
-    </Stack>
+                        </Stack>
+                      </TableCell>
+                      <TableCell>
+                        <Typography
+                          as={"span"}
+                          className="text-center text-[#737588] leading-[13px] text-[10px] font-normal font-DmSans w-[100px]  "
+                        >
+                          {data?.class}
+                        </Typography>
+                      </TableCell>
+                    </TableRow>
+                  </thead>
+                </Table>
+              );
+            })}
+          </>
+        )}
+      </Stack>
+    </div>
   );
 };
 

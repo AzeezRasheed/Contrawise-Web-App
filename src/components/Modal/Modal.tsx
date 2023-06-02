@@ -30,7 +30,7 @@ const Modal: FC<ModalProps> = (props) => {
       utilities = "h-fit sm:max-w-md rounded-lg ";
     } else if (size === "lg") {
       utilities =
-        "h-5/6 max-h-[52rem] sm:max-w-6xl rounded-md rounded-l-none   ";
+        "h-5/6 max-h-[52rem] sm:max-w-6xl rounded-md    ";
     } else {
       utilities = "h-4/5 sm:max-w-screen-md rounded-lg";
     }
@@ -83,7 +83,7 @@ const Modal: FC<ModalProps> = (props) => {
             <div
               className={`flex items-center justify-center  bg-[#F6F9FF] ${
                 size === "xs" && "border-1 border-[#B165E9] bg-white"
-              } overflow-scroll shadow-xl transform transition-all align-middle w-[90%] md:w-full ${
+              } overflow-scroll shadow-xl transform transition-all align-middle w-full md:w-full ${
                 title ? "pt-10" : ""
               } ${getSizeClasses(size)}`}
             >
